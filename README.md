@@ -1,54 +1,52 @@
-# 一. 合约需求
-
-## A. 用户操作接口
-1. 增加质押
-2. 一次性赎回所有抵押并且提取所有收益
-3. 提取所有收益
- 
-## B. 挖矿合约策略
-### 1. 支持前端可以调用合约的接口
-| 接口函数                                   | 合约    | 参数说明                             | 说明                                                         |
-| ------------------------------------------ | ------- | ------------------------------------ | ------------------------------------------------------------ |
-| `approve(address spender, uint256 amount)` | erc20   | spender 挖矿合约地址,amount 授权数量 | 用户使用tokenA进行抵押挖矿，调用tokenA erc20的approve接口进行授权挖矿合约。 |
-| `stake(uint256 amount)`                    | soteria | amount质押挖矿数量                   | 用户质押多少tokenA进行抵押挖矿                               |
-| `getReward()`                              | soteria |                                      | 用户领取收益token                                            |
-| `exit()`                                   | soteria |                                      | 用户取回挖矿本金tokenA,以及领取收益token，退出挖矿           |
-### 2. 创建合约时，需要指定：
-
-    1. 矿产总量
-    2. 挖矿开始时间点
-    3. 挖矿持续时长
-    4. 矿产币的合约地址
-    5. 抵押币的合约地址 
-    6. 多个抽水地址和对应的抽水比例。一个块释放的token按照一定比例直接打给n个抽水地址(n>1)
-
-### 3. 抵押数量越多，时间越长，挖到的矿越多
-
-# 二. 操作手册
-## A. 项目方
-### 1. 部署合约
-输入:
-
-    1. 挖矿持续时长
-    2. 矿产币的合约地址
-    3. 抵押币的合约地址 
-    4. 合约管理员账号地址(仅该账号能启动挖矿)
-
-### 2. 向sote合约中转入矿产币，确保启动挖矿前合约中有币
-
-### 3. 启动挖矿
-合约管理员在某时间点（该时间点即为挖矿开始时间）调用[start]接口启动挖矿, 输入:
-
-    1. 多个抽水地址和对应的抽水比例。一个块释放的token按照一定比例直接打给n个抽水地址(n>1)
-此时sote合约中的矿币余额就是矿产总量
+# A. 接口
+## 1. membership
+- payJoiningFee: Allows user to pay joining fee and become a member of the mutual
+- kycVerdict: Registers KYC status against ethereum address
+- withdrawMembership: Allows members to terminate membership
+## 2. swap
+## 3. cover. 购买保险
+## 4. pooled staking. 承包人staking
+## 5. claim assessment. 索赔与赔付投票
+## 6. governance
 
 
-## B. 用户挖矿
-### 1. 抵押
-    调用: stake
-### 2. 提取奖励
-    调用: getReward
-### 3. 赎回所有抵押并提取所有奖励
-    调用: exit
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+# B. 修改工作
+## 1. 增加sote和bnb交易池
+## 2. 取代oraclize
+## 3. 删除dai相关代码
+
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+# C. onchain contracts & offchain services
+|	index	|	name	|	full name             	|	备注	|
+|	 ---	|	 -----	|	 --------------------	|	---	|
+|	a|quote|quote-api service	 |		|
+|	b|mcr	  |mcr service	     |		|
+|	c|timer	|timer service	 	 |oraclize replacement|
+|	1	|	CD	|	ClaimData	       |		|
+|	2	|	CL	|	Claim1	         |		|
+|	3	|	CR	|	ClaimsReward	   |	rewarding or punishing the Claim assessors/Members based on the vote cast and the final verdict	|
+|	4	|	GV	|	Governance	     |	Proxy	|
+|	5	|	MC	|	Mcr	             |recording the Minimum Capital Requirement (MCR) of the system, each day, thus determining the NXM token price.		|
+|	6	|	MR	|	MemberRoles	     |	Proxy	|
+|	7	|	NXMASTER	|	NXMaster   |	Proxy	|
+|	8	|	NXMTOKEN	|	NXMtoken   |	ERC-20 compilant token	|
+|	9	|	P1	|	Pool1	           |calling External oracles through Oraclize and processing the results retrieved|
+|	10|	P2	|	Pool2	           |		|
+|	11|	PC	|	ProposalCategory |Proxy	|
+|	12|	PD	|	PoolData	       |		|
+|	13|	QD	|	QuotationData	   |		|
+|	14|	QT	|	Quotation	       |contain all logic associated with creating and expiring covers		|
+|	15|	TC	|	TokenController  |Proxy. ERC-1132 compilant contract, operator for NXMToken	|
+|	16|	TD	|	TokenData		     | Contains all data related to tokens|
+|	17|	TF	|	TokenFunction	   |all token related non-standard functions specific to Nexus Mutual	|
+|	18|	PS	|	Pooled Staking	 |Proxy	|
+|	19|	CSI	|	CommunityStakingIncentives	|		|
+
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+
 
 
