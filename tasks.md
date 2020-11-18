@@ -19,7 +19,7 @@
 |	11	|	会员可以对多个合约抵押NXM进行承保，并可能领取年化收益	|		|		|
 |	12	|	quote-api测试网搭建	|		|		|
 |	13	|	gov治理模块部署，替换单一gov地址，使项目去中心化	|		|		|
-|	14	|		|		|		|
+|	14	|how to Earn rewards by becoming a Nexus Mutual Claims Assessor		|		|		|
 |	15	|		|		|		|
 |	16	|		|		|		|
 |	17	|		|		|		|
