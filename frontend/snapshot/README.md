@@ -11,3 +11,7 @@
 ![image](./cover/241605511271_.pic_hd.jpg)
 
 ![image](./cover/251605511293_.pic_hd.jpg)
+
+![image](./cover/buycover1.png)
+![image](./cover/buycover2.png)
+
