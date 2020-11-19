@@ -10,17 +10,17 @@
 |	2-1	  |	通过web注册/注销会员         |		                                     |	          |
 |	2-2	  |	通过web用bnb买sote币         |		                                     |	          |
 |	3	  |	sote在会员之间转账 	          |		done                                 |SOTEerc20: 0x6Ecbe1DB9EF729CBe972C83Fb886247691Fb6beb		|
-|	4	  |	使用gov地址能够操作修改合约任意参数	|	进行中	|		|gov:0x5409ED021D9299bf6814279A6A1411A7e866A631
-|	5	|	开发修改优化oracleize在合约里的依赖	|	进行中	|		| 
-|	6	|	使合约仅支持一种币BNB	|		|		|
-|	7	|	会员可以使用BNB换SOTE（swap）	|		|		|
+|	4	  |	使用gov地址能够操作修改合约任意参数	|	done	|		|gov:0x5409ED021D9299bf6814279A6A1411A7e866A631
+|	5	|	开发修改优化oracleize在合约里的依赖	|	done	|	目前来看只需要删除调用oracleize的地方，因为数据可以通过函数提交到系统中。定时触发只需要在链下程序中做。	| 
+|	6	|	使合约仅支持一种币BNB	|	done	|		|
+|	7	|	会员可以使用BNB换SOTE（swap）	|	done	|		|
 |	8	|	会员可以购买保险	|		|		|
 |	9	|	会员可以发起索赔	|		|		|
 |	10	|	会员可以领取过期保险没进行索赔的SOTE币	|		|		|
-|	11	|	会员可以对多个合约抵押NXM进行承保，并可能领取年化收益	|		|		|
-|	12	|	quote-api测试网搭建	|		|		|
+|	11	|	会员可以对多个合约抵押NXM进行承保，并可能领取年化收益	|	done	|		|
+|	12	|	quote-api测试网搭建	|	进行中	|		|
 |	13	|	gov治理模块部署，替换单一gov地址，使项目去中心化	|		|		|
-|	14	|how to Earn rewards by becoming a Nexus Mutual Claims Assessor		|		|		|
+|	14	|Earn rewards by becoming a Nexus Mutual Claims Assessor		|		|		|
 |	15	|		|		|		|
 |	16	|		|		|		|
 |	17	|		|		|		|
