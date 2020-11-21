@@ -10,10 +10,12 @@
 ``` npm install -g truffle ```
 3. 编译合约
 进入项目根目录，执行
-``` truffle compile ```
-这样就得到了我们web3需要的合约实例文件。合约编译后，编译结果在`build/contracts`目录。
-得到我们需要的合约ABI文件`Counter.json`,将该json文件放在`src`目录下。
-我们完成了非常关键的一步。
+``` 
+truffle compile 
+```
+就得到了合约实例文件。合约编译后，编译结果在`build/contracts`目录。
+得到我们需要的合约ABI(application binary interface)文件`Counter.json`, 该文件描述了合约的3个接口add, subtract, getCounter。
+将该json文件放在`src`目录下。我们完成了非常关键的一步。
 
 4. 部署合约，拿到合约的地址，在`src/js/app.js`第8行填写要交互的counter合约。 
 
