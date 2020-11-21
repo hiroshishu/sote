@@ -17,7 +17,7 @@
 
 4. 部署合约，拿到合约的地址，在`src/js/app.js`第8行填写要交互的counter合约。 
 
-5. 接下来，参考`src/js/app.js`参考web3开发与合约交互过程。前端显示的逻辑在`src/index.html`中。
+5. 接下来，参考`src/js/app.js`参考合约接口调用开发与合约交互过程。前端显示的逻辑在`src/index.html`中。
 
 ## 安装部署说明
 
