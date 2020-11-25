@@ -5,7 +5,8 @@ App = {
   web3Provider: null,
   contracts: {},
   counterInst: null,
-  counterAddress:"0x136ccbe31975c588e215BE0f93a1CF82458E5b85",
+  counterAddress:"0x43beb386288ad2f1e0e1b25D2b57579779EBE423", // bsc
+  //eth: counterAddress:"0x43beb386288ad2f1e0e1b25D2b57579779EBE423",
 
   init: async function() {
     return await App.initWeb3();
