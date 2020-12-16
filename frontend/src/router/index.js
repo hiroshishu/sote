@@ -115,6 +115,11 @@ export const constantRoutes = [
                 path: 'stake',
                 name: 'StakeStake',
                 component: () => import('@/views/stake/stake/index')
+            },
+            {
+                path: 'withdraw',
+                name: 'WithdrawDeposit',
+                component: () => import('@/views/stake/withdraw/index')
             }
         ]
       },

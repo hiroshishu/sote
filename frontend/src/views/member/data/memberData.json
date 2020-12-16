@@ -16,7 +16,7 @@
 },{
   "availableFunds":"Pooled staking:",
   "amount":"stakeDeposit",
-  "withdrawable": "0",
+  "withdrawable": "withdrawStakeDeposit",
   "type": "Withdraw"
 },{
   "availableFunds": "Rewards:",

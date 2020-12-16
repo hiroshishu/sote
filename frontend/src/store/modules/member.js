@@ -25,6 +25,7 @@ const state = {
      * 显示stake的total deposit数量
      */
     stakeDeposit: 0,
+    withdrawStakeDeposit: 0,
     /**
      * Rewards: ClaimsReward合约getAllPendingRewardOfUser(address _add)
      */

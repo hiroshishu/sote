@@ -45,8 +45,6 @@
         Stake your total deposit up to <highlight>10 times, {{options.maxTotalAmount}} SOTE</highlight>.
         Top up your deposit to stake larger amounts.
       </el-row>
-
-
       </el-form>
     </el-card>
     <br />
@@ -87,6 +85,7 @@
           label="OPTIONS">
           <template slot-scope="scope">
             <el-link type="primary" v-if="scope.row.ownerStaked == 0" :underline="false" @click="removeProject(scope)">Remove</el-link>
+            <el-link type="primary" v-else :underline="false" @click="unstake(scope)">Unstake</el-link>
           </template>
         </el-table-column>
       </el-table>
@@ -229,6 +228,9 @@ export default {
     },
     addMore(){
       this.$emit("addMore");
+    },
+    unstake(){
+      // 导航到unstake页面
     }
   }
 }

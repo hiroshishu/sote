@@ -35,7 +35,8 @@ export default {
         deposit: 0,
         rewards: 0,
         unstaked: 0,
-        stakedProjects: []
+        stakedProjects: [],
+        redirect: null,
       },
       PooledStaking: null,
       ClaimsReward: null,

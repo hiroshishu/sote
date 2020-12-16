@@ -70,6 +70,12 @@ export async function getStakeDespoid(vue){
       value: res.toString()
     });
   });
+  instance.stakerMaxWithdrawable(member.account).then(res => {
+    vue.$store.dispatch("member/changeMember", {
+      key: "withdrawStakeDeposit",
+      value: res.toString()
+    });
+  });
 }
 
 export async function getRewards(vue){

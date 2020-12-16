@@ -31,8 +31,8 @@
             <br />
             <div class="buttonArea" style="text-align: center;">
               <div>
-                <el-button type="primary" plain round size="mini" style="width: 120px;">Withdraw</el-button>
-                <el-button type="primary" round size="mini" style="width: 120px;">Increase</el-button>
+                <el-button type="primary" plain round size="mini" style="width: 120px;" @click="withdrawDeposit">Withdraw</el-button>
+                <el-button type="primary" round size="mini" style="width: 120px;" @click="addMore('deposit')">Increase</el-button>
               </div>
             </div>
           </div>
@@ -50,7 +50,7 @@
             </div>
             <br />
             <div class="buttonArea" style="text-align: center;">
-              <el-button type="primary" round size="mini" style="width: 250px;" @click="addMore">Stake</el-button>
+              <el-button type="primary" round size="mini" style="width: 250px;" @click="addMore('deposit')">Stake</el-button>
             </div>
           </div>
         </el-card>
@@ -89,7 +89,7 @@
             <div class="buttonArea" style="text-align: center;">
               <div>
                 <el-button type="primary" plain round size="mini" style="width: 120px;">History</el-button>
-                <el-button :disabled="unstaked == 0" type="primary" round size="mini" style="width: 120px;">Unstake</el-button>
+                <el-button type="primary" round size="mini" style="width: 120px;">Unstake</el-button>
               </div>
             </div>
           </div>
@@ -113,40 +113,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-card class="box-card">
-      <el-table
-        :data="options.stakedProjects"
-        stripe
-        style="width: 100%">
-        <el-table-column
-          prop="name"
-          label="PROJECT">
-          <template slot-scope="scope">
-            <svg-icon :icon-class="scope.row.icon" class="icon-name"></svg-icon>
-            {{scope.row.name}}
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="stake"
-          label="STAKED">
-          <template slot-scope="scope">
-            {{scope.row.ownerStaked}} SOTE
-          </template>
-        </el-table-column>
-        <el-table-column width="200px"
-          label="OPTIONS">
-          <template slot-scope="scope">
-            <el-link type="primary" :underline="false" @click="" style="margin-right:20px;">Unstake</el-link>
-            <el-link type="primary" :underline="false" @click="addMore">Stake</el-link>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-row>
-        <div style="text-align: center;">
-          <el-button type="text" @click="addMore">Add more contracts</el-button>
-        </div>
-      </el-row>
-    </el-card>
+    <projects :options="options" />
   </div>
 </template>
 
@@ -154,9 +121,11 @@
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
 import { BigNumber } from 'bignumber.js'
+import projects from '@/views/stake/common/projects'
 
 export default {
   components:{
+    projects
   },
   props: ["options"],
   data() {
@@ -195,8 +164,12 @@ export default {
     },
     async initContract(){
     },
-    addMore(){
+    addMore(param){
+      this.options.redirect = "deposit";
       this.$router.push({name: "StakeStake", params: JSON.parse(JSON.stringify(this.options))});
+    },
+    withdrawDeposit(){
+      this.$router.push({name: "WithdrawDeposit", params: JSON.parse(JSON.stringify(this.options))});
     }
   }
 }

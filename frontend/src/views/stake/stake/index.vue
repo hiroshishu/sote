@@ -52,6 +52,7 @@ export default {
         totalAmount: 0, //本次之前的累计充值金额
         maxTotalAmount: 0, // 所有合约投入金额之和的上限，累计充值金额的10倍
         terms: [],
+        redirect: null,
       },
       defaultOptions: {
         active: 0,
@@ -60,6 +61,7 @@ export default {
         totalAmount: 0,
         maxTotalAmount: 0,
         terms: [],
+        redirect: null,
       }
     }
   },
@@ -96,8 +98,12 @@ export default {
       if(params && params.stakedProjects){
         this.options.selectedProject = params.stakedProjects.concat(this.options.selectedProject);
         this.options.totalAmount = params.deposit;
+        this.options.redirect = params.redirect;
       }
       
+      if(this.options.redirect == "deposit"){
+        this.options.active = 1;
+      }
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
         this.initContract();
       }
