@@ -88,8 +88,8 @@
             <br />
             <div class="buttonArea" style="text-align: center;">
               <div>
-                <el-button type="primary" plain round size="mini" style="width: 120px;">History</el-button>
-                <el-button type="primary" round size="mini" style="width: 120px;">Unstake</el-button>
+                <el-button type="primary" plain round size="mini" style="width: 120px;" @click="history">History</el-button>
+                <el-button type="primary" round size="mini" style="width: 120px;" @click="unstake">Unstake</el-button>
               </div>
             </div>
           </div>
@@ -170,6 +170,12 @@ export default {
     },
     withdrawDeposit(){
       this.$router.push({name: "WithdrawDeposit", params: JSON.parse(JSON.stringify(this.options))});
+    },
+    unstake(){
+      this.$router.push({name: "Unstake", params: JSON.parse(JSON.stringify(this.options))});
+    },
+    history(){
+      this.$router.push({name: "UnstakeHistory", params: JSON.parse(JSON.stringify(this.options))});
     }
   }
 }

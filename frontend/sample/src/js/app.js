@@ -5,8 +5,7 @@ App = {
   web3Provider: null,
   contracts: {},
   counterInst: null,
-  counterAddress:"0x43beb386288ad2f1e0e1b25D2b57579779EBE423", // bsc
-  //eth: counterAddress:"0x43beb386288ad2f1e0e1b25D2b57579779EBE423",
+  counterAddress:"0x43beb386288ad2f1e0e1b25D2b57579779EBE423",
 
   init: async function() {
     return await App.initWeb3();
@@ -45,7 +44,7 @@ App = {
 
   initContract: function() {
     //1. 拿到合约编译好的abi文件内容，实例化合约
-    $.getJSON('/Counter.json', function(data) {
+    $.getJSON('Counter.json', function(data) {
       var CounterArtifact = data;
       var counter = TruffleContract(CounterArtifact);
       counter.setProvider(App.web3Provider);

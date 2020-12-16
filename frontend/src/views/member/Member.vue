@@ -180,6 +180,9 @@ export default {
       }else if(row.amount == "coverDeposit"){
         this.$router.replace("/system/cover/default");
         return;
+      }else if(row.amount == "stakeDeposit"){
+        this.$router.replace("/system/stake/default");
+        return;
       }
       this.$message.info(`Click row ${row.availableFunds}`);
     }

@@ -7,7 +7,7 @@
       <introduce />
     </div>
     <div v-else>
-      <staked :options="options"></staked>
+      <staked :options="options" ref="staked"></staked>
     </div>
   </div>
 </template>
@@ -66,7 +66,7 @@ export default {
           this.projects = response.data;
         }catch(e){
           console.error("Get projects failed.", e);
-        } 
+        }
       }
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
         this.initContract();
@@ -80,7 +80,7 @@ export default {
       this.getRewards();
       this.getStakedProjects();
     },
-    
+
     getDeposit(){
       const contract = this.PooledStaking.getContract();
       contract.instance.stakerDeposit(this.member.account).then(res => {
@@ -95,9 +95,8 @@ export default {
     },
     getStakedProjects(){
       const contract = this.PooledStaking.getContract();
-      contract.instance.stakerContractsArray(this.member.account).then(res => {
+      contract.instance.stakerContractsArray(this.member.account).then(async res => {
         const stakedProjects = res;
-       
         const map = {};
         this.projects.filter(item=>stakedProjects.indexOf(item.address)>=0).forEach(item=>{
           const project = JSON.parse(JSON.stringify(item));
@@ -107,13 +106,14 @@ export default {
           map[project.address] = project;
         });
         // 按顺序加载已stake合约，否则不能顺利进行下次stake
-        stakedProjects.map( item => {
-          const pro = map[item];
-          if(!pro){
-            pro = {};
+        for(let i=0;i<stakedProjects.length;i++){
+          const item = map[stakedProjects[i]];
+          if(item){
+            await this.setStakedAndUnstakedForAddress(item);
+            this.options.stakedProjects.push(item);
           }
-          this.setStakedAndUnstakedForAddress(pro);
-        });
+        }
+        this.loading = false;
       }).catch((e)=>{
         this.$message.error(e.message);
         this.loading = false;
@@ -125,16 +125,13 @@ export default {
         const instance = contract.instance;
         const ownerStaked = await instance.stakerContractStake(this.member.account, item.address);
         item.ownerStaked = this.$etherToNumber(ownerStaked.toString());
-        
+
         const unstaked = await instance.stakerContractPendingUnstakeTotal(this.member.account, item.address);
         item.unstaked = this.$etherToNumber(unstaked.toString());
-        
-        this.options.stakedProjects.push(item); 
+        item.unstaking = 0;
       }catch(e){
         console.error(e);
         this.$message.error(e.message);
-      }finally{
-        this.loading = false;
       }
     },
   }

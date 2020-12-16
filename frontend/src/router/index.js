@@ -120,6 +120,16 @@ export const constantRoutes = [
                 path: 'withdraw',
                 name: 'WithdrawDeposit',
                 component: () => import('@/views/stake/withdraw/index')
+            },
+            {
+                path: 'unstake',
+                name: 'Unstake',
+                component: () => import('@/views/stake/unstake/index')
+            },
+            {
+                path: 'history',
+                name: 'UnstakeHistory',
+                component: () => import('@/views/stake/history/index')
             }
         ]
       },

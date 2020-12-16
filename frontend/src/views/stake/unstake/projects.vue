@@ -14,25 +14,25 @@
           </template>
         </el-table-column>
         <el-table-column
-          prop="stake"
-          label="STAKED">
+          prop="ownerStaked"
+          label="AVAILABLE AMOUNT">
           <template slot-scope="scope">
             {{scope.row.ownerStaked}} SOTE
           </template>
         </el-table-column>
-        <el-table-column width="200px"
-          label="OPTIONS">
+        <el-table-column
+          prop="unstaking"
+          label="UNSTAKE">
           <template slot-scope="scope">
-            <el-link type="primary" :underline="false" @click="unstake" style="margin-right:20px;">Unstake</el-link>
-            <el-link type="primary" :underline="false" @click="addMore('deposit')">Stake</el-link>
+            <el-form :model="scope.row">
+              <el-form-item :rules="rule" prop="unstaking">
+                <el-input-number size="mini" v-model="scope.row.unstaking" class="right-input">
+                </el-input-number>SOTE
+              </el-form-item>
+            </el-form>
           </template>
         </el-table-column>
       </el-table>
-      <el-row>
-        <div style="text-align: center;">
-          <el-button type="text" @click="addMore">Add more contracts</el-button>
-        </div>
-      </el-row>
     </el-card>
   </div>
 </template>
@@ -40,6 +40,7 @@
 <script>
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
+import { BigNumber } from 'bignumber.js'
 
 export default {
   components:{
@@ -47,7 +48,7 @@ export default {
   props: ["options"],
   data() {
     return {
-
+      rule:[{ trigger: 'blur', validator: this.validatePerAmount }],
     }
   },
   computed: {
@@ -55,6 +56,7 @@ export default {
       'web3',
       'member',
       'web3Status',
+      'settings'
     ]),
   },
   watch: {
@@ -75,16 +77,21 @@ export default {
     async initContract(){
 
     },
-    addMore(param){
-      this.options.redirect = "deposit";
-      this.$router.push({name: "StakeStake", params: JSON.parse(JSON.stringify(this.options))});
+    validatePerAmount(rule, value, callback){
+      // 每个合约最少unstake 20
+      if(BigNumber(value).gt(0) && BigNumber(value).comparedTo(this.settings.stake.minAmountPerContract)<0){
+        callback(new Error(`Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`));
+        return;
+      }
     },
-    unstake(){
-      this.$router.push({name: "Unstake", params: JSON.parse(JSON.stringify(this.options))});
-    }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+    .right-input {
+        .el-input__inner {
+            text-align: right !important;
+        }
+    }
 </style>

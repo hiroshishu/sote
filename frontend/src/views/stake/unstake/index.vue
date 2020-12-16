@@ -1,17 +1,17 @@
 <template>
-  <div id="stake-withdraw" v-loading.fullscreen.lock="loading"
+  <div id="stake-unstake" v-loading.fullscreen.lock="loading"
         element-loading-text="Transaction is confirming ...">
     <el-card class="box-card">
-      <div slot="header"><highlight>Withdraw stake</highlight></div>
-      You can withdraw any unused SOTE from your deposit.
+      <div slot="header"><highlight>Unstake</highlight></div>
+      Choose the projects you no longer want to stake.
     </el-card>
     <el-row :gutter="20" v-if="options">
       <el-col :span="18">
-        <withdraw :options="options" ref="withdraw"/>
+        <unstake :options="options"/>
         <projects :options="options"/>
       </el-col>
       <el-col :span="6">
-        <withdrawSummary class="right-top" :options="options" @confirm="confirm" @back="back"/>
+        <unstakeSummary class="right-top" :options="options" @confirm="confirm"/>
       </el-col>
     </el-row>
   </div>
@@ -20,15 +20,15 @@
 <script>
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
-import projects from '@/views/stake/common/projects';
-import withdraw from './withdraw';
-import withdrawSummary from './summary';
+import projects from './projects';
+import unstake from './unstake';
+import unstakeSummary from './summary';
 import PooledStakingContract from '@/services/PooledStaking'
 import { BigNumber } from 'bignumber.js'
 
 export default {
   components:{
-    projects, withdraw, withdrawSummary
+    projects, unstake, unstakeSummary
   },
   data() {
     return {
@@ -60,12 +60,11 @@ export default {
       const params = this.$route.params;
       if(params && params.stakedProjects){
         let options = JSON.parse(JSON.stringify(params));
-        options.withdraw = 0;
         this.options = options;
       } else {
-        this.$router.push("/system/stake/default");  
+        this.$router.push("/system/stake/default");
       }
-      
+
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
         this.initContract();
       }
@@ -73,20 +72,17 @@ export default {
     async initContract(){
       // 初始化合约
       this.PooledStaking = await this.getContract(PooledStakingContract);
-      this.getWithdraw();
     },
-    getWithdraw(){
+    async confirm(){
+      // unstake
       const instance = this.PooledStaking.getContract().instance;
-      instance.stakerMaxWithdrawable(this.member.account).then(res => {
-        this.options.maxWithdraw = res.toString();
-        this.$refs.withdraw.$forceUpdate();
-      });
-    },
-    confirm(){
-      const instance = this.PooledStaking.getContract().instance;
-      const amount = this.$ether(this.options.withdraw);
+      const unstakingList = this.options.stakedProjects;//.filter(item => BigNumber(item.unstaking).gt(0));
+      const addresses = unstakingList.map(item => item.address);
+      const unstakes = unstakingList.map(item => this.$ether(item.unstaking.toString()));
       this.loading = true;
-      instance.withdraw(amount, { from: this.member.account }).then(res => {
+      const requestId = await instance.lastUnstakeRequestId();
+      console.info("requestUnstake: ", addresses, unstakes, requestId.toString());
+      instance.requestUnstake(addresses, unstakes, requestId.toString(), { from: this.member.account }).then(res => {
         console.info(res, res.toString());
         this.$message.success("Transaction successfully");
         this.loading = false;
@@ -96,15 +92,12 @@ export default {
         this.$message.error(e.message);
         this.loading = false;
       });
-    },
-    back(){
-      this.$router.go(-1);
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-#stake-withdraw{
+#stake-unstake{
   // line-height: 35px;
   .el-card {
     margin-bottom: 20px;
