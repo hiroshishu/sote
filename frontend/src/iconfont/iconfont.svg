@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="jiaohuan" unicode="&#58937;" d="M514 830.5c-246.5 0-446.3-199.8-446.3-446.3S267.5-62.10000000000002 514-62.10000000000002s446.3 199.8 446.3 446.3S760.5 830.5 514 830.5zM407.3 144l-26.1-79.8-152.6 170.3 223.7 47-23-70.3c3.8-1.4 7.6-2.8 11.5-4 132.2-43.3 272.5 6.2 350.5 112.6-62.7-147.7-228.7-225.5-384-175.8z m169.4 334.7l16.7 71.8c-3.9 1.1-7.8 2.1-11.8 3-135.5 31.5-270.9-30.1-339.2-143 49.5 152.5 208 244.6 367 208.8l19.1 82 166.9-156.1-218.7-66.5z"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>

@@ -1,0 +1,16 @@
+{
+  "id": "2239586",
+  "name": "sote",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "10061205",
+      "name": "交换",
+      "font_class": "jiaohuan",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    }
+  ]
+}
