@@ -14,13 +14,11 @@
         <div class="overall">
         <el-row class="secondary-text" :gutter="20">
           <el-col :span="8">ACTIVE BNB COVER AMOUNT</el-col>
-          <el-col :span="8">ACTIVE SOTE COVER AMOUNT</el-col>
           <el-col :span="8">TOTAL COVERS SOLD</el-col>
         </el-row>
         <el-row class="highlight" :gutter="20">
-          <el-col :span="8">Unknown BNB</el-col>
-          <el-col :span="8">Unknown SOTE</el-col>
-          <el-col :span="8">Unknown</el-col>
+          <el-col :span="8">{{ bnbCoverAmount }} BNB</el-col>
+          <el-col :span="8">{{ totalCoversSold }}</el-col>
         </el-row>
         </div>
       </el-form>
@@ -32,6 +30,7 @@
 import { contracts } from '@/settings.js'
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
+import QuotationDataContract from "@/services/QuotationData";
 
 export default {
   name: "Overall",
@@ -39,6 +38,8 @@ export default {
   },
   data() {
     return {
+      bnbCoverAmount : "-",
+      totalCoversSold : "-",
     }
   },
   computed: {
@@ -64,10 +65,34 @@ export default {
       }
     },
     async initContract(){
-
+      this.QuotationData = await this.getContract(QuotationDataContract);
+      this.getTotalSumAssured("BNB");
+      this.getCoverLength();
     },
     buyCover(){
       this.$router.push("/system/cover/buy");
+    },
+    getTotalSumAssured(token) {
+      const contract = this.QuotationData.getContract();
+      const charCode = [];
+      for (let i = 0; i < 4; i++) {
+        charCode.push(i < token.length ? token.charCodeAt(i) : 0);
+      }
+      contract.instance.getTotalSumAssured(charCode).then(response => {
+        this[token.toLowerCase() + "CoverAmount"] = response.toString();
+      }).catch((e) => {
+        console.error(e);
+        this.$message.error(e.message);
+      });
+    },
+    getCoverLength() {
+      const contract = this.QuotationData.getContract();
+      contract.instance.getCoverLength().then(response => {
+        this.totalCoversSold = response.toString();
+      }).catch((e) => {
+        console.error(e);
+        this.$message.error(e.message);
+      });
     }
   }
 }
