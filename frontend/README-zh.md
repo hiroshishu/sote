@@ -23,7 +23,7 @@ npm install
 npm install --registry=https://registry.npm.taobao.org
 
 # 增大nodejs内存，避免内存溢出
-npm fix-memory-limit
+npm run fix-memory-limit
 
 # 启动服务
 npm run dev

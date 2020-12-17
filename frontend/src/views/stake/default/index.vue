@@ -121,6 +121,7 @@ export default {
     },
     async setStakedAndUnstakedForAddress(item){
       try{
+        item.stakedStatus = "staked";// 代表已经stake过了
         const contract = this.PooledStaking.getContract();
         const instance = contract.instance;
         const ownerStaked = await instance.stakerContractStake(this.member.account, item.address);

@@ -84,7 +84,7 @@
         <el-table-column
           label="OPTIONS">
           <template slot-scope="scope">
-            <el-link type="primary" v-if="scope.row.ownerStaked == 0" :underline="false" @click="removeProject(scope)">Remove</el-link>
+            <el-link type="primary" v-if="scope.row.stakedStatus != 'staked'" :underline="false" @click="removeProject(scope)">Remove</el-link>
             <el-link type="primary" v-else :underline="false" @click="unstake(scope)">Unstake</el-link>
           </template>
         </el-table-column>
@@ -231,6 +231,9 @@ export default {
     },
     unstake(){
       // 导航到unstake页面
+      const options = JSON.parse(JSON.stringify(this.options));
+      options.stakedProjects = options.selectedProject.filter(item => item.stakedStatus == 'staked');
+      this.$router.push({name: "Unstake", params: options});
     }
   }
 }

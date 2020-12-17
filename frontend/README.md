@@ -20,7 +20,7 @@ cd sote/frontend
 npm install
 
 # set nodejs memory, avoid out of memory
-npm fix-memory-limit
+npm run fix-memory-limit
 
 # develop
 npm run dev
