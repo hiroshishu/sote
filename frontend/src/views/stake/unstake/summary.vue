@@ -1,5 +1,5 @@
 <template>
-  <div id="stake-withdraw-summary" v-loading.fullscreen.lock="loading"
+  <div id="stake-unstake-summary" v-loading.fullscreen.lock="loading"
         element-loading-text="Transaction is confirming ...">
     <el-card :style="{top: top+'px'}">
       <h3 class="main-text">Summary</h3>
@@ -8,13 +8,13 @@
           <div>
             <highlight>Before</highlight>
           </div>
-          <el-form-item label="Deposit:">
+          <el-form-item label="Pending:">
             {{unstaked}} SOTE
           </el-form-item>
           <div>
             <highlight>After</highlight>
           </div>
-          <el-form-item label="Deposit:">
+          <el-form-item label="Pending:">
             {{allUnstake}} SOTE
           </el-form-item>
         </el-form>
@@ -99,9 +99,9 @@ export default {
       if(perError > 0){
         return false;
       }
-      const errCount = this.options.stakedProjects.filter(item => BigNumber(item.ownerStaked).lt(item.unstaking)).length;
+      const errCount = this.options.stakedProjects.filter(item => BigNumber(item.unstaking).gt(0) && !BigNumber(item.ownerStaked).eq(item.unstaking)).length;
       if(errCount > 0){
-        this.$message.error(`The unstake is not greater than the available amount.`);
+        this.$message.error(`The unstaking amount does not match the available amount.`);
         return false;
       }
       return true;
@@ -124,7 +124,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/styles/element-variables.scss';
-#stake-withdraw-summary{
+#stake-unstake-summary{
   h3{
     margin-top: 0px !important;
   }

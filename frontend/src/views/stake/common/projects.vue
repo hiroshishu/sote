@@ -23,7 +23,7 @@
         <el-table-column width="200px"
           label="OPTIONS">
           <template slot-scope="scope">
-            <el-link type="primary" :underline="false" @click="unstake" style="margin-right:20px;">Unstake</el-link>
+            <el-link type="primary" v-if="isUnstake(scope.row)" :underline="false" @click="unstake" style="margin-right:20px;">Unstake</el-link>
             <el-link type="primary" :underline="false" @click="addMore('deposit')">Stake</el-link>
           </template>
         </el-table-column>
@@ -40,6 +40,7 @@
 <script>
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
+import { BigNumber } from 'bignumber.js'
 
 export default {
   components:{
@@ -74,6 +75,9 @@ export default {
     },
     async initContract(){
 
+    },
+    isUnstake(row){
+      return BigNumber(row.ownerStaked).gt(0) && BigNumber(row.unstaked).eq(0);
     },
     addMore(param){
       this.options.redirect = "deposit";

@@ -6,7 +6,7 @@
       <div style="margin-bottom: 20px;">
         <el-form label-width="120px" label-position="left">
           <el-form-item label="Pending:">
-            {{options.unstaked}} SOTE
+            {{unstaked}} SOTE
           </el-form-item>
           <el-form-item label="Available:">
             {{options.available}} Unknown SOTE
@@ -47,6 +47,9 @@ export default {
       'web3Status',
       'settings'
     ]),
+    unstaked(){
+      return this.options.stakedProjects.map(item => item.unstaked).reduce((total, item) => BigNumber(total?total:0).plus(item?item:0)).toString();
+    }
   },
   watch: {
     web3Status: watch.web3Status,

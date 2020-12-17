@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="stake-unstake-projects">
     <el-card class="box-card">
       <el-table
         :data="options.stakedProjects"
@@ -17,7 +17,7 @@
           prop="ownerStaked"
           label="AVAILABLE AMOUNT">
           <template slot-scope="scope">
-            {{scope.row.ownerStaked}} SOTE
+            {{formatStaked(scope.row)}} SOTE
           </template>
         </el-table-column>
         <el-table-column
@@ -25,9 +25,11 @@
           label="UNSTAKE">
           <template slot-scope="scope">
             <el-form :model="scope.row">
-              <el-form-item :rules="rule" prop="unstaking">
-                <el-input-number size="mini" v-model="scope.row.unstaking" class="right-input">
-                </el-input-number>SOTE
+              <el-form-item prop="unstaking">
+                <el-switch @change="unstakeChange(scope.row)" :disabled="isNotUnstake(scope.row)"
+                  v-model="scope.row.unstakeFlag" >
+                </el-switch>
+                {{scope.row.unstaking}} SOTE
               </el-form-item>
             </el-form>
           </template>
@@ -48,7 +50,7 @@ export default {
   props: ["options"],
   data() {
     return {
-      rule:[{ trigger: 'blur', validator: this.validatePerAmount }],
+      
     }
   },
   computed: {
@@ -77,17 +79,36 @@ export default {
     async initContract(){
 
     },
-    validatePerAmount(rule, value, callback){
-      // 每个合约最少unstake 20
-      if(BigNumber(value).gt(0) && BigNumber(value).comparedTo(this.settings.stake.minAmountPerContract)<0){
-        callback(new Error(`Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`));
-        return;
+    formatStaked(row){
+      if(row.oldOwnerStaked == undefined){
+        row.oldOwnerStaked = row.ownerStaked;
+      }
+      return row.oldOwnerStaked;
+    },
+    isNotUnstake(row){
+      return BigNumber(row.ownerStaked).eq(0) || BigNumber(row.unstaked).gt(0);
+    },
+    unstakeChange(row){
+      if(row.unstakeFlag){
+        row.unstaking = row.ownerStaked;
+        row.oldOwnerStaked = "0";
+      }else{
+        row.oldOwnerStaked = row.ownerStaked;
+        row.unstaking = "0";
       }
     },
   }
 }
 </script>
 
+<style lang="scss" scoped>
+@import '@/styles/element-variables.scss';
+#stake-unstake-projects{
+  .el-form-item{
+    margin-bottom: 0px;
+  }
+}
+</style>
 <style lang="scss">
     .right-input {
         .el-input__inner {

@@ -156,7 +156,7 @@ export default {
     },
     getStakedProjects(){
       const contract = this.PooledStaking.getContract();
-      contract.instance.stakerContractsArray(this.member.account).then(res => {
+      contract.instance.stakerContractsArray(this.member.account).then(async res => {
         this.stakedProjects = res;
         console.info(res);
         const count = this.options.selectedProject.filter(item=>this.stakedProjects.indexOf(item.address)>=0).length;
@@ -172,13 +172,13 @@ export default {
           map[project.address] = project;
         });
         // 按顺序加载已stake合约，否则不能顺利进行下次stake
-        this.stakedProjects.forEach( item => {
-          const pro = map[item];
-          if(pro){
-            this.setStatedForAddress(pro);
-            this.options.selectedProject.push(pro);
+        for(let i=0;i<this.stakedProjects.length;i++){
+          const item = map[this.stakedProjects[i]];
+          if(item){
+            await this.setStatedForAddress(item);
+            this.options.selectedProject.push(item);
           }
-        });
+        }
       }).catch((e)=>{
         this.$message.error(e.message);
       });
@@ -186,7 +186,12 @@ export default {
     async setStatedForAddress(item){
       const contract = this.PooledStaking.getContract();
       const ownerStaked = await contract.instance.stakerContractStake(this.member.account, item.address);
+      item.stakedStatus = "staked";// 代表已经stake过了
       item.ownerStaked = this.$etherToNumber(ownerStaked.toString());
+      
+      const unstaked = await contract.instance.stakerContractPendingUnstakeTotal(this.member.account, item.address);
+      item.unstaked = this.$etherToNumber(unstaked.toString());
+      item.unstaking = 0;
     },
     isSelected(project){
       return this.options.selectedProject.filter(item=>item.name == project.name).length > 0;

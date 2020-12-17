@@ -24,6 +24,7 @@ import projects from './projects';
 import unstake from './unstake';
 import unstakeSummary from './summary';
 import PooledStakingContract from '@/services/PooledStaking'
+import QuotationDataContract from '@/services/QuotationData'
 import { BigNumber } from 'bignumber.js'
 
 export default {
@@ -76,13 +77,14 @@ export default {
     async confirm(){
       // unstake
       const instance = this.PooledStaking.getContract().instance;
-      const unstakingList = this.options.stakedProjects;//.filter(item => BigNumber(item.unstaking).gt(0));
+      const unstakingList = this.options.stakedProjects.filter(item => BigNumber(item.unstaking).gt(0));
       const addresses = unstakingList.map(item => item.address);
       const unstakes = unstakingList.map(item => this.$ether(item.unstaking.toString()));
       this.loading = true;
-      const requestId = await instance.lastUnstakeRequestId();
-      console.info("requestUnstake: ", addresses, unstakes, requestId.toString());
-      instance.requestUnstake(addresses, unstakes, requestId.toString(), { from: this.member.account }).then(res => {
+      const reqId = await instance.lastUnstakeRequestId();
+      const curId = BigNumber(reqId.toString()).minus(1).toString();
+      console.info("requestUnstake: ", addresses, unstakes, curId);
+      instance.requestUnstake(addresses, unstakes, curId, { from: this.member.account }).then(res => {
         console.info(res, res.toString());
         this.$message.success("Transaction successfully");
         this.loading = false;
