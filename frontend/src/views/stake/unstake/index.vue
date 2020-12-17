@@ -76,11 +76,12 @@ export default {
     async confirm(){
       // unstake
       const instance = this.PooledStaking.getContract().instance;
-      const unstakingList = this.options.stakedProjects;//.filter(item => BigNumber(item.unstaking).gt(0));
+      const unstakingList = this.options.stakedProjects.filter(item => BigNumber(item.unstaking).gt(0));
       const addresses = unstakingList.map(item => item.address);
       const unstakes = unstakingList.map(item => this.$ether(item.unstaking.toString()));
       this.loading = true;
-      const requestId = await instance.lastUnstakeRequestId();
+      // const reqId = await instance.lastUnstakeRequestId();
+      const requestId = "0";
       console.info("requestUnstake: ", addresses, unstakes, requestId.toString());
       instance.requestUnstake(addresses, unstakes, requestId.toString(), { from: this.member.account }).then(res => {
         console.info(res, res.toString());

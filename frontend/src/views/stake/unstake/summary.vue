@@ -99,9 +99,9 @@ export default {
       if(perError > 0){
         return false;
       }
-      const errCount = this.options.stakedProjects.filter(item => BigNumber(item.ownerStaked).lt(item.unstaking)).length;
+      const errCount = this.options.stakedProjects.filter(item => BigNumber(item.unstaking).gt(0) && !BigNumber(item.ownerStaked).eq(item.unstaking)).length;
       if(errCount > 0){
-        this.$message.error(`The unstake is not greater than the available amount.`);
+        this.$message.error(`The unstaking amount does not match the available amount.`);
         return false;
       }
       return true;

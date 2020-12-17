@@ -25,7 +25,7 @@
           label="UNSTAKE">
           <template slot-scope="scope">
             <el-form :model="scope.row">
-              <el-form-item :rules="rule" prop="unstaking">
+              <el-form-item :rules="rule(scope.row)" prop="unstaking">
                 <el-input-number size="mini" v-model="scope.row.unstaking" class="right-input">
                 </el-input-number>SOTE
               </el-form-item>
@@ -48,7 +48,7 @@ export default {
   props: ["options"],
   data() {
     return {
-      rule:[{ trigger: 'blur', validator: this.validatePerAmount }],
+      
     }
   },
   computed: {
@@ -77,10 +77,13 @@ export default {
     async initContract(){
 
     },
+    rule(row){
+      return [{ trigger: 'blur', validator: this.validatePerAmount, row: row }];
+    },
     validatePerAmount(rule, value, callback){
       // 每个合约最少unstake 20
-      if(BigNumber(value).gt(0) && BigNumber(value).comparedTo(this.settings.stake.minAmountPerContract)<0){
-        callback(new Error(`Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`));
+      if(BigNumber(value).gt(0) && !BigNumber(value).eq(rule.row.ownerStaked)){
+        callback(new Error(`You can only unstake ${rule.row.ownerStaked} SOTE of this contract.`));
         return;
       }
     },
