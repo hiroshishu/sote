@@ -46,19 +46,19 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/start/member',
     name: 'start',
-    meta: { title: 'Start here', icon: 'el-icon-s-help' },
+    meta: { title: 'Start here' },
     children: [
       {
         path: 'member',
         name: 'Membership',
         component: () => import('@/views/member/Membership'),
-        meta: { title: 'Membership', icon: 'table' }
+        meta: { title: 'Membership', icon: 'el-icon-s-custom' }
       },
       {
         path: 'swap',
         name: 'Swap',
         component: () => import('@/views/swap/index'),
-        meta: { title: 'Swap', icon: 'tree' }
+        meta: { title: 'Swap', icon: 'iconfont icon-swap' }
       }
     ]
   },
@@ -75,7 +75,7 @@ export const constantRoutes = [
         name: 'Cover',
         redirect: '/system/cover/default',
         component: () => import('@/views/cover/index'),
-        meta: { title: 'Cover', icon: 'table' },
+        meta: { title: 'Cover', icon: 'iconfont icon-cover' },
         children: [
             {
                 path: 'default',
@@ -99,7 +99,7 @@ export const constantRoutes = [
         name: 'Stake',
         redirect: '/system/stake/default',
         component: () => import('@/views/stake/index'),
-        meta: { title: 'Stake', icon: 'tree' },
+        meta: { title: 'Stake', icon: 'iconfont icon-Staking' },
         children: [
             {
                 path: 'default',
@@ -138,7 +138,7 @@ export const constantRoutes = [
         name: 'Claim',
         redirect: '/system/claim/default',
         component: () => import('@/views/claim/index'),
-        meta: { title: 'Claim Assessment', icon: 'tree' },
+        meta: { title: 'Claim Assessment', icon: 'iconfont icon-assessment' },
         children: [
             {
                 path: 'default',
@@ -156,13 +156,13 @@ export const constantRoutes = [
         path: 'governance',
         name: 'Governance',
         component: () => import('@/views/governance/index'),
-        meta: { title: 'Governance', icon: 'tree' }
+        meta: { title: 'Governance', icon: 'el-icon-s-help' }
       },
       {
         path: 'reward',
         name: 'Reward',
         component: () => import('@/views/reward/index'),
-        meta: { title: 'Reward', icon: 'tree' }
+        meta: { title: 'Reward', icon: 'iconfont icon-reward' }
       }
     ]
   },

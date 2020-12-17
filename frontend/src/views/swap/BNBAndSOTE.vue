@@ -27,7 +27,7 @@
                   <div>
                     <el-form-item prop="amount">
                         <el-input placeholder="Please enter an amount" class="right-input" v-model="form.amount">
-                            <el-select v-model="form.type" slot="append" style="width: 80px;">
+                            <el-select v-model="form.type" slot="append" style="width: 85px;">
                                 <el-option :label="option" :value="option" v-for="option in typeOptions"></el-option>
                             </el-select>
                         </el-input>
@@ -38,7 +38,7 @@
             </el-col>
             <el-col :span="2" class="icon-col">
                 <div>
-                    <i class="iconfont icon-jiaohuan" @click="form.type=toTypes[form.type]"></i>
+                    <i class="iconfont icon-swap" @click="switchType"></i>
                 </div>
             </el-col>
             <el-col :span="11">
@@ -120,7 +120,7 @@
           'web3',
           'member',
           'web3Status',
-		  'settings'
+          'settings'
         ]),
         calculateRate(){
             if(this.form.type=="BNB"){
@@ -148,15 +148,7 @@
         'form.amount': function(newVal, oldVal){
             this.$refs.form.validate((valid) => {
               if (valid) {
-                  const amount = BigNumber(newVal);
-                  const rate = BigNumber(this.rate);
-                  if(this.form.type=="BNB"){
-                      const toAmount = amount.dividedBy(rate);
-                      this.form.toAmount = toAmount.toString();
-                  }else{
-                      const toAmount = amount.multipliedBy(rate);
-                      this.form.toAmount = toAmount.toString();
-                  }
+                this.calc();
               }
             });
         }
@@ -186,6 +178,21 @@
             this.rateBN = rate.toString();
             this.rate = this.$etherToNumber(this.rateBN, "ether");
             console.info("Current rate:", this.rate);
+        },
+        switchType(){
+          this.form.type = this.toTypes[this.form.type];
+          this.calc();
+        },
+        calc(){
+          const amount = BigNumber(this.form.amount);
+          const rate = BigNumber(this.rate);
+          if(this.form.type=="BNB"){
+              const toAmount = amount.dividedBy(rate);
+              this.form.toAmount = toAmount.toString();
+          }else{
+              const toAmount = amount.multipliedBy(rate);
+              this.form.toAmount = toAmount.toString();
+          }
         },
         swapTokens(){
           this.loading = true;
