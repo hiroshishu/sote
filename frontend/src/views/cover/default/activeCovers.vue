@@ -125,7 +125,7 @@ export default {
         this.activeCovers.splice(0, this.activeCovers.length);
         const instance = this.QuotationData.getContract().instance;
         const ids = await instance.getAllCoversOfUser(this.member.account);
-        const response = await getCoverContracts();
+        const response = await getCoverContracts(this);
         const contracts = response.data;
         ids.forEach(async (id) => {
           try{

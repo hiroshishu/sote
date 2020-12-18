@@ -141,7 +141,7 @@ export default {
       if(this.contracts && this.contracts.length>0){
         return;
       }
-      const response = await getCoverContracts();
+      const response = await getCoverContracts(this);
       this.contracts = response.data;
     },
     async initClaimsCount(){
