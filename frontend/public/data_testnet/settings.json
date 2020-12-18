@@ -21,5 +21,6 @@
     "maxAmount": 10
   },
   "penaltyRate": 0.975,
-  "quoteapi": "http://api.soteria.fund/v1"
+  "quoteapi": "http://api.soteria.fund/v1",
+  "unstakedPendingDay": 90
 }

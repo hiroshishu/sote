@@ -22,17 +22,11 @@
           </template>
         </el-table-column>
         <el-table-column
-          prop="stake"
-          label="REQUEST">
-          <template slot-scope="scope">
-            Unknown
-          </template>
+          prop="unstakeAt"
+          label="REQUEST" :formatter="requestDate">
         </el-table-column>
         <el-table-column
-          label="DUE">
-          <template slot-scope="scope">
-            Unknown
-          </template>
+          label="DUE" :formatter="due">
         </el-table-column>
       </el-table>
     </div>
@@ -43,6 +37,7 @@
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
 import { BigNumber } from 'bignumber.js'
+import PooledStakingContract from '@/services/PooledStaking'
 
 export default {
   components:{
@@ -50,6 +45,8 @@ export default {
   props: ["options"],
   data() {
     return {
+      PooledStaking: null,
+      historyList: [],
     }
   },
   computed: {
@@ -59,9 +56,7 @@ export default {
       'web3Status',
       'settings'
     ]),
-    historyList(){
-      return this.options.stakedProjects.filter(item => BigNumber(item.unstaked).gt(0) || (item.stakedStatus == 'staked' && BigNumber(item.ownerStaked).eq(0)));
-    }
+    
   },
   watch: {
     web3Status: watch.web3Status,
@@ -74,12 +69,63 @@ export default {
   },
   methods: {
     initData(){
+      this.historyList = this.options.stakedProjects.filter(item => BigNumber(item.unstaked).gt(0));
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
         this.initContract();
       }
     },
     async initContract(){
+      this.PooledStaking = await this.getContract(PooledStakingContract);
+      this.getHistoryInfo();
     },
+    async getHistoryInfo(){
+      const instance = this.PooledStaking.getContract().instance;
+      const reqId = await instance.lastUnstakeRequestId();
+      let curId = BigNumber(reqId.toString()).minus(1).toString();
+      const unstakedList = [];
+      while(true){
+        if(BigNumber(curId).lt(0)){
+          return;
+        }
+        const count = this.historyList.filter(item => !item.unstakeAt).length;
+        if(count == 0){
+          // 当前账户数据已加载完成
+          return;
+        }
+        const unstaked = await instance.unstakeRequestAtIndex(curId.toString());
+        const stakerAddress = unstaked.stakerAddress.toString();
+        const contractAddress = unstaked.contractAddress.toString();
+        if(stakerAddress == "0x0000000000000000000000000000000000000000"){
+          // 后面的已经过了有效期了，不再查了
+          return;
+        }
+        if(stakerAddress.toLowerCase() == this.member.account.toLowerCase()){
+          const stakedProjects = this.historyList;
+          for(let i=0;i<stakedProjects.length;i++){
+            let item = stakedProjects[i];
+            if(item.address.toLowerCase() == contractAddress.toLowerCase()){
+              this.$set(this.historyList[i], "unstakeAt", unstaked.unstakeAt.toString());
+              this.$set(this.historyList[i], "next", unstaked.next.toString());
+              console.info(this.historyList);
+              break;
+            }
+          }
+        }
+        curId = BigNumber(curId).minus(1).toString();
+      }
+    },
+    requestDate(row){
+      if(row.unstakeAt){
+        return this.$secondsToDateString(row.unstakeAt);  
+      }
+      return "-";
+    },
+    due(row){
+      if(row.unstakeAt){
+        return this.$secondsToDateString(BigNumber(row.unstakeAt).plus(BigNumber(this.settings.unstakedPendingDay).times(24 * 60 * 60)).toString());  
+      }
+      return "-";
+    }
   }
 }
 </script>
