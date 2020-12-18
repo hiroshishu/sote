@@ -14,14 +14,30 @@
 <script>
 import Channel from "@/views/reward/Channel";
 import {mapGetters} from 'vuex'
+import {watch} from "@/utils/watch";
+import {getRewards} from "@/api/member";
 
 export default {
   components: { Channel },
   computed: {
-    ...mapGetters([
-      'member'
-    ])
+    ...mapGetters(['web3Status', 'member']),
   },
+  watch: {
+    web3Status: watch.web3Status
+  },
+  created() {
+    this.initData();
+    this.$Bus.bindEvent(this.$EventNames.switchAccount, this._uid, ()=>{
+      this.initData();
+    });
+  },
+  methods: {
+    initData() {
+      if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
+        getRewards(this);
+      }
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
