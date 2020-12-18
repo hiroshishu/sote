@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <h2>Soteria Rewards</h2>
       <el-row type="flex" justify="space-between" align="middle">
-        <el-col :span="6">You have 0 SOTE available</el-col>
+        <el-col :span="6">You have {{member.rewards}} SOTE available</el-col>
         <el-col :span="4"><el-button type="primary" disabled class="withdraw-btn">Withdraw all</el-button></el-col>
       </el-row>
     </el-card>
@@ -13,9 +13,15 @@
 
 <script>
 import Channel from "@/views/reward/Channel";
+import {mapGetters} from 'vuex'
 
 export default {
-  components: { Channel }
+  components: { Channel },
+  computed: {
+    ...mapGetters([
+      'member'
+    ])
+  },
 }
 </script>
 <style lang="scss" scoped>
