@@ -65,6 +65,7 @@ import ClaimsDataContract from '@/services/ClaimsData';
 import QuotationDataContract from '@/services/QuotationData';
 import Moment from 'moment';
 import { getCoverContracts } from '@/api/cover.js';
+import { BigNumber } from 'bignumber.js';
 
 
 export default {
@@ -192,6 +193,11 @@ export default {
             // 缓存数据更新状态
             console.info("cache data......");
             claim.vote = await this.loadVote(curClaimId);
+            if(BigNumber(claim.vote.verdict).eq(0)){
+              // 投票状态不正确，可能是错误数据，不显示
+              curload --;
+              continue;
+            }
             await this.loadClaim(curClaimId, claim);
             this.claims.push(claim);
             curload --;
@@ -204,6 +210,11 @@ export default {
           // 查投票id
           claim = {};
           claim.vote = await this.loadVote(curClaimId);
+          if(BigNumber(claim.vote.verdict).eq(0)){
+            // 投票状态不正确，可能是错误数据，不显示
+            curload --;
+            continue;
+          }
           await this.loadClaim(curClaimId, claim);
           console.info("完成vote结果");
 

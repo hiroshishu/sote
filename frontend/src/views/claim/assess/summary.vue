@@ -30,7 +30,7 @@
       </div>
       <div style="text-align: center;">
         <el-button type="primary" plain round size="small" @click="back" style="width:40%;">Back</el-button>
-        <el-button v-if="options.active<2" type="primary" :disabled="options.staked=='0'" round size="small" @click="next" style="width:40%;">Continue</el-button>
+        <el-button v-if="options.active<1" type="primary" :disabled="options.staked=='0'" round size="small" @click="next" style="width:40%;">Continue</el-button>
         <el-button v-else-if="isAccept" type="primary" :disabled="options.staked=='0'" round size="small" @click="next" style="width:40%;">Accept claim</el-button>
         <el-button v-else type="primary" :disabled="options.staked=='0'" round size="small" @click="next" style="width:40%;">Deny claim</el-button>
       </div>
@@ -112,7 +112,7 @@ export default {
     },
     next(){
       if(this.checkContinue()){
-        if(this.options.active<2){
+        if(this.options.active<1){
           this.$emit("next");
         }else if(this.isAccept){
           this.$emit("accept");
@@ -132,7 +132,7 @@ export default {
           return false;
         }
       }
-      if(options.active == 1){
+      if(options.active == 0){
         if(!options.proof.evidence || !options.proof.loss){
           this.$message.error("Please chioce yes or no");
           return false;

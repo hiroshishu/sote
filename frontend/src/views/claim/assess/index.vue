@@ -6,7 +6,7 @@
       <div slot="header" class="title">Assess claim</div>
       <el-steps :active="options.active" align-center finish-status="success" process-status="finish">
         <el-step title="General criteria"></el-step>
-        <el-step title="Proof of loss"></el-step>
+        <!-- <el-step title="Proof of loss"></el-step> -->
         <el-step title="Submit assessment"></el-step>
       </el-steps>
     </el-card>
@@ -15,8 +15,8 @@
       <el-col :span="18">
         <transition name="el-fade-in-linear" mode="out-in">
           <criteria :options="options" v-if="options.active==0"/>
-          <proof :options="options" v-if="options.active==1"/>
-          <submit :options="options" v-if="options.active==2"/>
+          <!-- <proof :options="options" v-if="options.active==1"/> -->
+          <submit :options="options" v-if="options.active==1"/>
         </transition>
       </el-col>
       <el-col :span="6">
@@ -126,7 +126,7 @@ export default {
       }
     },
     next(contract){
-      if(this.options.active<2){
+      if(this.options.active<1){
         this.options.active++;
       }
     },

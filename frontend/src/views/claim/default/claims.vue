@@ -40,7 +40,7 @@
       prop="status" width="150"
       label="STATUS">
       <template slot-scope="scope">
-        <el-tag :type="claimStatusColors[scope.row.status]" :class="{ 'el-tag-primary': claimStatusColors[scope.row.status]=='' }">
+        <el-tag :type="claimStatusColors[scope.row.status]" :class="{ 'el-tag-blue': claimStatusColors[scope.row.status]=='' }">
           {{claimStatus[scope.row.status]}}
         </el-tag>
       </template>
@@ -85,9 +85,14 @@ export default {
         "3": "Open to assessors",
         "4": "Open to assessors",
         "5": "Open to assessors",
+        "6": "Denied",
+        "7": "Accepted",
+        "8": "Accepted",
+        "9": "Denied",
         "10": "Accepted",
         "11": "Denied",
         "12": "Payout Pending",
+        "14": "Payout Finished",
       },
       claimStatusColors: {
         "0": "",
@@ -96,17 +101,15 @@ export default {
         "3": "warning",
         "4": "warning",
         "5": "warning",
+        "6": "danger",
+        "7": "success",
+        "8": "success",
+        "9": "danger",
         "10": "success",
         "11": "danger",
-        "12": "",
+        "12": "info",
+        "14": "info",
       },
-      claimStatusValue: {
-        "Pending": 0,
-        "OpenTo": 1,
-        "Accepted": 10,
-        "Denied": 11,
-        "PayoutPending": 12,
-      }
     }
   },
   computed: {
@@ -289,7 +292,7 @@ export default {
     vertical-align: middle;
     margin-right: 10px;
   }
-  .el-tag-primary{
+  .el-tag-blue{
     background-color: #ecf5ff;
     color: #409eff;
     border: 1px solid #d9ecff;

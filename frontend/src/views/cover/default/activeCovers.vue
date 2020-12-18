@@ -44,13 +44,15 @@
       prop="status" width="150"
       label="STATUS">
       <template slot-scope="scope">
-        {{coverStatus[parseInt(scope.row.status)]}}
+        <el-tag :type="coverStatusColors[scope.row.status]" :class="{ 'el-tag-blue': coverStatusColors[scope.row.status]=='' }">
+          {{coverStatus[parseInt(scope.row.status)]}}
+        </el-tag>
       </template>
     </el-table-column>
     <el-table-column width="100"
       label="ACTIONS">
       <template slot-scope="scope">
-        <el-link type="primary" :disabled="scope.row.status==3 || scope.row.status==4" :underline="false" @click="claim(scope.row)">Claim</el-link>
+        <el-link type="primary" :disabled="cannotClaim(scope.row)" :underline="false" @click="claim(scope.row)">Claim</el-link>
       </template>
     </el-table-column>
   </el-table>
@@ -72,7 +74,9 @@ export default {
       loading: false,
       activeCovers: [],
       QuotationData: null,
+      onload: false,
       coverStatus: [ "Active", "Claim Accepted", "Claim Denied", "Cover Expired", "Claim Submitted", "Requested" ],
+      coverStatusColors: [ "", "success", "danger", "warning", "", "" ],
     }
   },
   computed: {
@@ -81,9 +85,17 @@ export default {
       'member',
       'web3Status',
     ]),
+    
   },
   watch: {
     web3Status: watch.web3Status,
+    "member.isMember": {
+      handler(newVal){
+        if(newVal){
+          this.initData();
+        }
+      }
+    }
   },
   created(){
     this.initData();
@@ -103,6 +115,9 @@ export default {
     },
     async getActiveCovers(){
       try{
+        if(this.onload){
+          return;
+        }
         if(!this.member.isMember){
           return;
         }
@@ -134,6 +149,7 @@ export default {
             console.error(e);
           }
         });
+        this.onload = true;
       }catch(e){
         this.loading = false;
         console.info(e);
@@ -151,6 +167,9 @@ export default {
     formatStatus(row){
 
     },
+    cannotClaim(row){
+      return row.status==1 ||row.status==3 || row.status==4 || row.status==5;
+    },
     claim(row){
       this.$router.push({ name: this.$RouteNames.COVER_CLAIM, params: JSON.parse(JSON.stringify(row)) });
     }
@@ -163,6 +182,11 @@ export default {
   .icon-name{
     vertical-align: middle;
     margin-right: 10px;
+  }
+  .el-tag-blue{
+    background-color: #ecf5ff;
+    color: #409eff;
+    border: 1px solid #d9ecff;
   }
 }
 </style>

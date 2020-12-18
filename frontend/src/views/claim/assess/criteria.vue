@@ -6,7 +6,24 @@
       </div>
       <highlight>Description</highlight>
       <br /><br />
-      <span class="secondary-text">This is test for claim function.</span>
+      <span class="secondary-text addresses">This is test for claim function.</span>
+      <br /><br />
+      <highlight>Affected addresses</highlight>
+      <br /><br />
+      <el-row :gutter="20">
+        <el-col :span="12" class="secondary-text addresses">
+          <highlight>Inspect the transactions</highlight>
+          of the <highlight>affected addresses</highlight>
+          submitted as proof of loss and
+          <highlight>answer the questions below.</highlight>
+          You can consult with other members by joining
+          <el-button type="text">#claims-discussions</el-button>
+          on Discord.
+        </el-col>
+        <el-col :span="12">
+          <el-button type="text">{{member.account}}</el-button>
+        </el-col>
+      </el-row>
     </el-card>
     <br/>
     <el-card class="box-card">
@@ -58,6 +75,30 @@
         </el-form>
       </div>
     </el-card>
+    <br/>
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <highlight>Assess loss</highlight>
+      </div>
+      <div class="card-body">
+        <el-form v-model="options.proof" :rules="proofRules">
+          <div class="secondary-text">Has the user submitted evidence of the loss they incurred?</div>
+          <el-form-item prop="evidence">
+            <el-radio-group v-model="options.proof.evidence">
+              <el-radio label="yes">Yes</el-radio>
+              <el-radio label="no">No</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <div class="secondary-text">Was there material loss to the cover owner of at least 20% of the cover amount?</div>
+          <el-form-item prop="loss">
+            <el-radio-group v-model="options.proof.loss">
+              <el-radio label="yes">Yes</el-radio>
+              <el-radio label="no">No</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-form>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -95,6 +136,14 @@ export default {
           { required: true, trigger: 'blur', message: 'Please choice yes or no' },
         ],
       },
+      proofRules: {
+        evidence: [
+          { required: true, trigger: 'blur', message: 'Please choice yes or no' },
+        ],
+        loss: [
+          { required: true, trigger: 'blur', message: 'Please choice yes or no' },
+        ],
+      }
     }
   },
   computed: {
@@ -134,6 +183,9 @@ export default {
 #claim-assess-criteria{
   .card-body{
     line-height: 35px;
+  }
+  .addresses{
+    line-height: 40px;
   }
 }
 </style>
