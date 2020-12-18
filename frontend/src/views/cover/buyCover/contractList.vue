@@ -91,11 +91,10 @@ export default {
     });
   },
   methods: {
-    initData(){
-      getCoverContracts(this).then(res=>{
-        this.contracts = res.data;
-        this.oldContracts = JSON.parse(JSON.stringify(res.data));
-      });
+    async initData(){
+      const contracts = await getCoverContracts(this)
+      this.contracts = contracts.data;
+      this.oldContracts = JSON.parse(JSON.stringify(contracts.data));
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
         this.initContract();
       }
