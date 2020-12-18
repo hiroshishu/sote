@@ -33,6 +33,7 @@
       prop="assessed" width="200"
       label="ASSESSED AS">
       <template slot-scope="scope">
+        Unknown
       </template>
     </el-table-column>
     <el-table-column
@@ -91,13 +92,6 @@ export default {
         "-1": "dange",
         "0": "info",
         "1": "success",
-      },
-      verdictsValue: {
-        "Pending": 0,
-        "OpenTo": 1,
-        "Accepted": 10,
-        "Denied": 11,
-        "PayoutPending": 12,
       },
       key: "assess_",
     }
@@ -241,7 +235,7 @@ export default {
     },
     async loadVote(claimId){
       const instance = this.ClaimsData.getContract().instance;
-      const voteId = await instance.getUserClaimVoteMember(this.member.account, claimId.toString());
+      const voteId = await instance.getUserClaimVoteCA(this.member.account, claimId.toString());
       const vote = await instance.getVoteDetails(voteId.toString());
       return {
         tokens: vote.tokens.toString(),
