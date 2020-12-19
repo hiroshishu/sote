@@ -207,6 +207,7 @@
                     contract.instance.buyToken({ from: this.$CustomWeb3.account, value: fee }).then(response => {
                       console.info(response, response.toString());
                       this.$message.success("Buy SOTE successfully!");
+                      this.$emit("refresh");
                       this.loading = false;
                     }).catch((e) => {
                       console.error(e);
@@ -219,6 +220,7 @@
                     contract.instance.sellNXMTokens(realfee, { from: this.$CustomWeb3.account }).then(response => {
                       console.info(response, response.toString());
                       this.$message.success("Sell SOTE successfully!");
+                      this.$emit("refresh");
                       this.loading = false;
                     }).catch((e) => {
                       console.error(e);

@@ -5,7 +5,7 @@
         <el-card class="item box-card">
           <div class="item-info">
             <div class="name">STAKING</div>
-            <div class="balance">{{rewards[0]}} SOTE</div>
+            <div class="balance">{{$etherToNumber(rewards[0])}} SOTE</div>
             <div>Earn rewards by staking on contracts you think are secure. </div>
           </div>
           <el-button type="primary" plain round @click="toStake">Stake</el-button>
@@ -15,7 +15,7 @@
         <el-card class="item box-card">
           <div class="item-info">
             <div class="name">CLAIM ASSESSMENT</div>
-            <div class="balance">{{rewards[1]}} SOTE</div>
+            <div class="balance">{{$etherToNumber(rewards[1])}} SOTE</div>
             <div>Earn rewards by assessing claims. </div>
           </div>
           <el-button type="primary" plain round @click="viewOpenClaims">View open claims</el-button>
@@ -25,7 +25,7 @@
         <el-card class="item box-card">
           <div class="item-info">
             <div class="name">GOVERNANCE</div>
-            <div class="balance">{{rewards[2]}} SOTE</div>
+            <div class="balance">{{$etherToNumber(rewards[2])}} SOTE</div>
             <div>Earn rewards by voting in governance. </div>
           </div>
           <el-button type="primary" plain round @click="vote">Vote</el-button>
@@ -44,14 +44,22 @@ export default {
   name: 'Channel',
   data() {
     return {
-      rewards: []
+      rewards: [],
+      onload: false,
     }
   },
   computed: {
-    ...mapGetters(['web3Status']),
+    ...mapGetters(['web3Status', 'member']),
   },
   watch: {
-    web3Status: watch.web3Status
+    web3Status: watch.web3Status,
+    "member.isMember": {
+      handler(newVal){
+        if(newVal){
+          this.initData();
+        }
+      }
+    }
   },
   created() {
     this.initData();
@@ -62,7 +70,12 @@ export default {
   methods: {
     async initData(){
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
-        this.rewards = await getRewardData(this);
+        if(!this.onload){
+          this.rewards = await getRewardData(this);
+          if(this.rewards.filter(item => !item).length == 0){
+            this.onload = true;
+          }
+        }
       }
     },
     toStake() {
@@ -79,6 +92,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/styles/element-variables.scss';
   .channel {
     .item {
       &-info {
@@ -91,6 +105,8 @@ export default {
         >.balance {
           margin: 10px 0;
           font-size: 20px;
+          font-weight: bold;
+          color: $--color-primary;
         }
       }
 

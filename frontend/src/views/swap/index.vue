@@ -3,10 +3,10 @@
     <StartMembership/>
     <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="BNB & SOTE" name="bnb">
-        <BNBAndSOTE />
+        <BNBAndSOTE @refresh="refreshAllowance"/>
       </el-tab-pane>
       <el-tab-pane label="WSOTE & SOTE" name="wsote">
-        <wSOTEAndSOTE />
+        <wSOTEAndSOTE @refresh="refreshAllowance" />
       </el-tab-pane>
 
     </el-tabs>
@@ -54,14 +54,13 @@ export default {
       }
     },
     async initContract(){
-      if(this.activeName == "bnb"){
-        this.$Bus.$emit(this.$EventNames.refreshAllowance, this.settings.contracts.TokenController, "TokenController");
-      }else{
-        this.$Bus.$emit(this.$EventNames.refreshAllowance, this.settings.contracts.wSOTE, "wSOTE");
-      }
+      this.refreshAllowance();
     },
     handleClick(tab){
-      if(tab.name == "bnb"){
+      this.refreshAllowance();
+    },
+    refreshAllowance(){
+      if(this.activeName == "bnb"){
         this.$Bus.$emit(this.$EventNames.refreshAllowance, this.settings.contracts.TokenController, "TokenController");
       }else{
         this.$Bus.$emit(this.$EventNames.refreshAllowance, this.settings.contracts.wSOTE, "wSOTE");

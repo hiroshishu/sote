@@ -127,7 +127,7 @@ export default {
     },
     //只允许输入合法的数字
     checkAmount(value){
-      let newValue = this.getNumber(value);
+      let newValue = this.getNumber(value).replace(/\./g, "");
       this.options.amount = newValue;
       return newValue;
     },

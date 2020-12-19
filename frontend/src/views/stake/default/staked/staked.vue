@@ -1,7 +1,7 @@
 <template>
   <div id="stake-default-staked-staked">
     <el-row :gutter="20">
-      <el-col :span="8" style="margin-bottom: 20px;">
+      <el-col :span="8">
         <el-card class="box-card">
           <div slot="header">TOTAL PROJECTS</div>
           <div class="content">
@@ -18,7 +18,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="8" style="margin-bottom: 20px;">
+      <el-col :span="8">
         <el-card class="box-card">
           <div slot="header">DEPOSIT</div>
           <div class="content">
@@ -38,7 +38,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="8" style="margin-bottom: 20px;">
+      <el-col :span="8">
         <el-card class="box-card">
           <div slot="header">AVAILABLE FOR STAKING</div>
           <div class="content">

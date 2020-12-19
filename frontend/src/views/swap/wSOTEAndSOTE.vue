@@ -168,7 +168,7 @@
               console.info(response, response.toString());
               this.$message.success("Wrap successfully");
               this.loading = false;
-              this.$Bus.$emit(this.$EventNames.refreshAllowance, this.settings.contracts.wSOTE, "wSOTE");
+              this.$Bus.$emit("refresh");
             }).catch((e) => {
               console.error(e);
               this.$message.error(e.message);
@@ -191,7 +191,7 @@
               console.info(response, response.toString());
               this.$message.success("Unwrap successfully");
               this.loading = false;
-              this.$Bus.$emit(this.$EventNames.refreshAllowance, this.settings.contracts.wSOTE, "wSOTE");
+              this.$Bus.$emit("refresh");
             }).catch((e) => {
               console.error(e);
               this.$message.error(e.message);
