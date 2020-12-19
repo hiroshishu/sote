@@ -144,7 +144,7 @@
         },
         balanceValue(){
             try{
-                return this.$etherToNumber(this.member.balance, true);
+                return this.$etherToValue(this.member.balance);
             }catch(e){
                 return 0;
             }
@@ -183,7 +183,7 @@
         async getRate(){
             const rate = await getRate(this);
             this.rateBN = rate.toString();
-            this.rate = this.$etherToNumber(this.rateBN, "ether");
+            this.rate = this.$etherToValue(this.rateBN);
             console.info("Current rate:", this.rate);
         },
         switchType(){

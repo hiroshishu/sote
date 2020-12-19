@@ -128,8 +128,8 @@ export default {
         return;
       }
       
-      if(vBN.gt(this.$etherToNumber(this.options.maxWithdraw))){
-        this.$message.error(`You can withdraw ${this.$etherToNumber(this.options.maxWithdraw)} SOTE maximum.`);
+      if(vBN.gt(this.$etherToValue(this.options.maxWithdraw))){
+        this.$message.error(`You can withdraw ${this.$etherToValue(this.options.maxWithdraw)} SOTE maximum.`);
         return;
       }
       return true;

@@ -142,7 +142,7 @@ export default {
     getDeposit(){
       const contract = this.PooledStaking.getContract();
       contract.instance.stakerDeposit(this.member.account).then(res => {
-        this.options.totalAmount = this.$etherToNumber(res.toString());
+        this.options.totalAmount = this.$etherToValue(res.toString());
       });
     },
     getAllStaked(){
@@ -187,10 +187,10 @@ export default {
       const contract = this.PooledStaking.getContract();
       const ownerStaked = await contract.instance.stakerContractStake(this.member.account, item.address);
       item.stakedStatus = "staked";// 代表已经stake过了
-      item.ownerStaked = this.$etherToNumber(ownerStaked.toString());
+      item.ownerStaked = this.$etherToValue(ownerStaked.toString());
       
       const unstaked = await contract.instance.stakerContractPendingUnstakeTotal(this.member.account, item.address);
-      item.unstaked = this.$etherToNumber(unstaked.toString());
+      item.unstaked = this.$etherToValue(unstaked.toString());
       item.unstaking = 0;
     },
     isSelected(project){

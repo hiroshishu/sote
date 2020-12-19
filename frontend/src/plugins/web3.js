@@ -117,20 +117,28 @@ export default {
       const bn = new utils.BN(utils.toWei(n, 'ether'));
       return bn.toString();
     }
-    function etherToNumber(n, isNotToFixed) {
+    // 默认保留小数点后两位
+    function etherToNumber(n) {
       if(n!=null && this.$CustomWeb3 && this.$CustomWeb3.web3){
           let utils = this.$CustomWeb3.web3.utils;
-          if(isNotToFixed){
-            return utils.fromWei(n.toString(), 'ether').toString();
-          }
           return BigNumber(utils.fromWei(n.toString(), 'ether').toString()).toFixed(2, 1);
       }
-      return "N/A";
+      return n;
+    }
+
+    // 全部返回
+    function etherToValue(n) {
+      if(n!=null && this.$CustomWeb3 && this.$CustomWeb3.web3){
+          let utils = this.$CustomWeb3.web3.utils;
+          return utils.fromWei(n.toString(), 'ether').toString();
+      }
+      return n;
     }
 
     Vue.prototype.$CustomWeb3 = CustomWeb3;
     Vue.prototype.getContract = getContract;
     Vue.prototype.$ether = ether;
     Vue.prototype.$etherToNumber = etherToNumber;
+    Vue.prototype.$etherToValue = etherToValue;
   }
 }

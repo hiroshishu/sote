@@ -183,7 +183,7 @@ export default {
         this.form.allowance = "";
         this.type = "Max";
       }else{
-        this.form.allowance = this.$etherToNumber(contAllowance.curAllowance);
+        this.form.allowance = this.$etherToValue(contAllowance.curAllowance);
       }
     },
     async grantAllowance(){
