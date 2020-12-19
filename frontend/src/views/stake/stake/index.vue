@@ -79,7 +79,7 @@ export default {
   created(){
     this.initData();
     this.$Bus.bindEvent(this.$EventNames.switchAccount, this._uid, (account)=>{
-      this.initData();
+      this.$router.push("/system/stake/default");
     });
   },
   destroyed(){

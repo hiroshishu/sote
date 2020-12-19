@@ -90,7 +90,7 @@ export default {
       return percent.gt(100) ? 100 : parseFloat(percent.toFixed(2).toString());
     },
     remainingDeposit(){
-      return BigNumber(this.options.deposit).minus(this.options.withdraw).toString();
+      return BigNumber(this.options.deposit).minus(this.options.withdraw).toFixed(2, 1);
     }
   },
   watch: {

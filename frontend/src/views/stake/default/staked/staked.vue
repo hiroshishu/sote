@@ -23,7 +23,7 @@
           <div slot="header">DEPOSIT</div>
           <div class="content">
             <div class="normal-text-bold">
-              {{options.deposit}} SOTE
+              {{toFixed(options.deposit)}} SOTE
             </div>
             <div class="normal-text">
               Remember that you can stake your total deposit up to <highlight>10 times.</highlight> <svg-icon icon-class="Money"></svg-icon>
@@ -43,7 +43,7 @@
           <div slot="header">AVAILABLE FOR STAKING</div>
           <div class="content">
             <div class="normal-text-bold">
-              {{availableStaking}} SOTE
+              {{toFixed(availableStaking)}} SOTE
             </div>
             <div class="normal-text">
               <highlight>Leverage</highlight> your deposit for more rewards by staking your available SOTE. <svg-icon icon-class="broken-line"></svg-icon>
@@ -63,7 +63,7 @@
           <div slot="header">AVAILABLE REWARDS</div>
           <div class="content">
             <div class="normal-text-bold">
-              {{options.rewards}} SOTE
+              {{toFixed(options.rewards)}} SOTE
             </div>
             <div class="normal-text">
               Keep an eye out <el-button type="text">here</el-button> for <highlight>shield mining</highlight> rewards from community partners. <i class="el-icon-search"></i>
@@ -80,7 +80,7 @@
           <div slot="header">UNSTAKED AMOUNT PENDING</div>
           <div class="content">
             <div class="normal-text-bold">
-              {{unstaked}} SOTE
+              {{toFixed(unstaked)}} SOTE
             </div>
             <div class="normal-text">
               Unstaking takes 90 days. Check pending unstaked amounts under history.
@@ -163,6 +163,9 @@ export default {
       }
     },
     async initContract(){
+    },
+    toFixed(value){
+      return BigNumber(value).toFixed(2, 1);
     },
     addMore(param){
       this.options.redirect = "deposit";

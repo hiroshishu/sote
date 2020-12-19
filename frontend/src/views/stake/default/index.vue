@@ -95,6 +95,7 @@ export default {
     },
     getStakedProjects(){
       const contract = this.PooledStaking.getContract();
+      this.options.stakedProjects = [];
       contract.instance.stakerContractsArray(this.member.account).then(async res => {
         const stakedProjects = res;
         const map = {};

@@ -139,7 +139,7 @@ export default {
       if(column.property == "amount"){
         return this.$etherToNumber(this.member[row.amount]);
       }
-      if(column.property == "withdrawable" && row.withdrawable!="0"){
+      if(column.property == "withdrawable" && row.withdrawable && row.withdrawable!="0"){
         return this.$etherToNumber(this.member[row.withdrawable]);
       }
       if(row[column.property] == undefined || row[column.property] == null){

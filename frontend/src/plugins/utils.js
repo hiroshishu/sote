@@ -1,6 +1,7 @@
 import { BNB_BYTE8, CLA_BYTE } from '@/utils/Constants.js'
 import Moment from 'moment';
 import { ROUTE_NAMES } from '@/utils/Constants.js'
+import { BigNumber } from 'bignumber.js'
 
 export default {
   install : function (Vue, options){
@@ -41,6 +42,10 @@ export default {
       return localStorage.getItem(key);
     }
 
+    function toFixed(value){
+      return BigNumber(value).toFixed(2, 1);
+    }
+
     Vue.prototype.formatterLongString = formatterLongString;
     Vue.prototype.getNumber = getNumber;
     Vue.prototype.$BNB_BYTE8 = BNB_BYTE8;
@@ -51,5 +56,6 @@ export default {
     Vue.prototype.cacheValue = cacheValue;
     Vue.prototype.getObjectCache = getObjectCache;
     Vue.prototype.getValueCache = getValueCache;
+    Vue.prototype.$toFixed = toFixed;
   }
 }

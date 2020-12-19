@@ -52,7 +52,8 @@ export default {
       'settings'
     ]),
     staked(){
-      return this.options.stakedProjects.map(item => item.ownerStaked).reduce((total, item) => BigNumber(total?total:0).plus(item?item:0)).toString();
+      return BigNumber(this.options.stakedProjects.map(item => item.ownerStaked)
+        .reduce((total, item) => BigNumber(total?total:0).plus(item?item:0))).toFixed(2, 1);
     },
     depositUsage(){
       const totalDeposit = BigNumber(this.options.deposit).multipliedBy(this.settings.stake.maxAmount.toString());

@@ -18,7 +18,7 @@
           prop="unstaked"
           label="AMOUNT">
           <template slot-scope="scope">
-            {{scope.row.unstaked}} SOTE
+            {{$toFixed(scope.row.unstaked)}} SOTE
           </template>
         </el-table-column>
         <el-table-column

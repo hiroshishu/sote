@@ -10,8 +10,8 @@
         </el-row>
         <el-progress :text-inside="true" :stroke-width="25" :percentage="percentage" status="exception"></el-progress>
         <el-row>
-          <span>{{usedAmount}} SOTE</span>
-          <span style="float: right;">{{maxTotalAmount - usedAmount}} SOTE</span>
+          <span>{{$toFixed(usedAmount)}} SOTE</span>
+          <span style="float: right;">{{$toFixed(maxTotalAmount - usedAmount)}} SOTE</span>
         </el-row>
         <br />
         <el-form label-width="120px" label-position="left">
@@ -19,13 +19,13 @@
             <highlight>Before</highlight>
           </div>
           <el-form-item label="Deposit:">
-            {{options.deposit}} SOTE
+            {{$toFixed(options.deposit)}} SOTE
           </el-form-item>
           <div>
             <highlight>After</highlight>
           </div>
           <el-form-item label="Deposit:">
-            {{options.deposit - options.withdraw}} SOTE
+            {{$toFixed(options.deposit - options.withdraw)}} SOTE
           </el-form-item>
         </el-form>
       </div>
@@ -127,7 +127,7 @@ export default {
         this.$message.error('Enter an amount must be greater than 0!');
         return;
       }
-      
+
       if(vBN.gt(this.$etherToValue(this.options.maxWithdraw))){
         this.$message.error(`You can withdraw ${this.$etherToValue(this.options.maxWithdraw)} SOTE maximum.`);
         return;

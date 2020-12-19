@@ -111,6 +111,10 @@ export default {
   },
   created(){
     this.initData();
+    this.$Bus.bindEvent(this.$EventNames.switchAccount, this._uid, (account)=>{
+      this.onload = false;
+      this.initData();
+    });
   },
   methods: {
     async initData(){
@@ -197,7 +201,7 @@ export default {
           const voteIndex = await instance.getVoteAddressCA(this.member.account, curload.toString());
           const vote = await this.loadVote(voteIndex);
           const finalVerdict = await instance.getFinalVerdict(vote.claimId);
-          
+
           // 从缓存读取数据
           let claim = this.getObjectCache(this.key + vote.claimId);
 
@@ -210,7 +214,7 @@ export default {
             claim = {};
             await this.loadClaim(vote.claimId, claim);
             console.info("完成claim");
-            
+
             // 查cover
             const cover = await loadCover(this, claim.coverId, false, this.contracts);
             claim.cover = cover;

@@ -6,10 +6,10 @@
       <div style="margin-bottom: 20px;">
         <el-form label-width="120px" label-position="left">
           <el-form-item label="Pending:">
-            {{unstaked}} SOTE
+            {{$toFixed(unstaked)}} SOTE
           </el-form-item>
           <el-form-item label="Available:">
-            {{available}} SOTE
+            {{$toFixed(available)}} SOTE
           </el-form-item>
           <el-form-item label="Contracts:">
             {{options.stakedProjects.length}}

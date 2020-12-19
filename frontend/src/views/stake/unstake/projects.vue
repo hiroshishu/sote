@@ -29,7 +29,7 @@
                 <el-switch @change="unstakeChange(scope.row)" :disabled="isNotUnstake(scope.row)"
                   v-model="scope.row.unstakeFlag" >
                 </el-switch>
-                {{scope.row.unstaking}} SOTE
+                {{toFixed(scope.row.unstaking)}} SOTE
               </el-form-item>
             </el-form>
           </template>
@@ -50,7 +50,7 @@ export default {
   props: ["options"],
   data() {
     return {
-      
+
     }
   },
   computed: {
@@ -79,11 +79,14 @@ export default {
     async initContract(){
 
     },
+    toFixed(value){
+      return BigNumber(value).toFixed(2, 1);
+    },
     formatStaked(row){
       if(row.oldOwnerStaked == undefined){
         row.oldOwnerStaked = row.ownerStaked;
       }
-      return row.oldOwnerStaked;
+      return this.toFixed(row.oldOwnerStaked);
     },
     isNotUnstake(row){
       return BigNumber(row.ownerStaked).eq(0) || BigNumber(row.unstaked).gt(0);

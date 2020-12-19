@@ -17,7 +17,7 @@
           prop="stake"
           label="STAKED">
           <template slot-scope="scope">
-            {{scope.row.ownerStaked}} SOTE
+            {{toFixed(scope.row.ownerStaked)}} SOTE
           </template>
         </el-table-column>
         <el-table-column width="200px"
@@ -75,6 +75,9 @@ export default {
     },
     async initContract(){
 
+    },
+    toFixed(value){
+      return BigNumber(value).toFixed(2, 1);
     },
     isUnstake(row){
       return BigNumber(row.ownerStaked).gt(0) && BigNumber(row.unstaked).eq(0);

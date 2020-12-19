@@ -9,13 +9,13 @@
             <highlight>Before</highlight>
           </div>
           <el-form-item label="Pending:">
-            {{unstaked}} SOTE
+            {{$toFixed(unstaked)}} SOTE
           </el-form-item>
           <div>
             <highlight>After</highlight>
           </div>
           <el-form-item label="Pending:">
-            {{allUnstake}} SOTE
+            {{$toFixed(allUnstake)}} SOTE
           </el-form-item>
         </el-form>
       </div>
