@@ -117,10 +117,13 @@ export default {
       const bn = new utils.BN(utils.toWei(n, 'ether'));
       return bn.toString();
     }
-    function etherToNumber(n) {
+    function etherToNumber(n, isNotToFixed) {
       if(n!=null && this.$CustomWeb3 && this.$CustomWeb3.web3){
           let utils = this.$CustomWeb3.web3.utils;
-          return BigNumber(utils.fromWei(n.toString(), 'ether').toString()).toFixed(2, 1).toString();
+          if(isNotToFixed){
+            return utils.fromWei(n.toString(), 'ether').toString();
+          }
+          return BigNumber(utils.fromWei(n.toString(), 'ether').toString()).toFixed(2, 1);
       }
       return "N/A";
     }

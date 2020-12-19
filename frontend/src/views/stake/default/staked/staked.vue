@@ -96,7 +96,7 @@
         </el-card>
       </el-col>
       <el-col :span="8" style="margin-bottom: 20px;">
-        <el-card class="box-card">
+        <el-card class="box-card" style="display: none;">
           <div slot="header">PROJECTS PERFORMANCE</div>
           <div class="content">
             <div class="normal-text-bold">

@@ -22,7 +22,7 @@
                   <div slot="header" class="clearfix">
                     <span>Amount</span>
                     <el-link v-if="showReset" @click="form.amount='0'" type="primary" style="float: right; padding: 3px 0" :underline="false">Reset</el-link>
-                    <el-link v-else @click="form.amount=balance.toString()" type="success" :underline="false" style="float: right; padding: 3px 0">Max</el-link>
+                    <el-link v-else @click="form.amount=balanceValue.toString()" type="success" :underline="false" style="float: right; padding: 3px 0">Max</el-link>
                   </div>
                   <div>
                     <el-form-item prop="amount">
@@ -141,6 +141,13 @@
                 console.error(e);
                 return 'N/A';
             }
+        },
+        balanceValue(){
+            try{
+                return this.$etherToNumber(this.member.balance, true);
+            }catch(e){
+                return 0;
+            }
         }
       },
       watch: {
@@ -238,6 +245,7 @@
           });
         },
         validateAmount(rule, value, callback){
+          try{
             const result = /^((0(\.[0-9]+)?)|([1-9][0-9]*(\.[0-9]+)?))$/g.test(value);
             if(!result){
                 callback(new Error('Please enter a valid amount'));
@@ -255,6 +263,9 @@
                 return;
             }
             callback();
+          }catch(e){
+            callback(new Error(e.message));
+          }
         },
         toMembership(){
           this.$router.replace("/start/member");

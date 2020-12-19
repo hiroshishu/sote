@@ -9,18 +9,18 @@ const state = {
     accountBalance: 0, // 当前metamask账户的BNB余额
     // 购买保单cover所有花费,Cover deposits: QuotationData合约getAllCoversOfUser(address _add)拿到用户持有的coverid,
     // 通过getCoverPremiumSOTE(uint _cid)遍历coverid用户支付的SOTE总数，求和得到该数据。
-    coverDeposit: 0, 
+    coverDeposit: 0,
     /**
      * 当前处于理赔评估的SOTE
-     * Cliam assessment: TokenController合约tokensLocked(address _of, bytes32 _reason)获取lock数量。 
+     * Cliam assessment: TokenController合约tokensLocked(address _of, bytes32 _reason)获取lock数量。
      * _reason为"CLA"的byte表示0x434c41；tokensUnlockable(address _of, bytes32 _reason) 获取可withdraw数量
      */
-    assessment: 0, 
+    assessment: 0,
     withdrawAssessment: 0,
     /**
      * Pooled staking: 用stakerContractsArray, stakerContractStake两个接口获取所有合约当前stake数量，再计算总数
      */
-    pooledStaking: 0, 
+    pooledStaking: 0,
     /**
      * 显示stake的total deposit数量
      */

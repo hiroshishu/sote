@@ -100,7 +100,7 @@ export default {
         this.options.totalAmount = params.deposit;
         this.options.redirect = params.redirect;
       }
-      
+
       if(this.options.redirect == "deposit"){
         this.options.active = 1;
       }
@@ -136,10 +136,10 @@ export default {
 
         const contract = this.PooledStaking.getContract();
         // 转成string，否则prod打包后会报错
-        const amountCount = this.$ether(BigNumber(this.options.perAmount).toFixed(2, 1).toString()).toString();
+        const amountCount = this.$ether(this.options.perAmount.toString()).toString();
         const addresses = this.options.selectedProject.map(item=>item.address);
         // 合约的stake值是本次stake加上之前已经stake的值
-        const stakes = this.options.selectedProject.map(item=>this.$ether(BigNumber(item.stake.toString()).plus(item.ownerStaked).toFixed(2, 1).toString()).toString());
+        const stakes = this.options.selectedProject.map(item=>this.$ether(BigNumber(item.stake.toString()).plus(item.ownerStaked).toString()).toString());
         this.loading = true;
         console.info(amountCount, addresses, stakes);
         contract.instance.depositAndStake(amountCount, addresses, stakes, { from: this.member.account }).then(response => {

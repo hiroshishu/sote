@@ -43,7 +43,7 @@ export async function getAssessment(vue){
   const instance = TokenController.getContract().instance;
   const lockedStake = await instance.tokensLocked(member.account, vue.$CLA_BYTE);
   const unlockedStake = await instance.tokensUnlockable(member.account, vue.$CLA_BYTE);
-  
+
   vue.$store.dispatch("member/changeMember", {
     key: "assessment",
     value: lockedStake.toString()
@@ -88,11 +88,15 @@ export async function getRewards(vue){
   }
   const PooledStaking = await vue.getContract(PooledStakingContract);
   const instance = PooledStaking.getContract().instance;
-  instance.stakerReward(member.account).then(res => {
-    vue.$store.dispatch("member/changeMember", {
-      key: "rewards",
-      value: res.toString()
-    });
+  const pooledStakingRewards = await instance.stakerReward(member.account);
+
+  const ClaimsReward = await vue.getContract(ClaimsRewardContract);
+  const crInstance = ClaimsReward.getContract().instance;
+  const caRewards = await crInstance.getRewardToBeDistributedByUser(member.account);
+
+  vue.$store.dispatch("member/changeMember", {
+    key: "rewards",
+    value: BigNumber(caRewards.toString()).plus(pooledStakingRewards.toString()).toString()
   });
 }
 

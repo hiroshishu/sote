@@ -8,7 +8,7 @@
             {{beforeStake}} SOTE
         </el-form-item>
         <el-form-item label="Deposit:">
-            {{options.totalAmount}} SOTE
+            {{beforeTotalDeposit}} SOTE
         </el-form-item>
         <el-form-item label="Contracts:">
             {{beforeLength}}
@@ -19,7 +19,7 @@
       </div>
       <el-form label-width="150px">
         <el-form-item label="Stake:">
-            {{usedAmount}} SOTE
+            {{usedAmountShow}} SOTE
         </el-form-item>
         <el-form-item label="Deposit:">
             {{totalDeposit}} SOTE
@@ -62,6 +62,15 @@ export default {
       if(this.options.selectedProject.length==0){
         return 0;
       }
+      return this.options.selectedProject.map(item=>BigNumber(item.stake).plus(item.ownerStaked))
+                            .reduce((total, item)=>BigNumber(total?total:0).plus(item?item:0));
+    },
+    // 已经stake的总和
+    usedAmountShow(){
+      // 计算总和
+      if(this.options.selectedProject.length==0){
+        return 0;
+      }
       return BigNumber(this.options.selectedProject.map(item=>BigNumber(item.stake).plus(item.ownerStaked))
                             .reduce((total, item)=>BigNumber(total?total:0).plus(item?item:0))).toFixed(2, 1);
     },
@@ -69,8 +78,11 @@ export default {
       return BigNumber(this.options.selectedProject.map(item=>item.ownerStaked)
                             .reduce((total, item)=>BigNumber(total?total:0).plus(item?item:0))).toFixed(2, 1);
     },
+    beforeTotalDeposit(){
+      return BigNumber(this.options.totalAmount.toString()).toFixed(2, 1);
+    },
     totalDeposit(){
-      return BigNumber(this.options.totalAmount.toString()).plus(this.options.perAmount).toFixed(2, 1).toString();
+      return BigNumber(this.options.totalAmount.toString()).plus(this.options.perAmount).toFixed(2, 1);
     },
     perAmount(){
       return BigNumber(this.options.perAmount).toFixed(2, 1);
