@@ -21,13 +21,13 @@
       <div v-if="tooltipType=='network'">
         <h1>Unsupported Network</h1>
 
-        <span class="secondary-text"><svg-icon icon-class="circle" class="icon"></svg-icon>Switch to mainnet network to use the app!</span>
+        <span class="secondary-text"><svg-icon icon-class="circle" class="icon error-color"></svg-icon>Switch to mainnet network to use the app!</span>
       </div>
       <div v-else>
         <h1>No installed the Metamask</h1>
 
         <span class="secondary-text">
-          <svg-icon icon-class="circle" class="icon"></svg-icon>Please install the Metamask!
+          <svg-icon icon-class="circle" class="icon error-color"></svg-icon>Please install the Metamask!
           <el-button type="text" @click="downloadMetamask">Download</el-button>.<br/>
           If you have installed the Metamask, <el-button type="text" @click="reloadPage">please reload the Metamask</el-button>.
         </span>

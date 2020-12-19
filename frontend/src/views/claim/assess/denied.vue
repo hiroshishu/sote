@@ -11,29 +11,29 @@
       </div>
       <div class="denied-reason">
         <div v-if="options.criteria.incident=='no'">
-          <svg-icon icon-class="circle" class="icon"></svg-icon>
+          <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
           An incident should have occured during the period the cover was active.
         </div>
         <div v-if="options.criteria.bebore=='yes'">
-          <svg-icon icon-class="circle" class="icon"></svg-icon>
+          <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
           The bug was publicly disclosed before the cover period began.
         </div>
         <div v-if="options.criteria.loss=='no'">
-          <svg-icon icon-class="circle" class="icon"></svg-icon>
+          <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
           There should have been a total material loss due to the incident of at least 20% of the cover amount.
         </div>
         <div v-if="options.criteria.unintended=='no'">
-          <svg-icon icon-class="circle" class="icon"></svg-icon>
+          <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
           The incident should have been the direct result of the smart contract code being used in an unintended way.
         </div>
         <div v-if="options.criteria.hacks=='yes'">
-          <svg-icon icon-class="circle" class="icon"></svg-icon>
+          <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
           The loss of funds should not have occurred due to phishing,
           private key security breaches, malware, exchange hacks or any other activity where 
           the covered smart contract continued to act as intended.
         </div>
         <div v-if="options.criteria.exteranal=='yes'">
-          <svg-icon icon-class="circle" class="icon"></svg-icon>
+          <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
           The incident should not have occurred due to inputs external to the smart contract system,
           that behaved in an unintended ways, but the smart contract system continued to operate as intended.
           (Where inputs include but are note limited to: oracles, governance systems, incentive structures, 

@@ -16,7 +16,7 @@
         </el-form-item>
         <el-form-item>
           <div class="secondary-text">
-            <svg-icon icon-class="circle" class="icon"></svg-icon>
+            <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
             Find and select the contract you want to cover.
           </div>
         </el-form-item>

@@ -2,7 +2,7 @@
   <div v-if="!member.isMember">
     <el-card class="box-card">
         <div class="tip normal-text">
-          <svg-icon icon-class="circle" class="icon"></svg-icon>
+          <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
           This address is not a member. Please make sure you have the correct address connected, or become a member.
           <el-button round @click="toMembership" type="primary" style="float: right;">Start Membership Process</el-button>
         </div>

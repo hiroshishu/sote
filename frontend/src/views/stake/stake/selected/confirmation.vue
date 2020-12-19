@@ -29,7 +29,7 @@
         </el-form-item>
       </el-form>
       <el-row v-if="isInsufficientAllowance" class="error">
-        <svg-icon icon-class="circle" class="icon-name"></svg-icon>
+        <svg-icon icon-class="circle" class="icon-name error-color"></svg-icon>
         Insufficient Allowance
       </el-row>
     </div>

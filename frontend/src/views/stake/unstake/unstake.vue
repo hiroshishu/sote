@@ -2,7 +2,7 @@
   <el-card id="stake-unstake-unstake" class="box-card">
     <h3 class="main-text">Unstake</h3>
     <div class="secondary-text">
-      <svg-icon icon-class="circle" class="icon-name"></svg-icon>
+      <svg-icon icon-class="circle" class="icon-name error-color"></svg-icon>
       If you unstake from a project you will enter a 90 day lock up period.
       During this time you will continue to receive SOTE rewards
       (but <highlight>not</highlight> shield mining incentive rewards)

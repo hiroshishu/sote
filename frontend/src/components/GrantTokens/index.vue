@@ -3,7 +3,7 @@
     v-if="showGrants()"
     element-loading-text="Transaction is confirming ...">
     <el-card class="box-card" v-for="contAllowance in contractsAllowance" v-if="showGrant(contAllowance)">
-      <svg-icon icon-class="circle" class="icon"></svg-icon>
+      <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
       Make sure sufficient SOTE allowance approved before swap or deposit. Current allowance to
       <el-button type="text">{{contAllowance.contractName}}</el-button> contract is:
       <span class="highlight">{{formatAllowance(contAllowance.curAllowance)}}</span><span class="end">.</span>

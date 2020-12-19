@@ -61,11 +61,11 @@
         </el-row>
         <el-row>
             <div class="tip normal-text" v-if="member.isMember">
-                <svg-icon icon-class="circle" class="icon"></svg-icon>
+                <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
                 Rate is set at transaction time and therefore could change.
             </div>
             <div class="tip normal-text" v-else>
-                <svg-icon icon-class="circle" class="icon"></svg-icon>
+                <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
                 This address is not a member. Please make sure you have the correct address connected, or become a member.
             </div>
         </el-row>

@@ -15,7 +15,7 @@
       <span style="float: right;">REMAINING</span>
     </el-row>
     <el-row class="error" v-if="topupValue > 0">
-      <svg-icon icon-class="circle" class="icon-name"></svg-icon>
+      <svg-icon icon-class="circle" class="icon-name error-color"></svg-icon>
       Top up with {{topupValue}} SOTE or stake {{perAmount}} maximum per contract.
       <br/>
       <div style="margin-bottom: 10px;text-align: center;">
@@ -23,14 +23,14 @@
       </div>
     </el-row>
     <el-row class="error" v-else-if="isInsufficientFunds">
-      <svg-icon icon-class="circle" class="icon-name"></svg-icon>
+      <svg-icon icon-class="circle" class="icon-name error-color"></svg-icon>
       Insufficient funds.<br/>
       <div style="margin-bottom: 10px;text-align: center;">
         <el-button type="primary" plain round size="small" @click="buySote" style="width:80%;">Swap Tokens</el-button>
       </div>
     </el-row>
     <el-row class="error" v-else-if="isMin" style="margin-bottom: 10px;text-align: center;">
-      <svg-icon icon-class="circle" class="icon-name"></svg-icon>
+      <svg-icon icon-class="circle" class="icon-name error-color"></svg-icon>
       Stake {{settings.stake.minAmountPerContract}} SOTE minumum per contract.<br/>
     </el-row>
   </div>

@@ -12,7 +12,7 @@
       <LiTitle>Agreement</LiTitle>
       <LiList :listData="listData">
         <template slot="title" slot-scope="scope">
-          <svg-icon icon-class="circle" class="icon"></svg-icon>
+          <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
           {{scope.title}}
         </template>
       </LiList>
