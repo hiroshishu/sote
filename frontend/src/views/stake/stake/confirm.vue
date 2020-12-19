@@ -86,7 +86,7 @@ export default {
       this.$emit("addMore");
     },
     staked(row){
-      return BigNumber(row.stake).plus(row.ownerStaked);
+      return BigNumber(row.stake).plus(row.ownerStaked).toFixed(2, 1);
     }
   }
 }

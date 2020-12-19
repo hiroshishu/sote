@@ -62,8 +62,8 @@ export default {
       if(this.options.selectedProject.length==0){
         return 0;
       }
-      return this.options.selectedProject.map(item=>BigNumber(item.stake).plus(item.ownerStaked))
-                            .reduce((total, item)=>BigNumber(total?total:0).plus(item?item:0));
+      return BigNumber(this.options.selectedProject.map(item=>BigNumber(item.stake).plus(item.ownerStaked))
+                            .reduce((total, item)=>BigNumber(total?total:0).plus(item?item:0))).toFixed(2, 1);
     },
     // 列表中所有合约的最大stake值
     maxPerAmount(){
@@ -71,8 +71,8 @@ export default {
       if(this.options.selectedProject.length==0){
         return 0;
       }
-      return this.options.selectedProject.map(item=>BigNumber(item.stake.toString()).plus(item.ownerStaked))
-                             .reduce((max, item)=> item ? (max>item? max : item) : (max?max:0));
+      return BigNumber(this.options.selectedProject.map(item=>BigNumber(item.stake.toString()).plus(item.ownerStaked))
+                             .reduce((max, item)=> item ? (max>item? max : item) : (max?max:0))).toFixed(2, 1);
     },
     percentage(){
       if(this.options.maxTotalAmount<=0){
@@ -86,15 +86,16 @@ export default {
     },
     // 判断有没有不符合最小stake金额的合约
     isMin(){
-      return this.options.selectedProject.filter(item=>BigNumber(item.stake.toString()).plus(item.ownerStaked).comparedTo(this.settings.stake.minAmountPerContract)<0).length > 0;
+      return this.options.selectedProject.filter(item=>BigNumber(BigNumber(item.stake.toString()).plus(item.ownerStaked).toFixed(2, 1))
+            .comparedTo(this.settings.stake.minAmountPerContract)<0).length > 0;
     },
     // 需要充值金额
     topupValue(){
-      return BigNumber(this.maxPerAmount.toString()).minus(this.perAmount).toString();
+      return BigNumber(this.maxPerAmount.toString()).minus(this.perAmount).toFixed(2, 1).toString();
     },
     // 每个合约目前允许的最大金额
     perAmount(){
-      return BigNumber(this.options.perAmount.toString()).plus(this.options.totalAmount);
+      return BigNumber(this.options.perAmount.toString()).plus(this.options.totalAmount).toFixed(2, 1);
     }
   },
   watch: {

@@ -149,7 +149,7 @@ export default {
     },
     // 总充值金额，perAmount本次充值金额，totalAmount已经充值金额
     totalAmount(){
-      return BigNumber(this.options.perAmount).plus(this.options.totalAmount).toString();
+      return BigNumber(this.options.perAmount).plus(this.options.totalAmount).toFixed(2, 1).toString();
     }
   },
   watch: {
@@ -177,7 +177,7 @@ export default {
 
     },
     staked(row){
-      return BigNumber(row.stake.toString()).plus(row.ownerStaked).toString();
+      return BigNumber(row.stake.toString()).plus(row.ownerStaked).toFixed(2, 1).toString();
     },
     // 允许的最大stake总金额
     maxTotalAmount(){

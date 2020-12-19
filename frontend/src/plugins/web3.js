@@ -3,6 +3,7 @@ import store from '@/store'
 import { WEB3_STATUS } from '@/utils/Constants.js'
 import { initMember, getAllowance, getBalance, getWBalance } from '@/api/common.js'
 import Bus from '@/utils/eventBus.js'
+import { BigNumber } from 'bignumber.js'
 
 export default {
   install : function (Vue, options){
@@ -119,7 +120,7 @@ export default {
     function etherToNumber(n) {
       if(n!=null && this.$CustomWeb3 && this.$CustomWeb3.web3){
           let utils = this.$CustomWeb3.web3.utils;
-          return utils.fromWei(n.toString(), 'ether').toString();
+          return BigNumber(utils.fromWei(n.toString(), 'ether').toString()).toFixed(2, 1).toString();
       }
       return "N/A";
     }

@@ -16,7 +16,7 @@ export const getCoverContracts = async (vue) => {
   contractsRes.data.forEach((item) => {
     const capacity = capacities.find(val => item.address.toUpperCase() === val.contractAddress.toUpperCase())
     if (capacity) {
-      item.capacityBNB = BigNumber(vue.$etherToNumber(capacity.capacityBNB)).toFixed(2)
+      item.capacityBNB = BigNumber(vue.$etherToNumber(capacity.capacityBNB)).toFixed(2, 1)
     }
   })
   return contractsRes
