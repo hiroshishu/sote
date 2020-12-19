@@ -101,6 +101,7 @@ export default {
   created(){
     this.initData();
     this.$Bus.bindEvent(this.$EventNames.switchAccount, this._uid, (account)=>{
+      this.onload = false;
       this.initData();
     });
   },

@@ -110,6 +110,7 @@ export default {
         "12": "info",
         "14": "info",
       },
+      onload: false,
     }
   },
   computed: {
@@ -133,9 +134,13 @@ export default {
       }
     },
     async initContract(){
+      if(this.onload){
+        return; 
+      }
       this.ClaimsData = await this.getContract(ClaimsDataContract);
       this.QuotationData = await this.getContract(QuotationDataContract);
       this.initClaimsCount();
+      this.onload = true;
     },
     async initContracts(){
       if(this.contracts && this.contracts.length>0){

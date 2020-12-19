@@ -33,7 +33,7 @@
       prop="assessed" width="200"
       label="ASSESSED AS">
       <template slot-scope="scope">
-        Unknown
+        Claims assessor
       </template>
     </el-table-column>
     <el-table-column
@@ -96,6 +96,7 @@ export default {
         "1": "success",
       },
       key: "assess_",
+      onload: false,
     }
   },
   computed: {
@@ -119,10 +120,14 @@ export default {
       }
     },
     async initContract(){
+      if(this.onload){
+        return;
+      }
       this.Claims = await this.getContract(ClaimsContract);
       this.ClaimsData = await this.getContract(ClaimsDataContract);
       this.QuotationData = await this.getContract(QuotationDataContract);
       this.initClaimsCount();
+      this.onload = true;
     },
     async initContracts(){
       if(this.contracts && this.contracts.length>0){
