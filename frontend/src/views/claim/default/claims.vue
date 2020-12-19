@@ -48,7 +48,7 @@
     <el-table-column width="100"
       label="ACTION">
       <template slot-scope="scope">
-        <el-link type="primary" v-if="parseInt(scope.row.status) == 0" :underline="false" @click="assess(scope.row)">Assess</el-link>
+        <el-link type="primary" :disabled="!member.isMember" v-if="parseInt(scope.row.status) == 0" :underline="false" @click="assess(scope.row)">Assess</el-link>
       </template>
     </el-table-column>
   </el-table>

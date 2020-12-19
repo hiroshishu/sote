@@ -4,10 +4,10 @@
       <el-tab-pane label="Claims" name="claims">
         <claims v-if="activeName=='claims'" @assess="assess"/>
       </el-tab-pane>
-      <el-tab-pane label="Assessments" name="assessments">
+      <el-tab-pane label="Assessments" name="assessments" :disabled="!member.isMember">
         <assessments v-if="activeName=='assessments'" />
       </el-tab-pane>
-      <el-tab-pane label="Stake" name="stake">
+      <el-tab-pane label="Stake" name="stake" :disabled="!member.isMember">
         <stake v-if="activeName=='stake'"/>
       </el-tab-pane>
     </el-tabs>
