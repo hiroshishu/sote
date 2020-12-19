@@ -18,6 +18,10 @@
           <svg-icon icon-class="circle" class="icon"></svg-icon>
           The bug was publicly disclosed before the cover period began.
         </div>
+        <div v-if="options.criteria.loss=='no'">
+          <svg-icon icon-class="circle" class="icon"></svg-icon>
+          There should have been a total material loss due to the incident of at least 20% of the cover amount.
+        </div>
         <div v-if="options.criteria.unintended=='no'">
           <svg-icon icon-class="circle" class="icon"></svg-icon>
           The incident should have been the direct result of the smart contract code being used in an unintended way.
@@ -34,14 +38,6 @@
           that behaved in an unintended ways, but the smart contract system continued to operate as intended.
           (Where inputs include but are note limited to: oracles, governance systems, incentive structures, 
           miner behaviour and network congestion.)
-        </div>
-        <div v-if="options.proof.evidence=='no'">
-          <svg-icon icon-class="circle" class="icon"></svg-icon>
-          The user should have submitted evidence of the loss they incrred.
-        </div>
-        <div v-if="options.proof.loss=='no'">
-          <svg-icon icon-class="circle" class="icon"></svg-icon>
-          There should have been material loss to the cover owner of at least 20% of the cover amount.
         </div>
       </div>
     </el-card>

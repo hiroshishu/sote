@@ -46,6 +46,13 @@
               <el-radio label="no">No</el-radio>
             </el-radio-group>
           </el-form-item>
+          <div class="secondary-text">Was there a total material loss of at least 20% of the cover amount due to the incident?</div>
+          <el-form-item prop="loss">
+            <el-radio-group v-model="options.criteria.loss">
+              <el-radio label="yes">Yes</el-radio>
+              <el-radio label="no">No</el-radio>
+            </el-radio-group>
+          </el-form-item>
           <div class="secondary-text">Was the incident a direct result of the smart contract code being used in an unintended way?</div>
           <el-form-item prop="unintended">
             <el-radio-group v-model="options.criteria.unintended">
@@ -68,30 +75,6 @@
           </div>
           <el-form-item prop="exteranal">
             <el-radio-group v-model="options.criteria.exteranal">
-              <el-radio label="yes">Yes</el-radio>
-              <el-radio label="no">No</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-form>
-      </div>
-    </el-card>
-    <br/>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <highlight>Assess loss</highlight>
-      </div>
-      <div class="card-body">
-        <el-form v-model="options.proof" :rules="proofRules">
-          <div class="secondary-text">Has the user submitted evidence of the loss they incurred?</div>
-          <el-form-item prop="evidence">
-            <el-radio-group v-model="options.proof.evidence">
-              <el-radio label="yes">Yes</el-radio>
-              <el-radio label="no">No</el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <div class="secondary-text">Was there material loss to the cover owner of at least 20% of the cover amount?</div>
-          <el-form-item prop="loss">
-            <el-radio-group v-model="options.proof.loss">
               <el-radio label="yes">Yes</el-radio>
               <el-radio label="no">No</el-radio>
             </el-radio-group>
@@ -135,15 +118,10 @@ export default {
         exteranal: [
           { required: true, trigger: 'blur', message: 'Please choice yes or no' },
         ],
-      },
-      proofRules: {
-        evidence: [
-          { required: true, trigger: 'blur', message: 'Please choice yes or no' },
-        ],
         loss: [
           { required: true, trigger: 'blur', message: 'Please choice yes or no' },
         ],
-      }
+      },
     }
   },
   computed: {

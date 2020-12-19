@@ -1,7 +1,8 @@
 <template>
   <div id="claim-assess-submit">
-    <accepted :options="options" v-if="isAccept" />
-    <denied :options="options" v-else />
+    <accepted :options="options" />
+    <br />
+    <denied :options="options" />
   </div>
 </template>
 

@@ -22,7 +22,7 @@
           <el-form-item label="Amount:">
             {{options.claim.cover.sumAssured}} BNB
           </el-form-item>
-          <el-form-item v-if="options.active>1" label="Your verdict:">
+          <el-form-item v-if="options.active>0" label="Your verdict:">
             <el-tag v-if="isAccept" type="success">Accept</el-tag>
             <el-tag v-else type="dange">Deny</el-tag>
           </el-form-item>
@@ -54,13 +54,10 @@ export default {
       criteria: {
         incident: "yes",
         bebore: "no",
+        loss: "yes",
         unintended: "yes",
         hacks: "no",
         exteranal: "no"
-      },
-      proof: {
-        evidence: "yes",
-        loss: "yes",
       }
     }
   },
@@ -73,7 +70,6 @@ export default {
     ]),
     isAccept(){
       const criteria = this.options.criteria;
-      const proof = this.options.proof;
       let criFlag = true;
       for(let p in criteria){
         if(this.criteria[p] != criteria[p]){
@@ -81,14 +77,7 @@ export default {
           break;
         }
       }
-      let proFlag = true;
-      for(let p in proof){
-        if(this.proof[p] != proof[p]){
-          proFlag = false;
-          break;
-        }
-      }
-      return criFlag && proFlag;
+      return criFlag;
     }
   },
   watch: {
@@ -127,13 +116,8 @@ export default {
     checkContinue(){
       const options = this.options;
       if(options.active == 0){
-        if(!options.criteria.incident || !options.criteria.bebore || !options.criteria.unintended || !options.criteria.hacks ||!options.criteria.exteranal){
-          this.$message.error("Please chioce yes or no");
-          return false;
-        }
-      }
-      if(options.active == 0){
-        if(!options.proof.evidence || !options.proof.loss){
+        if(!options.criteria.incident || !options.criteria.bebore || !options.criteria.loss
+            || !options.criteria.unintended || !options.criteria.hacks ||!options.criteria.exteranal){
           this.$message.error("Please chioce yes or no");
           return false;
         }
