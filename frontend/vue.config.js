@@ -3,6 +3,8 @@ const path = require('path')
 const defaultSettings = require('./src/settings.js')
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 
+require('events').EventEmitter.defaultMaxListeners = 0;
+
 function resolve(dir) {
   return path.join(__dirname, dir)
 }

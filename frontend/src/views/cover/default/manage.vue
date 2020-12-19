@@ -6,10 +6,10 @@
       </el-tab-pane>
       <!-- <el-tab-pane label="Inactive Covers" name="inactiveCovers">
           Inactive Covers
-      </el-tab-pane>
-      <el-tab-pane label="Claims" name="claims">
-          Your claims will appear here.
       </el-tab-pane> -->
+      <el-tab-pane label="Claims" name="claims">
+        <claims />
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -18,11 +18,12 @@
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
 import ActiveCovers from './activeCovers';
+import claims from './claims';
 
 export default {
   name: "Manage",
   components:{
-    ActiveCovers
+    ActiveCovers, claims
   },
   data() {
     return {

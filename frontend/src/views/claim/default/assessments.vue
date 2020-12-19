@@ -64,7 +64,7 @@ import ClaimsContract from '@/services/Claims';
 import ClaimsDataContract from '@/services/ClaimsData';
 import QuotationDataContract from '@/services/QuotationData';
 import Moment from 'moment';
-import { getCoverContracts } from '@/api/cover.js';
+import { getCoverContracts, loadCover } from '@/api/cover.js';
 import { BigNumber } from 'bignumber.js';
 
 
@@ -80,6 +80,7 @@ export default {
       claims: [],
       contracts: [],
       curId: -1,
+      count: 0,
       latestLoadTime: null,
       Claims: null,
       ClaimsData: null,
@@ -134,11 +135,10 @@ export default {
       this.claims.splice(0, this.claims.length);
       const instance = this.ClaimsData.getContract().instance;
       try{
-        this.claimIds = await instance.getAllClaimsByAddress(this.member.account);
-        if(this.claimIds.length > 0){
-          this.latestLoadTime = new Date().getTime();
-          this.getClaims(this.claimIds.length - 1, 5);
-        }
+        const count = await instance.getVoteAddressCALength(this.member.account);
+        this.count = parseInt(count);
+        this.latestLoadTime = new Date().getTime();
+        this.getClaims(this.count - 1, 5);
       }catch(e){
         console.info(e);
         this.$message.error(e.message);
@@ -159,6 +159,10 @@ export default {
     },
     async getClaims(start, size){
       try{
+        if(this.dataLoading){
+          // 数据加载中，直接返回
+          return;
+        }
         // 加锁，数据加载中....
         this.dataLoading = true;
         if(start <= -1){
@@ -168,7 +172,7 @@ export default {
         let curload = start;
         let loadCount = 0;
 
-        if(start == this.claimIds.length - 1){
+        if(start == this.count - 1){
           // 第一次加载
           this.loading = true;
           this.claims = [];
@@ -185,48 +189,34 @@ export default {
             this.curId = curload;
             break;
           }
+          const voteIndex = await instance.getVoteAddressCA(this.member.account, curload.toString());
+          const vote = await this.loadVote(voteIndex);
+          const finalVerdict = await instance.getFinalVerdict(vote.claimId);
+          
           // 从缓存读取数据
-          const curClaimId = this.claimIds[curload].toString();
-          const claim = this.getObjectCache(this.key + curClaimId);
+          let claim = this.getObjectCache(this.key + vote.claimId);
 
           if(claim){
             // 缓存数据更新状态
             console.info("cache data......");
-            claim.vote = await this.loadVote(curClaimId);
-            if(BigNumber(claim.vote.verdict).eq(0)){
-              // 投票状态不正确，可能是错误数据，不显示
-              curload --;
-              continue;
-            }
-            await this.loadClaim(curClaimId, claim);
-            this.claims.push(claim);
-            curload --;
-            loadCount++;
-            continue;
+          }else{
+            // 缓存未读到
+            console.info("读取claim");
+            claim = {};
+            await this.loadClaim(vote.claimId, claim);
+            console.info("完成claim");
+            
+            // 查cover
+            const cover = await loadCover(this, claim.coverId, false, this.contracts);
+            claim.cover = cover;
+            claim.contract = cover.contract;
           }
-          // 缓存未读到
-          console.info("读取vote结果");
-
-          // 查投票id
-          claim = {};
-          claim.vote = await this.loadVote(curClaimId);
-          if(BigNumber(claim.vote.verdict).eq(0)){
-            // 投票状态不正确，可能是错误数据，不显示
-            curload --;
-            continue;
-          }
-          await this.loadClaim(curClaimId, claim);
-          console.info("完成vote结果");
-
-          // 查cover
-          const cover = await this.loadCover(claim.coverId);
-          claim.cover = cover;
-          const contlist = this.contracts.filter(item=>item.address == cover.scAddress.toString());
-          claim.contract = contlist.length == 1 ? contlist[0] : null;
+          claim.vote = vote;
+          claim.finalVerdict = finalVerdict.toString();
 
           this.claims.push(claim);
           // 缓存数据
-          this.cacheObject(this.key + curClaimId, claim);
+          this.cacheObject(this.key + vote.claimId, claim);
           console.info(claim);
           curload --;
           loadCount++;
@@ -244,11 +234,11 @@ export default {
         }
       }
     },
-    async loadVote(claimId){
+    async loadVote(voteIndex){
       const instance = this.ClaimsData.getContract().instance;
-      const voteId = await instance.getUserClaimVoteCA(this.member.account, claimId.toString());
-      const vote = await instance.getVoteDetails(voteId.toString());
+      const vote = await instance.getVoteDetails(voteIndex.toString());
       return {
+        claimId: vote.claimId.toString(),
         tokens: vote.tokens.toString(),
         verdict: vote.verdict.toString(),
         rewardClaimed: vote.rewardClaimed.toString()
@@ -263,26 +253,6 @@ export default {
       claim.claimOwner = claimData.claimOwner.toString();
       claim.coverId = claimData.coverId.toString();
       return claim;
-    },
-    async loadCover(cid){
-      console.info("读取cover");
-      const instance = this.QuotationData.getContract().instance;
-      const nonStatusCover = await instance.getCoverDetailsByCoverID1(cid);
-      const statusCover = await instance.getCoverDetailsByCoverID2(cid);
-      const cover = {
-        cid: statusCover.cid.toString(),
-        sumAssured: statusCover.sumAssured.toString(),
-        coverPeriod: statusCover.coverPeriod.toString(),
-        validUntil: statusCover.validUntil.toString(),
-        purchase: (parseInt(statusCover.validUntil.toString()) - parseInt(statusCover.coverPeriod.toString()) * 24 * 60 * 60),
-        status: statusCover.status.toString(),
-        premiumNXM: nonStatusCover.premiumNXM.toString(),
-        currencyCode: nonStatusCover._currencyCode.toString(),
-        scAddress: nonStatusCover._scAddress.toString(),
-        memberAddress: nonStatusCover._memberAddress.toString(),
-      }
-      console.info("完成cover");
-      return cover;
     },
     formatPeriod(row){
       if(row.cover && row.cover.validUntil){

@@ -63,7 +63,7 @@ import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
 import QuotationDataContract from '@/services/QuotationData';
 import Moment from 'moment';
-import { getCoverContracts } from '@/api/cover.js';
+import { getCoverContracts, loadCover } from '@/api/cover.js';
 
 export default {
   name: "ActiveCovers",
@@ -77,6 +77,7 @@ export default {
       onload: false,
       coverStatus: [ "Active", "Claim Accepted", "Claim Denied", "Cover Expired", "Claim Submitted", "Requested" ],
       coverStatusColors: [ "", "success", "danger", "warning", "", "" ],
+      key: "member_cover_",
     }
   },
   computed: {
@@ -129,22 +130,9 @@ export default {
         const contracts = response.data;
         ids.forEach(async (id) => {
           try{
-            const statusObj = await instance.getCoverDetailsByCoverID2(id.toString());
-            const nonStatusObj = await instance.getCoverDetailsByCoverID1(id.toString());
-            const contlist = contracts.filter(item=>item.address == nonStatusObj._scAddress.toString());
-            this.activeCovers.push({
-              cid: statusObj.cid.toString(),
-              sumAssured: statusObj.sumAssured.toString(),
-              coverPeriod: statusObj.coverPeriod.toString(),
-              validUntil: statusObj.validUntil.toString(),
-              purchase: (parseInt(statusObj.validUntil.toString()) - parseInt(statusObj.coverPeriod.toString()) * 24 * 60 * 60),
-              status: statusObj.status.toString(),
-              premiumNXM: nonStatusObj.premiumNXM.toString(),
-              currencyCode: nonStatusObj._currencyCode.toString(),
-              scAddress: nonStatusObj._scAddress.toString(),
-              memberAddress: nonStatusObj._memberAddress.toString(),
-              contract: contlist.length == 1 ? contlist[0] : null,
-            });
+            let cover = await loadCover(this, id, true, contracts);
+            
+            this.activeCovers.push(cover);
           }catch(e){
             console.error(e);
           }
