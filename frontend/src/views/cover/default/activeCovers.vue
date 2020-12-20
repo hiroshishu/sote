@@ -74,7 +74,6 @@ export default {
       loading: false,
       activeCovers: [],
       QuotationData: null,
-      onload: false,
       coverStatus: [ "Active", "Claim Accepted", "Claim Denied", "Cover Expired", "Claim Submitted", "Requested" ],
       coverStatusColors: [ "", "success", "danger", "warning", "", "" ],
       key: "member_cover_",
@@ -86,7 +85,7 @@ export default {
       'member',
       'web3Status',
     ]),
-    
+
   },
   watch: {
     web3Status: watch.web3Status,
@@ -101,7 +100,6 @@ export default {
   created(){
     this.initData();
     this.$Bus.bindEvent(this.$EventNames.switchAccount, this._uid, (account)=>{
-      this.onload = false;
       this.initData();
     });
   },
@@ -117,28 +115,23 @@ export default {
     },
     async getActiveCovers(){
       try{
-        if(this.onload){
-          return;
-        }
         if(!this.member.isMember){
           return;
         }
-        this.loading = true;
         this.activeCovers.splice(0, this.activeCovers.length);
         const instance = this.QuotationData.getContract().instance;
         const ids = await instance.getAllCoversOfUser(this.member.account);
         const response = await getCoverContracts(this);
         const contracts = response.data;
-        ids.forEach(async (id) => {
+
+        for(let i=ids.length - 1; i>=0; i--){
           try{
-            let cover = await loadCover(this, id, true, contracts);
-            
+            let cover = await loadCover(this, ids[i], true, contracts);
             this.activeCovers.push(cover);
           }catch(e){
             console.error(e);
           }
-        });
-        this.onload = true;
+        }
       }catch(e){
         this.loading = false;
         console.info(e);

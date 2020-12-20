@@ -49,8 +49,8 @@ export const loadCover = async (vue, cid, isUpdate, contracts)=>{
     return cover;
   }
   const [nonStatusCover, statusCover] = await Promise.all([
-    instance.getCoverDetailsByCoverID1(cid),
-    instance.getCoverDetailsByCoverID2(cid)
+    instance.getCoverDetailsByCoverID1(cid.toString()),
+    instance.getCoverDetailsByCoverID2(cid.toString())
   ])
   cover = {
     cid: statusCover.cid.toString(),
