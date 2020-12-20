@@ -87,7 +87,7 @@ export default {
       QuotationData: null,
       verdicts: {
         "-1": "Denied",
-        "0": "Unknown",
+        "0": "Pending",
         "1": "Accepted",
       },
       verdictsColors: {
@@ -96,7 +96,6 @@ export default {
         "1": "success",
       },
       key: "assess_",
-      onload: false,
     }
   },
   computed: {
@@ -112,7 +111,6 @@ export default {
   created(){
     this.initData();
     this.$Bus.bindEvent(this.$EventNames.switchAccount, this._uid, (account)=>{
-      this.onload = false;
       this.initData();
     });
   },
@@ -124,14 +122,10 @@ export default {
       }
     },
     async initContract(){
-      if(this.onload){
-        return;
-      }
       this.Claims = await this.getContract(ClaimsContract);
       this.ClaimsData = await this.getContract(ClaimsDataContract);
       this.QuotationData = await this.getContract(QuotationDataContract);
       this.initClaimsCount();
-      this.onload = true;
     },
     async initContracts(){
       if(this.contracts && this.contracts.length>0){

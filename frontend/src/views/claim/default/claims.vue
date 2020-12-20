@@ -40,7 +40,10 @@
       prop="status" width="150"
       label="STATUS">
       <template slot-scope="scope">
-        <el-tag :type="claimStatusColors[scope.row.status]" :class="{ 'el-tag-blue': claimStatusColors[scope.row.status]=='' }">
+        <el-tag v-if="scope.row.voteId > 0" type="info">
+          Already assessed
+        </el-tag>
+        <el-tag v-else :type="claimStatusColors[scope.row.status]" :class="{ 'el-tag-blue': claimStatusColors[scope.row.status]=='' }">
           {{claimStatus[scope.row.status]}}
         </el-tag>
       </template>
@@ -48,7 +51,7 @@
     <el-table-column width="100"
       label="ACTION">
       <template slot-scope="scope">
-        <el-link type="primary" :disabled="!member.isMember" v-if="parseInt(scope.row.status) == 0" :underline="false" @click="assess(scope.row)">Assess</el-link>
+        <el-link type="primary" :disabled="!member.isMember || scope.row.voteId > 0" v-if="isAssess(scope.row)" :underline="false" @click="assess(scope.row)">Assess</el-link>
       </template>
     </el-table-column>
   </el-table>
@@ -61,6 +64,7 @@ import ClaimsDataContract from '@/services/ClaimsData';
 import QuotationDataContract from '@/services/QuotationData';
 import Moment from 'moment';
 import { getCoverContracts, loadCover } from '@/api/cover.js';
+import { BigNumber } from 'bignumber.js';
 
 
 export default {
@@ -118,7 +122,7 @@ export default {
       'web3',
       'member',
       'web3Status',
-    ]),
+    ])
   },
   watch: {
     web3Status: watch.web3Status,
@@ -135,7 +139,7 @@ export default {
     },
     async initContract(){
       if(this.onload){
-        return; 
+        return;
       }
       this.ClaimsData = await this.getContract(ClaimsDataContract);
       this.QuotationData = await this.getContract(QuotationDataContract);
@@ -211,6 +215,7 @@ export default {
             const data = await instance.getClaimStatusNumber(curload.toString());
             const statno = data.statno.toString();
             claim.status = statno;
+            this.getVoteId(claim);
             this.claims.push(claim);
             curload --;
             loadCount++;
@@ -229,6 +234,7 @@ export default {
           claim.status = claimData.status.toString();
           claim.vote = claimData.vote.toString();
 
+          this.getVoteId(claim);
           const cover = await loadCover(this, claim.coverId, true, this.contracts);
           claim.cover = cover;
           claim.contract = cover.contract;
@@ -253,6 +259,11 @@ export default {
         }
       }
     },
+    async getVoteId(claim){
+      const instance = this.ClaimsData.getContract().instance;
+      const voteId = await instance.getUserClaimVoteCA(this.member.account, claim.claimId);
+      claim.voteId = voteId.toString();
+    },
     formatPeriod(row){
       if(row.cover && row.cover.validUntil){
         return this.$secondsToDateString(row.cover.purchase) + " - " + this.$secondsToDateString(row.cover.validUntil);
@@ -265,6 +276,9 @@ export default {
     assess(row){
       this.$emit("assess", row);
       //this.$router.push({ name: this.$RouteNames.COVER_CLAIM, params: JSON.parse(JSON.stringify(row)) });
+    },
+    isAssess(row){
+      return BigNumber(row.status).eq(0);
     }
   }
 }
