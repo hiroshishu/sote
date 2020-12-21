@@ -2,8 +2,8 @@
   "contracts": {
     "MemberRoles": "0x75959f122b101CB007e72f4C31614af67ed11B52",
     "SoteErc20": "0x6Ecbe1DB9EF729CBe972C83Fb886247691Fb6beb",
-    "NXMaster": "0x2d3b0Ad94ff119c7134a9DA00AdEf01867e0F30c",
-    "NXMToken": "0x2E24F60ce7bBcC54a01ecC1730acfB46eB3B3240",
+    "SOTEMaster": "0x2d3b0Ad94ff119c7134a9DA00AdEf01867e0F30c",
+    "SOTEToken": "0x2E24F60ce7bBcC54a01ecC1730acfB46eB3B3240",
     "TokenController": "0x6aa9a8bC44f2964495C44DdC0e541BD1d00dB384",
     "Pool1": "0x1dcB12D64dFAB13E856C22Db806b6b16E9f598D0",
     "MCR": "0x08bd99537e9Cf090Cb80b5c81eB1AA08f20Ea63E",
@@ -13,7 +13,7 @@
     "QuotationData": "0x4C567ea18B40C35c435Af4Ad0AA14B5Fa9e9d47d",
     "Claims": "0x71a26478E6197136EeD6Db16d3eD496e399fe85d",
     "ClaimsData": "0x00A46a82eA40CEC539aF60F0dAD63213c65c6AB6",
-	"ClaimsReward": "0x957eD10385b295D3F9747dfC8d555e92a7B43EE1"
+	  "ClaimsReward": "0x957eD10385b295D3F9747dfC8d555e92a7B43EE1"
   },
   "networkVersion": 97,
   "stake": {
@@ -22,5 +22,16 @@
   },
   "penaltyRate": 0.975,
   "quoteapi": "http://api.soteria.fund/v1",
-  "unstakedPendingDay": 90
+  "unstakedPendingDay": 90,
+  "features": {
+    "start": true,
+    "Membership": true,
+    "Swap": true,
+    "system": true,
+    "Cover": true,
+    "Stake": true,
+    "Claim": true,
+    "Governance": true,
+    "Reward": true
+  }
 }
