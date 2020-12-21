@@ -27,11 +27,11 @@
     "start": true,
     "Membership": true,
     "Swap": true,
-    "system": false,
-    "Cover": false,
-    "Stake": false,
-    "Claim": false,
-    "Governance": false,
-    "Reward": false
+    "system": true,
+    "Cover": true,
+    "Stake": true,
+    "Claim": true,
+    "Governance": true,
+    "Reward": true
   }
 }
