@@ -7874,6 +7874,22 @@ contract ClaimsReward is Iupgradable {
         (reward, , , ) = getRewardToBeGiven(check, voteId, 1);
 
     }
+    
+    function claimPendingReward(uint records) public isMemberAndcheckPause {
+        _claimRewardToBeDistributed(records);
+        pooledStaking.withdrawReward(msg.sender);
+    }
+
+    /**
+     * @dev Function used to get pending rewards of a particular user address.
+     * @param _add user address.
+     * @return total reward amount of the user
+     */
+    function getPendingRewardOfUser(address _add) public view returns(uint) {
+        uint caReward = getRewardToBeDistributedByUser(_add);
+        uint pooledStakingReward = pooledStaking.stakerReward(_add);
+        return caReward.add(pooledStakingReward);
+    }
 
     /**
      * @dev Function used to claim all pending rewards : Claims Assessment + Risk Assessment + Governance
