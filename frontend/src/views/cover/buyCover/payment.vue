@@ -164,7 +164,7 @@ export default {
       const contract = this.Quotation.getContract();
       this.loading = true;
       const { coverDetails, coverPeriod, coverCurr, smartCAdd, v, r, s } = this.buildParams();
-      contract.instance.makeCoverUsingNXMTokens(
+      contract.instance.makeCoverUsingSOTETokens(
           coverDetails, coverPeriod, coverCurr, smartCAdd, v, r, s,
           { from: this.member.account }).then(res=>{
         console.info(res, res.toString());

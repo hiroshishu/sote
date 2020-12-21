@@ -54,7 +54,7 @@ export default {
   data(){
     return {
       tooltipType:"network",
-      NXMaster:null,
+      SOTEMaster:null,
     }
   },
   mixins: [ResizeMixin],

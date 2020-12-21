@@ -40,8 +40,8 @@
       prop="status" width="150"
       label="STATUS">
       <template slot-scope="scope">
-        <el-tag :type="claimStatusColors[scope.row.status]" :class="{ 'el-tag-blue': claimStatusColors[scope.row.status]=='' }">
-          {{claimStatus[scope.row.status]}}
+        <el-tag :type="statusFormatForTag(scope.row)" :class="{ 'el-tag-blue': statusFormatForTag(scope.row)=='' }">
+          {{statusFormatForValue(scope.row)}}
         </el-tag>
       </template>
     </el-table-column>
@@ -55,6 +55,7 @@ import ClaimsDataContract from '@/services/ClaimsData';
 import QuotationDataContract from '@/services/QuotationData';
 import Moment from 'moment';
 import { getCoverContracts, loadCover } from '@/api/cover.js';
+import { STATUS, statusFormatForMember } from '@/utils/claimStatus.js';
 
 
 export default {
@@ -73,12 +74,12 @@ export default {
       ClaimsData: null,
       QuotationData: null,
       claimStatus: {
-        "0": "Open to assessors",
-        "1": "Open to all members",
-        "2": "Open to all members",
-        "3": "Open to all members",
-        "4": "Open to all members",
-        "5": "Open to all members",
+        "0": "Pending",
+        "1": "Pending",
+        "2": "Pending",
+        "3": "Pending",
+        "4": "Pending",
+        "5": "Pending",
         "6": "Denied",
         "7": "Accepted",
         "8": "Accepted",
@@ -126,6 +127,12 @@ export default {
     });
   },
   methods: {
+    statusFormatForValue(row){
+      return statusFormatForMember(row).status;
+    },
+    statusFormatForTag(row){
+      return statusFormatForMember(row).tagType;
+    },
     async initData(){
       await this.initContracts();
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
@@ -186,10 +193,10 @@ export default {
         if(start <= -1){
           return;
         }
-        
+
         let curload = start;
         let loadCount = 0;
-        
+
         if(start == this.claimIds.length - 1){
           // 第一次加载
           this.loading = true;

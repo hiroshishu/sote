@@ -40,11 +40,8 @@
       prop="status" width="150"
       label="STATUS">
       <template slot-scope="scope">
-        <el-tag v-if="scope.row.voteId > 0" type="info">
-          Already assessed
-        </el-tag>
-        <el-tag v-else :type="claimStatusColors[scope.row.status]" :class="{ 'el-tag-blue': claimStatusColors[scope.row.status]=='' }">
-          {{claimStatus[scope.row.status]}}
+        <el-tag :type="statusFormatForTag(scope.row)">
+          {{statusFormatForValue(scope.row)}}
         </el-tag>
       </template>
     </el-table-column>
@@ -65,6 +62,7 @@ import QuotationDataContract from '@/services/QuotationData';
 import Moment from 'moment';
 import { getCoverContracts, loadCover } from '@/api/cover.js';
 import { BigNumber } from 'bignumber.js';
+import { STATUS, statusFormat } from '@/utils/claimStatus.js';
 
 
 export default {
@@ -82,38 +80,6 @@ export default {
       latestLoadTime: null,
       ClaimsData: null,
       QuotationData: null,
-      claimStatus: {
-        "0": "Open to assessors",
-        "1": "Open to all members",
-        "2": "Open to all members",
-        "3": "Open to all members",
-        "4": "Open to all members",
-        "5": "Open to all members",
-        "6": "Denied",
-        "7": "Accepted",
-        "8": "Accepted",
-        "9": "Denied",
-        "10": "Accepted",
-        "11": "Denied",
-        "12": "Payout Pending",
-        "14": "Payout Finished",
-      },
-      claimStatusColors: {
-        "0": "",
-        "1": "warning",
-        "2": "warning",
-        "3": "warning",
-        "4": "warning",
-        "5": "warning",
-        "6": "danger",
-        "7": "success",
-        "8": "success",
-        "9": "danger",
-        "10": "success",
-        "11": "danger",
-        "12": "info",
-        "14": "info",
-      },
       onload: false,
     }
   },
@@ -131,6 +97,12 @@ export default {
     this.initData();
   },
   methods: {
+    statusFormatForValue(row){
+      return statusFormat(row).status;
+    },
+    statusFormatForTag(row){
+      return statusFormat(row).tagType;
+    },
     async initData(){
       await this.initContracts();
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
@@ -261,8 +233,10 @@ export default {
     },
     async getVoteId(claim){
       const instance = this.ClaimsData.getContract().instance;
-      const voteId = await instance.getUserClaimVoteCA(this.member.account, claim.claimId);
-      claim.voteId = voteId.toString();
+      const caVoteId = await instance.getUserClaimVoteCA(this.member.account, claim.claimId);
+      claim.caVoteId = caVoteId.toString();
+      const mvVoteId = await instance.getUserClaimVoteMember(this.member.account, claim.claimId);
+      claim.mvVoteId = mvVoteId.toString();
     },
     formatPeriod(row){
       if(row.cover && row.cover.validUntil){

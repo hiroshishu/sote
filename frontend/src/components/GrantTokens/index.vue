@@ -38,7 +38,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import elementStyle from '@/styles/element-variables.scss';
-import NXMTokenContract from '@/services/NXMToken';
+import SOTETokenContract from '@/services/SOTEToken';
 import { watch } from '@/utils/watch.js';
 import { getAllowance, grantAllowance } from '@/api/common.js'
 import { BigNumber } from 'bignumber.js'
@@ -62,7 +62,7 @@ export default {
         allowance: "0"
       },
       type: "Custom",
-      NXMToken: null,
+      SOTEToken: null,
       dialogFormVisible: false,
       loading: false,
     }
@@ -88,8 +88,8 @@ export default {
       }
     },
     async initContract(){
-      this.NXMToken = await this.getContract(NXMTokenContract);
-      console.info("NXMToken:", this.NXMToken);
+      this.SOTEToken = await this.getContract(SOTETokenContract);
+      console.info("SOTEToken:", this.SOTEToken);
     },
     initEvent(){
       this.$Bus.$on(this.$EventNames.refreshAllowance, async (contractAddress, contractName) => {

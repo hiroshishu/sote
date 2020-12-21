@@ -224,7 +224,7 @@
                 }else{
                     // 系统里用BNB换SOTE价格显示需要优化下。这个结果需要乘以0.975，合约对反向套利有2.5%的惩罚金
                     const realfee = BigNumber(fee).multipliedBy(this.settings.penaltyRate).integerValue().toString();
-                    contract.instance.sellNXMTokens(realfee, { from: this.$CustomWeb3.account }).then(response => {
+                    contract.instance.sellSOTETokens(realfee, { from: this.$CustomWeb3.account }).then(response => {
                       console.info(response, response.toString());
                       this.$message.success("Sell SOTE successfully!");
                       this.$emit("refresh");

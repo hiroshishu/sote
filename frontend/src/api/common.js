@@ -1,6 +1,6 @@
 import request from '@/utils/request'
-import NXMasterContract from '@/services/NXMaster'
-import NXMTokenContract from '@/services/NXMToken';
+import SOTEMasterContract from '@/services/SOTEMaster'
+import SOTETokenContract from '@/services/SOTEToken';
 import MCRContract from '@/services/MCR';
 import wSOTEContract from '@/services/wSOTE';
 import { BNB_BYTE8 } from '@/utils/Constants.js'
@@ -18,8 +18,8 @@ export async function initMember(vue){
     vue.$store.dispatch("member/setLoading", false);
     return;
   }
-  const NXMaster = await vue.getContract(NXMasterContract);
-  const contract = NXMaster.getContract();
+  const SOTEMaster = await vue.getContract(SOTEMasterContract);
+  const contract = SOTEMaster.getContract();
   contract.instance.isMember(vue.$CustomWeb3.account).then(response=>{
     console.info("isMember:", response);
     vue.$store.dispatch("member/setLoading", false);
@@ -32,8 +32,8 @@ export async function initMember(vue){
 
 // 判断是否是会员
 export async function isMember(vue, account){
-  const NXMaster = await vue.getContract(NXMasterContract);
-  const contract = NXMaster.getContract();
+  const SOTEMaster = await vue.getContract(SOTEMasterContract);
+  const contract = SOTEMaster.getContract();
   try{
     const result = contract.instance.isMember(account);
     return result;
@@ -47,8 +47,8 @@ export async function getAllowance(vue, contractAddress){
   if(!vue.$CustomWeb3.account){
     return -1;
   }
-  const NXMToken = await vue.getContract(NXMTokenContract);
-  const contract = NXMToken.getContract();
+  const SOTEToken = await vue.getContract(SOTETokenContract);
+  const contract = SOTEToken.getContract();
   try{
     const allowance = await contract.instance.allowance(vue.$CustomWeb3.account, contractAddress);
     console.info("Allowance: ", allowance.toString());
@@ -64,8 +64,8 @@ export async function getBalance(vue){
   if(!vue.$CustomWeb3.account){
     return;
   }
-  const NXMToken = await vue.getContract(NXMTokenContract);
-  const contract = NXMToken.getContract();
+  const SOTEToken = await vue.getContract(SOTETokenContract);
+  const contract = SOTEToken.getContract();
   contract.instance.balanceOf(vue.$CustomWeb3.account).then(response => {
     console.info("SOTE Balance: ", response.toString());
     vue.$store.dispatch("member/setBalance", response.toString());
@@ -92,8 +92,8 @@ export async function getWBalance(vue){
 
 // 给合约授权交易金额
 export async function grantAllowance(vue, contractAddress, allowance){
-  const NXMToken = await vue.getContract(NXMTokenContract);
-  const contract = NXMToken.getContract();
+  const SOTEToken = await vue.getContract(SOTETokenContract);
+  const contract = SOTEToken.getContract();
   try{
     await contract.instance.approve(contractAddress, allowance.toString(), { from: vue.$CustomWeb3.account });
     console.info("New allowance: ", allowance.toString());
