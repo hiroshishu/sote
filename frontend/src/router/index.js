@@ -24,7 +24,6 @@ import Layout from '@/layout'
     activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
   }
  */
-
 /**
  * constantRoutes
  * a base page that does not have permission requirements

@@ -2,11 +2,13 @@
     <fragment v-if="item.meta && !item.hidden">
       <el-menu-item-group>
         <span slot="title">{{item.meta.title}}</span>
-        <app-link v-for="subRoute in item.children" v-if="subRoute.meta" :to="resolvePath(subRoute.path)">
-          <el-menu-item :index="item.path + '/' + subRoute.path">
-            <item :icon="item.meta.icon||(subRoute.meta&&subRoute.meta.icon)" :title="subRoute.meta.title" />
-          </el-menu-item>
-        </app-link>
+        <Permission v-for="subRoute in item.children" :permissions="[subRoute.name]" type="remove">
+          <app-link v-if="subRoute.meta" :to="resolvePath(subRoute.path)">
+            <el-menu-item :index="item.path + '/' + subRoute.path">
+              <item :icon="item.meta.icon||(subRoute.meta&&subRoute.meta.icon)" :title="subRoute.meta.title" />
+            </el-menu-item>
+          </app-link>
+        </Permission>
       </el-menu-item-group>
     </fragment>
 </template>
@@ -17,10 +19,11 @@ import { isExternal } from '@/utils/validate'
 import AppLink from './Link'
 import FixiOSBug from './FixiOSBug'
 import Item from './Item'
+import Permission from '@/components/Permission/index'
 
 export default {
   name: 'NewSidebarItem',
-  components: { AppLink, Item },
+  components: { AppLink, Item, Permission },
   mixins: [FixiOSBug],
   props: {
     // route object

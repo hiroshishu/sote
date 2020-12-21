@@ -1,7 +1,7 @@
 {
   "contracts": {
     "MemberRoles": "0x07A889B1ca1879A3cDd6ccd991bc8A63839Bc305",
-    "SoteErc20": "0x6Ecbe1DB9EF729CBe972C83Fb886247691Fb6beb",
+    "SoteErc20": "0x9846E675F6B86c9e5ee6fb3024D4C1A383C98b3a",
     "SOTEMaster": "0x5935F31bc8d219dC507086d1FD501D27e910bD88",
     "SOTEToken": "0x9846E675F6B86c9e5ee6fb3024D4C1A383C98b3a",
     "TokenController": "0xDBf12f92B545828ec7219b0Ff6F85460fd8EcbBc",
@@ -22,5 +22,16 @@
   },
   "penaltyRate": 0.975,
   "quoteapi": "http://api.soteria.fund/v1",
-  "unstakedPendingDay": 90
+  "unstakedPendingDay": 90,
+  "features": {
+    "start": true,
+    "Membership": true,
+    "Swap": true,
+    "system": false,
+    "Cover": false,
+    "Stake": false,
+    "Claim": false,
+    "Governance": false,
+    "Reward": false
+  }
 }

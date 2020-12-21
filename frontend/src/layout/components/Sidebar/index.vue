@@ -13,7 +13,9 @@
         mode="vertical"
       >
         <!-- <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" /> -->
-        <NewSidebarItem v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
+        <Permission v-if="settings && settings.features" v-for="route in routes" :permissions="[route.name]" type="remove">
+          <NewSidebarItem :key="route.path" :item="route" :base-path="route.path" />
+        </Permission>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -24,12 +26,14 @@ import { mapGetters } from 'vuex'
 import Logo from './Logo'
 import NewSidebarItem from './NewSidebarItem'
 import variables from '@/styles/variables.scss'
+import Permission from '@/components/Permission/index'
 
 export default {
-  components: { NewSidebarItem, Logo },
+  components: { NewSidebarItem, Logo, Permission },
   computed: {
     ...mapGetters([
-      'sidebar'
+      'sidebar',
+      'settings'
     ]),
     routes() {
       return this.$router.options.routes
@@ -53,6 +57,9 @@ export default {
     isCollapse() {
       return !this.sidebar.opened
     }
+  },
+  created(){
+
   }
 }
 </script>
