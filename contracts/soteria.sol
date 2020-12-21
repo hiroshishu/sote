@@ -447,7 +447,6 @@ contract SoteriaRewards is IStakingRewards, RewardsManagerRecipient, ReentrancyG
     address[] public committeeAddress;
 
 
-    // 抽水地址->佣金比例。 佣金比例 (0, 100), sum(佣金比例) < 100
     mapping(address => uint32) public commissionRateMap;
 
     mapping(address => uint256) public userRewardPerTokenPaid;
@@ -469,7 +468,7 @@ contract SoteriaRewards is IStakingRewards, RewardsManagerRecipient, ReentrancyG
 
         rewardsManager = _rewardsManager;
 
-        // 挖矿持续时长
+        // mining duration
         rewardsDuration = _rewardsDuration;
 
         require(rewardsDuration > 0, "Invalid reward duration.");
@@ -478,8 +477,8 @@ contract SoteriaRewards is IStakingRewards, RewardsManagerRecipient, ReentrancyG
 
     // ========== RESTRICTED FUNCTIONS ==========
     function start(
-        address[] calldata committeeAddr, // 抽水地址
-        uint32[] calldata commissionRate  // 抽水比例
+        address[] calldata committeeAddr, 
+        uint32[] calldata commissionRate  
     ) external onlyRewardsManager {
         require(initialized == false, "Initialization can only be performed once.");
 
@@ -491,8 +490,8 @@ contract SoteriaRewards is IStakingRewards, RewardsManagerRecipient, ReentrancyG
     }
 
     function initCommittee(
-        address[] memory committeeAddr, // 抽水地址
-        uint32[] memory commissionRate  // 抽水比例
+        address[] memory committeeAddr, 
+        uint32[] memory commissionRate  
     ) internal {
         // 初始化commissionRateMap
         require(committeeAddr.length == commissionRate.length,
@@ -517,10 +516,10 @@ contract SoteriaRewards is IStakingRewards, RewardsManagerRecipient, ReentrancyG
         require(reward > 0, "Invalid reward amount.");
         rewardRate = reward.div(rewardsDuration);
         
-        // 头矿开始时间
+        // start mining
         lastUpdateTime = block.timestamp;
 
-        // 挖矿结束时间
+        // ends of mining
         periodFinish = block.timestamp.add(rewardsDuration);
 
         emit RewardAdded(reward);
@@ -536,7 +535,6 @@ contract SoteriaRewards is IStakingRewards, RewardsManagerRecipient, ReentrancyG
         emit Staked(msg.sender, amount);
     }
 
-    // 不支持部分赎回，禁止外部调用该方法
     function withdraw(uint256 amount) internal nonReentrant updateReward(msg.sender) {
         require(amount > 0, "Cannot withdraw 0");
         _totalSupply = _totalSupply.sub(amount);
@@ -564,7 +562,7 @@ contract SoteriaRewards is IStakingRewards, RewardsManagerRecipient, ReentrancyG
         }
     }
 
-    // 赎回所有抵押，并提取已成熟的奖励
+    // withdraw principal and reward
     function exit() external {
         withdraw(_balances[msg.sender]);
         getReward();
