@@ -48,7 +48,8 @@
     <el-table-column width="100"
       label="ACTION">
       <template slot-scope="scope">
-        <el-link type="primary" :disabled="!member.isMember || scope.row.voteId > 0" v-if="isAssess(scope.row)" :underline="false" @click="assess(scope.row)">Assess</el-link>
+        <el-link type="primary" :disabled="!member.isMember || scope.row.caVoteId > 0" v-if="isAssess(scope.row)" :underline="false" @click="assess(scope.row)">Assess</el-link>
+        <el-link type="primary" :disabled="!member.isMember || scope.row.mvVoteId > 0" v-else-if="isAssessByMV(scope.row)" :underline="false" @click="assess(scope.row)">Assess</el-link>
       </template>
     </el-table-column>
   </el-table>
@@ -155,7 +156,7 @@ export default {
       try{
         // 加锁，数据加载中....
         this.dataLoading = true;
-        if(start <= -1){
+        if(start <= 0){
           return;
         }
 
@@ -169,7 +170,7 @@ export default {
         }
         const instance = this.ClaimsData.getContract().instance;
         while(true){
-          if(curload <= -1){
+          if(curload <= 0){
             this.curId = curload;
             // 所有数据加载完成了
             break;
@@ -253,6 +254,9 @@ export default {
     },
     isAssess(row){
       return BigNumber(row.status).eq(0);
+    },
+    isAssessByMV(row){
+      return BigNumber(row.status).lt(6);
     }
   }
 }

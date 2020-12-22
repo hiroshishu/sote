@@ -20,6 +20,7 @@ import { mapGetters } from 'vuex';
 import claims from './claims';
 import assessments from './assessments';
 import stake from './stake/index';
+import { BigNumber } from 'bignumber.js';
 
 export default {
   name: "ClaimDefaultManage",
@@ -69,8 +70,9 @@ export default {
 
     },
     assess(row){
-      console.info(row)
-      this.$router.push({ name: this.$RouteNames.CLAIM_ASSESS, params: JSON.parse(JSON.stringify(row)) });
+      const params = JSON.parse(JSON.stringify(row));
+      params.assessType = BigNumber(row.status).eq(0) ? "CA" : "MV";
+      this.$router.push({ name: this.$RouteNames.CLAIM_ASSESS, params: params });
     }
   }
 }
