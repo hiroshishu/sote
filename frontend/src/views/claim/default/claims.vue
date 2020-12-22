@@ -133,7 +133,7 @@ export default {
         const count = await instance.actualClaimLength();
         this.count = parseInt(count);
         this.latestLoadTime = new Date().getTime();
-        this.getClaims(this.count - 1, 5);
+        this.getClaims(this.count, 5);
       }catch(e){
         console.info(e);
         this.$message.error(e.message);
@@ -167,7 +167,7 @@ export default {
         let curload = start;
         let loadCount = 0;
 
-        if(start == this.count - 1){
+        if(start == this.count){
           // 第一次加载
           this.loading = true;
           this.claims = [];
