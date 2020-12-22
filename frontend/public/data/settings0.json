@@ -1,7 +1,6 @@
 {
   "contracts": {
     "MemberRoles": "0x75959f122b101CB007e72f4C31614af67ed11B52",
-    "SoteErc20": "0x6Ecbe1DB9EF729CBe972C83Fb886247691Fb6beb",
     "SOTEMaster": "0x2d3b0Ad94ff119c7134a9DA00AdEf01867e0F30c",
     "SOTEToken": "0x2E24F60ce7bBcC54a01ecC1730acfB46eB3B3240",
     "TokenController": "0x6aa9a8bC44f2964495C44DdC0e541BD1d00dB384",
