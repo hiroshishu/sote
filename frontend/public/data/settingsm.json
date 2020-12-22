@@ -14,7 +14,7 @@
     "ClaimsData": "0x39779dBfDEC83C68839bc2Cc1d2a462967753fF0",
     "ClaimsReward": "0xc8b571046d7c8FabCb30d855219e160530c46681"
   },
-  "networkVersion": 97,
+  "networkVersion": 56,
   "stake": {
     "minAmountPerContract": 20,
     "maxAmount": 10
@@ -22,6 +22,18 @@
   "penaltyRate": 0.975,
   "quoteapi": "http://api.soteria.finance/v1",
   "unstakedPendingDay": 90,
+
+  "cover": {
+    "minPeriod": 30,
+    "maxPeriod": 365
+  },
+  "claim": {
+    "stake": {
+      "minPeriod": 30,
+      "maxPeriod": 365
+    }
+  },
+
   "features": {
     "start": true,
     "Membership": true,
