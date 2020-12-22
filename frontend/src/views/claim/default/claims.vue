@@ -77,7 +77,7 @@ export default {
       claims: [],
       contracts: [],
       count: null,
-      curId: -1,
+      curId: 0,
       latestLoadTime: null,
       ClaimsData: null,
       QuotationData: null,
@@ -153,7 +153,7 @@ export default {
       this.getClaims(this.curId, 5);
     },
     async getClaims(start, size){
-      if(this.dataLoading){
+      if(this.dataLoading || (this.curId > 0 && start > this.curId)){
         // 数据加载中，直接返回
         return;
       }
@@ -174,14 +174,13 @@ export default {
         }
         const instance = this.ClaimsData.getContract().instance;
         while(true){
+          this.curId = curload;
           if(curload <= 0){
-            this.curId = curload;
             // 所有数据加载完成了
             break;
           }
           if(loadCount >= size){
             // 本次数据加载完成了
-            this.curId = curload;
             break;
           }
           // 从缓存读取数据
