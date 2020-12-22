@@ -55,11 +55,12 @@
         style="width: 100%">
         <el-table-column
           prop="name"
-          label="PROJECT"
-          width="280">
+          label="PROJECT">
           <template slot-scope="scope">
-            <svg-icon :icon-class="scope.row.icon" class="icon-name"></svg-icon>
-            {{scope.row.name}}
+            <div style="white-space: nowrap;">
+              <svg-icon :icon-class="scope.row.icon" class="icon-name"></svg-icon>
+              {{scope.row.name}}    
+            </div>
           </template>
         </el-table-column>
         <el-table-column
@@ -82,6 +83,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          width="100"
           label="OPTIONS">
           <template slot-scope="scope">
             <el-link type="primary" v-if="scope.row.stakedStatus != 'staked'" :underline="false" @click="removeProject(scope)">Remove</el-link>

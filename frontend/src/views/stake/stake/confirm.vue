@@ -6,8 +6,7 @@
       style="width: 100%">
       <el-table-column
         prop="name"
-        label="PROJECT"
-        width="280">
+        label="PROJECT">
         <template slot-scope="scope">
           <svg-icon :icon-class="scope.row.icon" class="icon-name"></svg-icon>
           {{scope.row.name}}
@@ -17,9 +16,9 @@
         prop="stake"
         label="ADD">
         <template slot-scope="scope">
-          <el-input-number size="mini" disabled v-model="scope.row.stake" class="right-input">
-          </el-input-number>
-          SOTE
+          <el-input size="mini" style="width:180px;" disabled v-model="scope.row.stake" class="right-input">
+            <template slot="append">SOTE</template>
+          </el-input>
         </template>
       </el-table-column>
       <el-table-column
@@ -30,6 +29,7 @@
         </template>
       </el-table-column>
       <el-table-column
+        width="100"
         label="OPTIONS">
         <template slot-scope="scope">
           

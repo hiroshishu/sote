@@ -36,7 +36,7 @@
                 <el-card>
                   <div slot="header" class="clearfix">
                     <span>Period</span>
-                    <el-link @click="options.period=365" type="success" :underline="false" style="float: right; padding: 3px 0">Max</el-link>
+                    <el-link @click="options.period=settings.cover.maxPeriod" type="success" :underline="false" style="float: right; padding: 3px 0">Max</el-link>
                   </div>
                   <div>
                     <el-form-item prop="period">
@@ -105,6 +105,7 @@ export default {
       'web3',
       'member',
       'web3Status',
+      'settings'
     ]),
   },
   watch: {
@@ -149,8 +150,8 @@ export default {
         callback();
     },
     validatePeriod(rule, value, callback){
-        if(BigNumber(value).comparedTo(30)<0 || BigNumber(value).comparedTo(365)>0){
-            callback(new Error(`Enter a period of 30 days minimum and 365 days maximum!`));
+        if(BigNumber(value).lt(this.settings.cover.minPeriod) || BigNumber(value).gt(this.settings.cover.maxPeriod)){
+            callback(new Error(`Enter a period of ${this.settings.cover.minPeriod} days minimum and ${this.settings.cover.maxPeriod} days maximum!`));
             return;
         }
         callback();

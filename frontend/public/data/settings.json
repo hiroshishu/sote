@@ -19,6 +19,16 @@
     "minAmountPerContract": 20,
     "maxAmount": 10
   },
+  "cover": {
+    "minPeriod": 30,
+    "maxPeriod": 365
+  },
+  "claim": {
+    "stake": {
+      "minPeriod": 1,
+      "maxPeriod": 365
+    }
+  },
   "penaltyRate": 0.975,
   "quoteapi": "http://api.soteria.fund/v1",
   "unstakedPendingDay": 90,

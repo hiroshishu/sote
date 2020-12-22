@@ -153,6 +153,10 @@ export default {
       this.getClaims(this.curId, 5);
     },
     async getClaims(start, size){
+      if(this.dataLoading){
+        // 数据加载中，直接返回
+        return;
+      }
       try{
         // 加锁，数据加载中....
         this.dataLoading = true;

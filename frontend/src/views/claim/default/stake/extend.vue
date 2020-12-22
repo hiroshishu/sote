@@ -63,8 +63,7 @@ export default {
       },
       rules: {
         period: [
-          { required: true, trigger: 'blur', message: "Enter a period of 30 days minimum and 365 days maximum!",
-               type:"number", min: 30, max: 365 },
+          { required: true, trigger: 'blur', type: "number", validator: this.validatePeriod },
         ],
       },
       TokenController: null,
@@ -103,10 +102,21 @@ export default {
       this.$Bus.$emit(this.$EventNames.refreshAllowance, this.settings.contracts.TokenController, "TokenController");
       this.TokenController = await this.getContract(TokenControllerContract);
     },
+    validatePeriod(rule, value, callback){
+      if(BigNumber(value).lt(this.settings.claim.stake.minPeriod) || BigNumber(value).gt(this.settings.claim.stake.maxPeriod)){
+        callback(new Error(`Enter a period of ${this.settings.claim.stake.minPeriod} days minimum and ${this.settings.claim.stake.maxPeriod} days maximum!`));
+        return;
+      }
+      callback();
+    },
     //只允许输入合法的数字
     onlyInteger(value){
       let newValue = parseInt(this.getNumber(value).replace(/\./g, ""));
-      this.form.period = newValue;
+      if(newValue.length > 0){
+        newValue = parseInt(newValue);
+      }else{
+        newValue = 0;
+      }
       return newValue;
     },
     extend(){
