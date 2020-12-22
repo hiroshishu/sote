@@ -203,7 +203,7 @@
         },
         swapTokens(){
           this.loading = true;
-          this.$refs["form"].validate((valid) => {
+          this.$refs["form"].validate(async (valid) => {
             if (valid) {
               try{
                 const contract = this.Pool1.getContract();
@@ -222,6 +222,14 @@
                       this.loading = false;
                     });
                 }else{
+                    // 出售SOTE前需要查询资金池允许卖的资金金额，资金池超过2000bnb才能出售
+                    const mcrInstance = this.MCR.getContract().instance;
+                    const maxSellTokens = await mcrInstance.getMaxSellTokens();
+                    if(BigNumber(maxSellTokens.toString()).lt(fee)){
+                      this.$message.error("Exceeds maximum token sell limit.");
+                      this.loading = false;
+                      return;
+                    }
                     // 系统里用BNB换SOTE价格显示需要优化下。这个结果需要乘以0.975，合约对反向套利有2.5%的惩罚金
                     const realfee = BigNumber(fee).multipliedBy(this.settings.penaltyRate).integerValue().toString();
                     contract.instance.sellSOTETokens(realfee, { from: this.$CustomWeb3.account }).then(response => {
