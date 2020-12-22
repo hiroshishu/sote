@@ -226,7 +226,7 @@
                     const mcrInstance = this.MCR.getContract().instance;
                     const maxSellTokens = await mcrInstance.getMaxSellTokens();
                     if(BigNumber(maxSellTokens.toString()).lt(fee)){
-                      this.$message.error("Exceeds maximum token sell limit.");
+                      this.$message.error("Not enough BNB tokens in the pool.");
                       this.loading = false;
                       return;
                     }
