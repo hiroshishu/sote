@@ -1,8 +1,7 @@
 <template>
   <div id="claim-assess-submit">
-    <accepted :options="options" />
-    <br />
-    <denied :options="options" />
+    <accepted v-if="isAccept" :options="options" />
+    <denied v-else :options="options" />
   </div>
 </template>
 
@@ -24,12 +23,9 @@ export default {
         bebore: "no",
         unintended: "yes",
         hacks: "no",
-        exteranal: "no"
+        exteranal: "no",
+        loss: "yes"
       },
-      proof: {
-        evidence: "yes",
-        loss: "yes",
-      }
     }
   },
   computed: {
@@ -40,22 +36,13 @@ export default {
     ]),
     isAccept(){
       const criteria = this.options.criteria;
-      const proof = this.options.proof;
-      let criFlag = true;
       for(let p in criteria){
         if(this.criteria[p] != criteria[p]){
-          criFlag = false;
-          break;
+          return false;
         }
       }
-      let proFlag = true;
-      for(let p in proof){
-        if(this.proof[p] != proof[p]){
-          proFlag = false;
-          break;
-        }
-      }
-      return criFlag && proFlag;
+      
+      return true;
     }
   },
   watch: {

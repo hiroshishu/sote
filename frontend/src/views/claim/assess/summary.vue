@@ -50,7 +50,6 @@ export default {
   data() {
     return {
       top: 0,
-      isContinue: false,
       criteria: {
         incident: "yes",
         bebore: "no",

@@ -142,7 +142,7 @@ export default {
       const contract = this.Claims.getContract();
       const claimId = this.options.claim.claimId.toString();
       const verdict = param.toString();
-      console.info("投票：", claimId, verdict);
+      console.info("投票：", claimId, verdict, this.options.claim.assessType);
       if(this.options.claim.assessType == "CA"){
         contract.instance.submitCAVote(claimId, verdict, { from: this.member.account }).then(res => {
           console.info(res, res.toString());
