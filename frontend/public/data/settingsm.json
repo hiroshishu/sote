@@ -22,6 +22,18 @@
   "penaltyRate": 0.975,
   "quoteapi": "http://api.soteria.finance/v1",
   "unstakedPendingDay": 90,
+
+  "cover": {
+    "minPeriod": 30,
+    "maxPeriod": 365
+  },
+  "claim": {
+    "stake": {
+      "minPeriod": 30,
+      "maxPeriod": 365
+    }
+  },
+
   "features": {
     "start": true,
     "Membership": true,
