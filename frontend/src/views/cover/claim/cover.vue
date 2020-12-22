@@ -31,8 +31,8 @@
         </LiBorderRadius>
       </div>
       <div style="text-align: center;">
-        <el-button type="primary" plain round size="small" @click="back" style="width:40%;">Back</el-button>
-        <el-button type="primary" :disabled="!isContinue" round size="small" @click="next" style="width:40%;">{{buttonText[options.active]}}</el-button>
+        <el-button type="primary" plain round size="small" @click="back" >Back</el-button>
+        <el-button type="primary" :disabled="!isContinue" round size="small" @click="next" >{{buttonText[options.active]}}</el-button>
       </div>
     </el-card>
   </div>

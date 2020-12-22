@@ -20,8 +20,8 @@
         </el-form>
       </div>
       <div style="text-align: center;">
-        <el-button type="primary" plain round size="small" @click="viewHistory" style="width:40%;">View history</el-button>
-        <el-button type="primary" :disabled="!isContinue" round size="small" @click="confirm" style="width:40%;">Confirm</el-button>
+        <el-button type="primary" plain round size="small" @click="viewHistory" >View history</el-button>
+        <el-button type="primary" :disabled="!isContinue" round size="small" @click="confirm" >Confirm</el-button>
       </div>
     </el-card>
   </div>

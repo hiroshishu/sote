@@ -43,13 +43,15 @@
       <el-divider></el-divider>
       <el-row>
         <el-col :span="14" style="line-height: 35px;">
-          <el-link @click="checked=!checked" :underline="false">
-            <el-checkbox v-model="checked">
+          <div>
+            <el-checkbox v-model="checked" style="vertical-align: middle;">
             </el-checkbox>
+            <el-link @click="checked=!checked" :underline="false" style="display: inline;">
             I agree that Smart Contract Cover is not a contract of insurance.
             Cover is provided on a discretionary basis with Soteria members
             having the final say on with claims are paid.
-          </el-link>
+            </el-link>
+          </div>
         </el-col>
         <el-col :span="10">
           <div style="float: right;">

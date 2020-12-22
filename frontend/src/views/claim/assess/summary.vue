@@ -29,10 +29,10 @@
         </el-form>
       </div>
       <div style="text-align: center;">
-        <el-button type="primary" plain round size="small" @click="back" style="width:40%;">Back</el-button>
-        <el-button v-if="options.active<1" type="primary" :disabled="isContinue" round size="small" @click="next" style="width:40%;">Continue</el-button>
-        <el-button v-else-if="isAccept" type="primary" :disabled="isContinue" round size="small" @click="next" style="width:40%;">Accept claim</el-button>
-        <el-button v-else type="primary" :disabled="isContinue" round size="small" @click="next" style="width:40%;">Deny claim</el-button>
+        <el-button type="primary" plain round size="small" @click="back" >Back</el-button>
+        <el-button v-if="options.active<1" type="primary" :disabled="isContinue" round size="small" @click="next" >Continue</el-button>
+        <el-button v-else-if="isAccept" type="primary" :disabled="isContinue" round size="small" @click="next" >Accept claim</el-button>
+        <el-button v-else type="primary" :disabled="isContinue" round size="small" @click="next" >Deny claim</el-button>
       </div>
     </el-card>
   </div>

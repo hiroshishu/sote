@@ -14,8 +14,8 @@
           <confirmation v-if="options.active>2" :options="options" />
       </div>
       <div style="text-align: center;">
-        <el-button type="primary" plain round size="small" @click="back" style="width:40%;">Back</el-button>
-        <el-button type="primary" :disabled="!isContinue" round size="small" @click="next" style="width:40%;">{{options.active>2 ? "Confirm Stake" : "Continue"}}</el-button>
+        <el-button type="primary" plain round size="small" @click="back" >Back</el-button>
+        <el-button type="primary" :disabled="!isContinue" round size="small" @click="next" >{{options.active>2 ? "Confirm Stake" : "Continue"}}</el-button>
       </div>
     </el-card>
   </div>

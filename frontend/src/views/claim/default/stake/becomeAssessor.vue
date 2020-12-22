@@ -121,13 +121,23 @@ export default {
     },
     //只允许输入合法的数字
     onlyNumber(value){
-      let newValue = parseInt(this.getNumber(value));
+      let newValue = this.getNumber(value);
+      if(newValue.length > 0){
+        newValue = parseInt(newValue);
+      }else{
+        newValue = 0;
+      }
       this.form.amount = newValue;
       return newValue;
     },
     //只允许输入合法的数字
     onlyInteger(value){
-      let newValue = parseInt(this.getNumber(value).replace(/\./g, ""));
+      let newValue = this.getNumber(value).replace(/\./g, "");
+      if(newValue.length > 0){
+        newValue = parseInt(newValue);
+      }else{
+        newValue = 0;
+      }
       this.form.period = newValue;
       return newValue;
     },
