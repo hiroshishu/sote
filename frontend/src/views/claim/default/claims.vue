@@ -48,8 +48,7 @@
     <el-table-column width="100"
       label="ACTION">
       <template slot-scope="scope">
-        <el-link type="primary" :disabled="!member.isMember || scope.row.caVoteId > 0" v-if="isAssess(scope.row)" :underline="false" @click="assess(scope.row)">Assess</el-link>
-        <el-link type="primary" :disabled="!member.isMember || scope.row.mvVoteId > 0" v-else-if="isAssessByMV(scope.row)" :underline="false" @click="assess(scope.row)">Assess</el-link>
+        <el-link type="primary" :disabled="assessed(scope.row)" v-if="canAssess(scope.row)" :underline="false" @click="assess(scope.row)">Assess</el-link>
       </template>
     </el-table-column>
   </el-table>
@@ -191,7 +190,7 @@ export default {
             const data = await instance.getClaimStatusNumber(curload.toString());
             const statno = data.statno.toString();
             claim.status = statno;
-            this.getVoteId(claim);
+            await this.getVoteId(claim);
             this.claims.push(claim);
             curload --;
             loadCount++;
@@ -210,7 +209,7 @@ export default {
           claim.status = claimData.status.toString();
           claim.vote = claimData.vote.toString();
 
-          this.getVoteId(claim);
+          await this.getVoteId(claim);
           const cover = await loadCover(this, claim.coverId, true, this.contracts);
           claim.cover = cover;
           claim.contract = cover.contract;
@@ -255,11 +254,12 @@ export default {
       this.$emit("assess", row);
       //this.$router.push({ name: this.$RouteNames.COVER_CLAIM, params: JSON.parse(JSON.stringify(row)) });
     },
-    isAssess(row){
-      return BigNumber(row.status).eq(0);
-    },
-    isAssessByMV(row){
+    canAssess(row){
       return BigNumber(row.status).lt(6);
+    },
+    assessed(row){
+      return !this.member.isMember || (BigNumber(row.status).eq(0) && BigNumber(row.caVoteId).gt(0)) 
+        || (BigNumber(row.status).lt(6) && BigNumber(row.mvVoteId).gt(0));
     }
   }
 }
