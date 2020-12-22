@@ -8,15 +8,15 @@
           </div>
           <div class="normal-text">
             Membership can be withdrawn only if the following conditions are met:
-            <div class="important">
-              <svg-icon icon-class="circle" class="icon-name"></svg-icon>
-              No <highlight> active covers </highlight>or 
+            <div>
+              <svg-icon icon-class="circle" class="icon-name green"></svg-icon>
+              No <highlight> active covers </highlight>or
               <highlight>tokens staked</highlight>
               on claim assessment or pooled staking.
             </div>
             <div>
               <svg-icon icon-class="circle" class="icon-name green"></svg-icon>
-              No <highlight>tokens locked</highlight> 
+              No <highlight>tokens locked</highlight>
               in <highlight>governance voting</highlight>.
             </div>
             <div>
@@ -39,13 +39,13 @@
             Membership can be switched only if the following conditions are met:
             <div class="important">
               <svg-icon icon-class="circle" class="icon-name"></svg-icon>
-              No <highlight> active covers </highlight>or 
+              No <highlight> active covers </highlight>or
               <highlight>tokens staked</highlight>
               on claim assessment or pooled staking.
             </div>
             <div>
               <svg-icon icon-class="circle" class="icon-name green"></svg-icon>
-              No <highlight>tokens locked</highlight> 
+              No <highlight>tokens locked</highlight>
               in <highlight>governance voting</highlight>.
             </div>
             <div>

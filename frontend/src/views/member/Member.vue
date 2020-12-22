@@ -91,7 +91,9 @@ export default {
     initData(){
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
         this.initContract();
-        getMemberData(this);
+		if(this.settings.networkVersion == 97){
+		  getMemberData(this);
+		}
       }
     },
     async initContract(){
