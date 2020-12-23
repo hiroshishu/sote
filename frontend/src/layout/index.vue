@@ -21,7 +21,7 @@
       <div v-if="tooltipType=='network'">
         <h1>Unsupported Network</h1>
 
-        <span class="secondary-text"><svg-icon icon-class="circle" class="icon error-color"></svg-icon>Switch to mainnet network to use the app!</span>
+        <span class="secondary-text"><svg-icon icon-class="circle" class="icon error-color"></svg-icon>Switch to BSC network to use the app!</span>
       </div>
       <div v-else>
         <h1>No installed the Metamask</h1>
