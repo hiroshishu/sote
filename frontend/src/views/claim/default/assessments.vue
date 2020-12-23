@@ -33,7 +33,8 @@
       prop="assessed" width="200"
       label="ASSESSED AS">
       <template slot-scope="scope">
-        Claims assessor
+        <span v-if="scope.row.type=='CA'">Claims assessor</span>
+        <span v-else>Claims member</span>
       </template>
     </el-table-column>
     <el-table-column
@@ -60,12 +61,10 @@
 <script>
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
-import ClaimsContract from '@/services/Claims';
-import ClaimsDataContract from '@/services/ClaimsData';
-import QuotationDataContract from '@/services/QuotationData';
 import Moment from 'moment';
 import { getCoverContracts, loadCover } from '@/api/cover.js';
 import { BigNumber } from 'bignumber.js';
+import AssessmentsService from './assessments.js';
 
 
 export default {
@@ -75,16 +74,14 @@ export default {
   data() {
     return {
       loading: false,
-      dataLoading: false,
       claimIds: [],
       claims: [],
       contracts: [],
-      curId: -1,
-      count: 0,
-      latestLoadTime: null,
       Claims: null,
       ClaimsData: null,
       QuotationData: null,
+      AssessmentsServiceCA: null,
+      AssessmentsServiceMV: null,
       verdicts: {
         "-1": "Denied",
         "0": "Pending",
@@ -122,10 +119,7 @@ export default {
       }
     },
     async initContract(){
-      this.Claims = await this.getContract(ClaimsContract);
-      this.ClaimsData = await this.getContract(ClaimsDataContract);
-      this.QuotationData = await this.getContract(QuotationDataContract);
-      this.initClaimsCount();
+      this.initClaims();
     },
     async initContracts(){
       if(this.contracts && this.contracts.length>0){
@@ -134,128 +128,18 @@ export default {
       const response = await getCoverContracts(this);
       this.contracts = response.data;
     },
-    async initClaimsCount(){
+    initClaims(){
       this.claims.splice(0, this.claims.length);
-      const instance = this.ClaimsData.getContract().instance;
-      try{
-        const count = await instance.getVoteAddressCALength(this.member.account);
-        this.count = parseInt(count);
-        this.latestLoadTime = new Date().getTime();
-        this.getClaims(this.count - 1, 5);
-      }catch(e){
-        console.info(e);
-        this.$message.error(e.message);
-      }
+      this.AssessmentsServiceCA = new AssessmentsService(this, this.claims, "CA", this.contracts);
+      this.AssessmentsServiceMV = new AssessmentsService(this, this.claims, "MV", this.contracts);
     },
     load(){
-      if(this.dataLoading){
-        // 数据加载中，直接返回
-        return;
+      if(this.AssessmentsServiceCA){
+        this.AssessmentsServiceCA.loadData(); 
       }
-      const curTime = new Date().getTime();
-      if(this.latestLoadTime && curTime - this.latestLoadTime < 1000){
-        // 间隔小于1秒的更新取消
-        return;
+      if(this.AssessmentsServiceMV){
+        this.AssessmentsServiceMV.loadData();
       }
-      this.latestLoadTime = curTime;
-      this.getClaims(this.curId, 5);
-    },
-    async getClaims(start, size){
-      try{
-        if(this.dataLoading){
-          // 数据加载中，直接返回
-          return;
-        }
-        // 加锁，数据加载中....
-        this.dataLoading = true;
-        if(start <= -1){
-          return;
-        }
-
-        let curload = start;
-        let loadCount = 0;
-
-        if(start == this.count - 1){
-          // 第一次加载
-          this.loading = true;
-          this.claims = [];
-        }
-        const instance = this.ClaimsData.getContract().instance;
-        while(true){
-          if(curload <= -1){
-            this.curId = curload;
-            // 所有数据加载完成了
-            break;
-          }
-          if(loadCount >= size){
-            // 本次数据加载完成了
-            this.curId = curload;
-            break;
-          }
-          const voteIndex = await instance.getVoteAddressCA(this.member.account, curload.toString());
-          const vote = await this.loadVote(voteIndex);
-          const finalVerdict = await instance.getFinalVerdict(vote.claimId);
-
-          // 从缓存读取数据
-          let claim = this.getObjectCache(this.key + vote.claimId);
-
-          if(claim){
-            // 缓存数据更新状态
-            console.info("cache data......");
-          }else{
-            // 缓存未读到
-            console.info("读取claim");
-            claim = {};
-            await this.loadClaim(vote.claimId, claim);
-            console.info("完成claim");
-
-            // 查cover
-            const cover = await loadCover(this, claim.coverId, false, this.contracts);
-            claim.cover = cover;
-            claim.contract = cover.contract;
-          }
-          claim.vote = vote;
-          claim.finalVerdict = finalVerdict.toString();
-
-          this.claims.push(claim);
-          // 缓存数据
-          this.cacheObject(this.key + vote.claimId, claim);
-          console.info(claim);
-          curload --;
-          loadCount++;
-        }
-      }catch(e){
-        this.loading = false;
-        console.error(e);
-        this.$message.error(e.message);
-      }finally{
-        // 解锁，数据加载完成
-        this.dataLoading = false;
-        if(this.loading){
-          this.loading = false;
-          this.getClaims(this.curId, 5);
-        }
-      }
-    },
-    async loadVote(voteIndex){
-      const instance = this.ClaimsData.getContract().instance;
-      const vote = await instance.getVoteDetails(voteIndex.toString());
-      return {
-        claimId: vote.claimId.toString(),
-        tokens: vote.tokens.toString(),
-        verdict: vote.verdict.toString(),
-        rewardClaimed: vote.rewardClaimed.toString()
-      };
-    },
-    async loadClaim(claimId, claim){
-      const instance = this.Claims.getContract().instance;
-      const claimData = await instance.getClaimbyIndex(claimId.toString());
-      claim.claimId = claimData.claimId.toString();
-      claim.status = claimData.status.toString();
-      claim.finalVerdict = claimData.finalVerdict.toString();
-      claim.claimOwner = claimData.claimOwner.toString();
-      claim.coverId = claimData.coverId.toString();
-      return claim;
     },
     formatPeriod(row){
       if(row.cover && row.cover.validUntil){

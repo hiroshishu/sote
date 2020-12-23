@@ -35,7 +35,7 @@
               <template slot-scope="scope">
                 <el-button
                   type="text"
-                  :disabled="scope.row.withdrawable == '0'"
+                  :disabled="isDisabled(scope.row)"
                   icon="el-icon-view"
                   @click="handleAction(scope.row)"
                 >
@@ -53,6 +53,7 @@
 <script>
 import styles from '@/styles/element-variables.scss';
 import MemberRolesContract from '@/services/MemberRoles';
+import TokenControllerContract  from '@/services/TokenController';
 import { mapGetters } from 'vuex'
 import { watch } from '@/utils/watch.js';
 import memberData from '@/views/member/data/memberData.json';
@@ -68,6 +69,7 @@ export default {
       loading : false,
       MemberRoles: null,
       tableData: memberData,
+      TokenController: null,
     }
   },
   computed: {
@@ -98,6 +100,7 @@ export default {
     },
     async initContract(){
       this.MemberRoles = await this.getContract(MemberRolesContract);
+      this.TokenController = await this.getContract(TokenControllerContract);
       console.info("MemberRoles:", this.MemberRoles);
       this.$Bus.$emit(this.$EventNames.refreshAllowance, this.settings.contracts.TokenController, "TokenController");
     },
@@ -124,7 +127,7 @@ export default {
       const contract = this.MemberRoles.getContract();
       contract.instance.withdrawMembership({ from: this.$CustomWeb3.account }).then(response => {
         console.info(response, response.toString());
-        this.$message.success("Withdraw membership success!");
+        this.$message.success("Withdraw membership successfully!");
         this.$Bus.$emit(this.$EventNames.initMember, this); // 刷新会员状态
         this.loading = false;
       }).catch((e) => {
@@ -178,6 +181,10 @@ export default {
       });
       return sums;
     },
+    isDisabled(row){
+      const value = this.member[row.withdrawable] ? this.member[row.withdrawable] : row.withdrawable;
+      return BigNumber(value).lte(0);
+    },
     handleAction(row){
       if(row.amount == "balance"){
         this.$router.replace("/start/swap");
@@ -188,8 +195,24 @@ export default {
       }else if(row.amount == "stakeDeposit"){
         this.$router.replace("/system/stake/default");
         return;
+      }else if(row.amount == "assessment"){
+        this.withdrawAssessment();
+        return;
       }
       this.$message.info(`Click row ${row.availableFunds}`);
+    },
+    withdrawAssessment(){
+      this.loading = true;
+      const instance = this.TokenController.getContract().instance;
+      instance.unlock(this.member.account, { from: this.member.account }).then(res => {
+        console.info(res, res.toString());
+        this.$message.success("Unlock successfully!");
+        this.loading = false;
+      }).catch((e) => {
+        console.error(e);
+        this.$message.error(e.message);
+        this.loading = false;
+      });
     }
   }
 }
