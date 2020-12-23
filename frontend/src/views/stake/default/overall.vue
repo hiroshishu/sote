@@ -19,8 +19,8 @@
             <el-col :span="6">AVERAGE RETURNS</el-col>
           </el-row>
           <el-row class="highlight" :gutter="20">
-            <el-col :span="6">Unknown</el-col>
-            <el-col :span="6">Unknown</el-col>
+            <el-col :span="6">{{options.allStaked}} SOTE</el-col>
+            <el-col :span="6">{{$etherToNumber(purchasedCover)}} BNB</el-col>
             <el-col :span="6">Unknown</el-col>
             <el-col :span="6">Unknown</el-col>
           </el-row>
@@ -33,13 +33,17 @@
 <script>
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
+import QuotationDataContract from "@/services/QuotationData";
 
 export default {
   name: "Overall",
   components:{
   },
+  props: ["options"],
   data() {
     return {
+      purchasedCover: 0,
+      QuotationData: null,
     }
   },
   computed: {
@@ -65,7 +69,17 @@ export default {
       }
     },
     async initContract(){
-
+      this.QuotationData = await this.getContract(QuotationDataContract);
+      this.getTotalSumAssured();
+    },
+    getTotalSumAssured() {
+      const contract = this.QuotationData.getContract();
+      contract.instance.getTotalSumAssured(this.$BNB_BYTE8).then(response => {
+        this.purchasedCover = response.toString();
+      }).catch((e) => {
+        console.error(e);
+        this.$message.error(e.message);
+      });
     },
     staking(){
       this.$router.push("/system/stake/stake");

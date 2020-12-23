@@ -1,5 +1,6 @@
 <template>
-  <div id="stake-default-staked-staked">
+  <div id="stake-default-staked-staked" v-loading.fullscreen.lock="loading"
+        element-loading-text="Transaction is confirming ...">
     <el-row :gutter="20">
       <el-col :span="8">
         <el-card class="box-card">
@@ -70,7 +71,7 @@
             </div>
             <br />
             <div class="buttonArea" style="text-align: center;">
-              <el-button :disabled="options.rewards == 0" type="primary" round size="mini" style="width: 250px;">Withdraw</el-button>
+              <el-button :disabled="options.rewards == 0" type="primary" round size="mini" style="width: 250px;" @click="withdrawRewards">Withdraw</el-button>
             </div>
           </div>
         </el-card>
@@ -122,6 +123,7 @@ import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
 import { BigNumber } from 'bignumber.js'
 import projects from '@/views/stake/common/projects'
+import PooledStakingContract from '@/services/PooledStaking'
 
 export default {
   components:{
@@ -130,6 +132,8 @@ export default {
   props: ["options"],
   data() {
     return {
+      PooledStaking: null,
+      loading: false,
     }
   },
   computed: {
@@ -163,6 +167,7 @@ export default {
       }
     },
     async initContract(){
+      this.PooledStaking = await this.getContract(PooledStakingContract);
     },
     toFixed(value){
       return BigNumber(value).toFixed(2, 1);
@@ -173,6 +178,18 @@ export default {
     },
     withdrawDeposit(){
       this.$router.push({name: "WithdrawDeposit", params: JSON.parse(JSON.stringify(this.options))});
+    },
+    withdrawRewards(){
+      this.loading = true;
+      const instance = this.PooledStaking.getContract().instance;
+      instance.withdrawReward().then(res => {
+        this.loading = false;
+        this.$message.success("Withdraw successfully");
+        this.$emit("refresh", "rewards");
+      }).catch(e => {
+        this.$message.error(e.message);
+        this.loading = false;
+      })
     },
     unstake(){
       this.$router.push({name: "Unstake", params: JSON.parse(JSON.stringify(this.options))});

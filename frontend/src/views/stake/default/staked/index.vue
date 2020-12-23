@@ -2,7 +2,7 @@
   <div id="stake-default-staked">
     <overall :options="options"/>
     <br/>
-    <staked :options="options" />
+    <staked :options="options" @refresh="refresh"/>
   </div>
 </template>
 
@@ -47,6 +47,9 @@ export default {
     async initContract(){
 
     },
+    refresh(params){
+      this.$emit("refresh", params);
+    }
   }
 }
 </script>

@@ -21,7 +21,7 @@
           <el-row class="highlight" :gutter="20">
             <el-col :span="6">{{staked}} SOTE</el-col>
             <el-col :span="6">{{depositUsage}}%</el-col>
-            <el-col :span="6">Unknown</el-col>
+            <el-col :span="6">{{$etherToNumber(member.rewards)}} SOTE</el-col>
             <el-col :span="6">Unknown</el-col>
           </el-row>
         </div>

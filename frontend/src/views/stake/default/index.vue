@@ -2,12 +2,12 @@
   <div id="stake-default" v-loading.fullscreen.lock="loading"
         element-loading-text="Data is loading ...">
     <div v-if="options.stakedProjects.length == 0">
-      <overall/>
+      <overall :options="options"/>
       <br/>
       <introduce />
     </div>
     <div v-else>
-      <staked :options="options" ref="staked"></staked>
+      <staked :options="options" ref="staked" @refresh="refresh"></staked>
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@ import PooledStakingContract from '@/services/PooledStaking'
 import ClaimsRewardContract from '@/services/ClaimsReward.js';
 import { BigNumber } from 'bignumber.js'
 import { getStakeProjects } from '@/api/stake.js';
+import {getRewards} from "@/api/member";
 
 export default {
   components:{
@@ -37,6 +38,7 @@ export default {
         unstaked: 0,
         stakedProjects: [],
         redirect: null,
+        allStaked: 0,
       },
       PooledStaking: null,
       ClaimsReward: null,
@@ -76,11 +78,24 @@ export default {
       this.PooledStaking = await this.getContract(PooledStakingContract);
       this.ClaimsReward = await this.getContract(ClaimsRewardContract);
       this.loading = true;
+      this.getAllStaked();
       this.getDeposit();
       this.getRewards();
       this.getStakedProjects();
     },
-
+    refresh(params){
+      if(params == "rewards"){
+        this.getRewards();
+      }
+    },
+    getAllStaked(){
+      const instance = this.PooledStaking.getContract().instance;
+      this.projects.forEach((item, index) => {
+        instance.contractStake(item.address).then(res => {
+          this.options.allStaked = BigNumber(this.options.allStaked).plus(this.$etherToNumber(res.toString())).toString();
+        });
+      });
+    },
     getDeposit(){
       const contract = this.PooledStaking.getContract();
       contract.instance.stakerDeposit(this.member.account).then(res => {
@@ -92,6 +107,7 @@ export default {
       contract.instance.stakerReward(this.member.account).then(res => {
         this.options.rewards = this.$etherToValue(res.toString());
       });
+      getRewards(this);
     },
     getStakedProjects(){
       const contract = this.PooledStaking.getContract();
