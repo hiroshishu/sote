@@ -37,9 +37,9 @@
             <el-form-item label="Contract type">
               {{contract.type}}
             </el-form-item>
-            <el-form-item label="Yearly Cost">
+            <!-- <el-form-item label="Yearly Cost">
               {{contract.yearlyCost}}
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="Capacity">
               {{contract.capacityBNB}} BNB
             </el-form-item>
