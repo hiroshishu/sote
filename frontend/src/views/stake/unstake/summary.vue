@@ -19,6 +19,10 @@
           </el-form-item>
         </el-form>
       </div>
+      <div class="error" v-if="error" style="margin-bottom: 10px;text-align: center;">
+        <svg-icon icon-class="circle" class="icon-name error-color"></svg-icon>
+        {{error}}<br/>
+      </div>
       <div style="text-align: center;">
         <el-button type="primary" plain round size="small" @click="viewHistory" >View history</el-button>
         <el-button type="primary" :disabled="!isContinue" round size="small" @click="confirm" >Confirm</el-button>
@@ -41,6 +45,7 @@ export default {
       top: 0,
       isContinue: false,
       loading: false,
+      error: null,
     }
   },
   computed: {
@@ -67,7 +72,7 @@ export default {
         this.isContinue = this.checkContinue();
       },
       deep: true,
-    }
+    },
   },
   created(){
     this.initData();
@@ -87,21 +92,42 @@ export default {
 
     },
     confirm(){
-      this.$emit("confirm");
-    },
-    checkContinue(showMessage){
       const vBN = BigNumber(this.unstaking);
       if(vBN.lte(0)){
-        if(showMessage) this.$message.error(`Unstake ${0} SOTE minimum all conracts.`);
+        this.$message.error(`Unstake ${0} SOTE minimum all conracts.`);
+        return;
+      }
+      this.$emit("confirm");
+    },
+    checkContinue(){
+      this.error = null;
+      const vBN = BigNumber(this.unstaking);
+      if(vBN.lte(0)){
         return false;
       }
-      const perError = this.options.stakedProjects.filter(item => BigNumber(item.unstaking).gt(0) && BigNumber(item.unstaking).lt(this.settings.stake.minAmountPerContract)).length;
+      const perError = this.options.stakedProjects.filter(item => {
+        const unstake = BigNumber(item.unstaking);
+        return unstake.gt(0) && unstake.lt(this.settings.stake.minAmountPerContract);
+      }).length;
       if(perError > 0){
+        this.error = `Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
         return false;
       }
-      const errCount = this.options.stakedProjects.filter(item => BigNumber(item.unstaking).gt(0) && !BigNumber(item.ownerStaked).eq(item.unstaking)).length;
+      const errRemaining = this.options.stakedProjects.filter(item => {
+        const remainingStaked = BigNumber(item.ownerStaked).minus(item.unstaking).minus(item.unstaked);
+        return remainingStaked.lt(0);
+      }).length;
+      if(errRemaining > 0){
+        this.error = `The unstake cannot greater than the stake.`;
+        return false;
+      }
+
+      const errCount = this.options.stakedProjects.filter(item => {
+        const remainingStaked = BigNumber(item.ownerStaked).minus(item.unstaking).minus(item.unstaked);
+        return remainingStaked.gt(0) && remainingStaked.lt(this.settings.stake.minAmountPerContract);
+      }).length;
       if(errCount > 0){
-        if(showMessage) this.$message.error(`The unstaking amount does not match the available amount.`);
+        this.error = `Remaining stake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
         return false;
       }
       return true;

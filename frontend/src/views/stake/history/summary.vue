@@ -55,7 +55,9 @@ export default {
       return unstakedMap.reduce((total, item) => BigNumber(total?total:0).plus(item?item:0)).toString();
     },
     available(){
-      const availabledMap = this.options.stakedProjects.filter(item => !item.unstaked || BigNumber(item.unstaked).eq(0)).map(item => item.ownerStaked);
+      const availabledMap = this.options.stakedProjects.map(item => {
+        return BigNumber(item.ownerStaked).minus(item.unstaked ? item.unstaked : 0)
+      });
       if(availabledMap.length == 0){
         return 0;
       }

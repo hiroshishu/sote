@@ -25,13 +25,18 @@
           label="UNSTAKE">
           <template slot-scope="scope">
             <el-form :model="scope.row">
-              <el-form-item prop="unstaking">
-                <el-switch @change="unstakeChange(scope.row)" :disabled="isNotUnstake(scope.row)"
-                  v-model="scope.row.unstakeFlag" >
-                </el-switch>
-                {{toFixed(scope.row.unstaking)}} SOTE
+              <el-form-item prop="unstaking" :rules="rules(scope.row)">
+                <el-input-number size="mini" v-model="scope.row.unstaking" :min="0" class="right-input">
+                </el-input-number>SOTE
               </el-form-item>
             </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="unstaked"
+          label="UNSTAKED">
+          <template slot-scope="scope">
+            {{unstaked(scope.row)}}
           </template>
         </el-table-column>
       </el-table>
@@ -79,6 +84,9 @@ export default {
     async initContract(){
 
     },
+    unstaked(row){
+      return BigNumber(row.unstaking).plus(row.unstaked).toFixed(2, 1);
+    },
     toFixed(value){
       return BigNumber(value).toFixed(2, 1);
     },
@@ -88,18 +96,35 @@ export default {
       }
       return this.toFixed(row.oldOwnerStaked);
     },
-    isNotUnstake(row){
-      return BigNumber(row.ownerStaked).eq(0) || BigNumber(row.unstaked).gt(0);
+    rules(row){
+      return [{ trigger: 'blur', validator: (rule, value, callback) => {
+        this.validateUnstaking(rule, value, callback, row);
+      } }];
     },
-    unstakeChange(row){
-      if(row.unstakeFlag){
-        row.unstaking = row.ownerStaked;
-        row.oldOwnerStaked = "0";
-      }else{
-        row.oldOwnerStaked = row.ownerStaked;
-        row.unstaking = "0";
+    validateUnstaking(rule, value, callback, row){
+      this.options.error = null;
+      const unstake = BigNumber(value).plus(row.unstaked);
+      // unstaking 最少20
+      if(BigNumber(value).gt(0) && BigNumber(value).lt(this.settings.stake.minAmountPerContract)){
+        this.options.error = `Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
+        callback(new Error(`Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`));
+        return;
       }
-    },
+      const remainingStaked = BigNumber(row.ownerStaked).minus(unstake);
+      // 剩余的stake必须大于20，或者全部unstake
+      if(remainingStaked.lt(0)){
+        this.options.error = `The unstake cannot greater than the stake.`;
+        callback(new Error(`The unstake cannot greater than the stake.`));
+        return;
+      }
+      // 剩余的stake必须大于20，或者全部unstake
+      if(remainingStaked.gt(0) && remainingStaked.lt(this.settings.stake.minAmountPerContract)){
+        this.options.error = `Remaining stake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
+        callback(new Error(`Remaining stake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`));
+        return;
+      }
+      callback();
+    }
   }
 }
 </script>
