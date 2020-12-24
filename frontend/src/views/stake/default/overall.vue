@@ -84,9 +84,7 @@ export default {
     staking(){
       this.$router.push("/system/stake/stake");
     },
-    stats(){
-      this.$router.push("/system/stake/stats");
-    }
+
   }
 }
 </script>
