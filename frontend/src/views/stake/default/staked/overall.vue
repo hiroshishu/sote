@@ -6,7 +6,7 @@
           <h2 class="main-text">Soteria Staking</h2>
           <span class="normal-text">Earn rewards by staking SOTE on projects you think are secure.</span>
           <span class="right-area">
-            <el-button type="primary" plain round @click="stats">Stats</el-button>
+            <!-- <el-button type="primary" plain round @click="stats">Stats</el-button> -->
             <el-button type="primary" round @click="staking">Start staking</el-button>
           </span>
           <el-divider></el-divider>
