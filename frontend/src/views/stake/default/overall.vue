@@ -20,8 +20,7 @@
           <el-row class="highlight" :gutter="20">
             <el-col :span="6">{{$etherToNumber(options.allStaked)}} SOTE</el-col>
             <el-col :span="6">{{$etherToNumber(purchasedCover)}} BNB</el-col>
-            <el-col :span="6">Unknown</el-col>
-            <el-col :span="6">Unknown</el-col>
+            <el-col :span="6">N/A</el-col>
           </el-row>
         </div>
       </el-form>
