@@ -2,37 +2,11 @@
   <div id="claim-assess-criteria">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <highlight>Incident details</highlight>
-      </div>
-      <highlight>Description</highlight>
-      <br /><br />
-      <span class="secondary-text addresses">This is test for claim function.</span>
-      <br /><br />
-      <highlight>Affected addresses</highlight>
-      <br /><br />
-      <el-row :gutter="20">
-        <el-col :span="12" class="secondary-text addresses">
-          <highlight>Inspect the transactions</highlight>
-          of the <highlight>affected addresses</highlight>
-          submitted as proof of loss and
-          <highlight>answer the questions below.</highlight>
-          You can consult with other members by joining
-          <el-button type="text">#claims-discussions</el-button>
-          on Discord.
-        </el-col>
-        <el-col :span="12">
-          <el-button type="text">{{member.account}}</el-button>
-        </el-col>
-      </el-row>
-    </el-card>
-    <br/>
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
         <highlight>Assess general criteria</highlight>
       </div>
       <div class="card-body">
         <el-form v-model="options.criteria" :rules="rules">
-          <div class="secondary-text">Did an incident occur during the riod the cover was active?</div>
+          <div class="secondary-text">Did an incident occur during the period the cover was active?</div>
           <el-form-item prop="incident">
             <el-radio-group v-model="options.criteria.incident">
               <el-radio label="yes">Yes</el-radio>
