@@ -20,7 +20,11 @@
     </el-table-column>
     <el-table-column
       prop="claimId" width="100"
-      label="ID">
+      label="Claim ID">
+    </el-table-column>
+    <el-table-column
+      prop="coverId" width="100"
+      label="Cover ID">
     </el-table-column>
     <el-table-column
       prop="cover.sumAssured" width="240"
