@@ -48,11 +48,18 @@ export default {
       'settings'
     ]),
     unstaked(){
-      return this.options.stakedProjects.map(item => item.unstaked).reduce((total, item) => BigNumber(total?total:0).plus(item?item:0)).toString();
+      const unstakedMap = this.options.stakedProjects.map(item => item.unstaked);
+      if(unstakedMap.length == 0){
+        return 0;
+      }
+      return unstakedMap.reduce((total, item) => BigNumber(total?total:0).plus(item?item:0)).toString();
     },
     available(){
-      return this.options.stakedProjects.filter(item => !item.unstaked || BigNumber(item.unstaked).eq(0))
-        .map(item => item.ownerStaked).reduce((total, item) => BigNumber(total?total:0).plus(item?item:0)).toString();
+      const availabledMap = this.options.stakedProjects.filter(item => !item.unstaked || BigNumber(item.unstaked).eq(0)).map(item => item.ownerStaked);
+      if(availabledMap.length == 0){
+        return 0;
+      }
+      return availabledMap.reduce((total, item) => BigNumber(total?total:0).plus(item?item:0)).toString();
     }
   },
   watch: {

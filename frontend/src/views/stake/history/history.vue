@@ -81,7 +81,7 @@ export default {
     async getHistoryInfo(){
       const instance = this.PooledStaking.getContract().instance;
       const reqId = await instance.lastUnstakeRequestId();
-      let curId = BigNumber(reqId.toString()).minus(1).toString();
+      let curId = reqId.toString();
       const unstakedList = [];
       while(true){
         if(BigNumber(curId).lt(0)){
