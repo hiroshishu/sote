@@ -23,7 +23,7 @@ export default {
   components: { Channel },
   data() {
     return {
-      loading: true,
+      loading: false,
       ClaimsReward: null,
     }
   },
