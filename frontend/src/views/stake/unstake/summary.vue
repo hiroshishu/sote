@@ -89,10 +89,10 @@ export default {
     confirm(){
       this.$emit("confirm");
     },
-    checkContinue(){
+    checkContinue(showMessage){
       const vBN = BigNumber(this.unstaking);
       if(vBN.lte(0)){
-        this.$message.error(`Unstake ${0} SOTE minimum all conracts.`);
+        if(showMessage) this.$message.error(`Unstake ${0} SOTE minimum all conracts.`);
         return false;
       }
       const perError = this.options.stakedProjects.filter(item => BigNumber(item.unstaking).gt(0) && BigNumber(item.unstaking).lt(this.settings.stake.minAmountPerContract)).length;
@@ -101,7 +101,7 @@ export default {
       }
       const errCount = this.options.stakedProjects.filter(item => BigNumber(item.unstaking).gt(0) && !BigNumber(item.ownerStaked).eq(item.unstaking)).length;
       if(errCount > 0){
-        this.$message.error(`The unstaking amount does not match the available amount.`);
+        if(showMessage) this.$message.error(`The unstaking amount does not match the available amount.`);
         return false;
       }
       return true;

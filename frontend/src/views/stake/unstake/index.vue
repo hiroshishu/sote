@@ -82,7 +82,7 @@ export default {
       const unstakes = unstakingList.map(item => this.$ether(item.unstaking.toString()));
       this.loading = true;
       const reqId = await instance.lastUnstakeRequestId();
-      const curId = BigNumber(reqId.toString()).minus(1).toString();
+      const curId = BigNumber(reqId.toString()).lte(0) ? 0 : reqId.toString();
       console.info("requestUnstake: ", addresses, unstakes, curId);
       instance.requestUnstake(addresses, unstakes, curId, { from: this.member.account }).then(res => {
         console.info(res, res.toString());
