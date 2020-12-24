@@ -64,7 +64,7 @@ import { mapGetters } from 'vuex';
 import Moment from 'moment';
 import { getCoverContracts, loadCover } from '@/api/cover.js';
 import { BigNumber } from 'bignumber.js';
-import AssessmentsService from './assessments.js';
+import AssessmentsService from './assessmentsService.js';
 
 
 export default {
@@ -113,6 +113,8 @@ export default {
   },
   methods: {
     async initData(){
+      console.info("created.............");
+      console.info(AssessmentsService);
       await this.initContracts();
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
         this.initContract();
@@ -130,6 +132,8 @@ export default {
     },
     initClaims(){
       this.claims.splice(0, this.claims.length);
+      
+      console.info("加载数据...............");
       this.AssessmentsServiceCA = new AssessmentsService(this, this.claims, "CA", this.contracts);
       this.AssessmentsServiceMV = new AssessmentsService(this, this.claims, "MV", this.contracts);
     },

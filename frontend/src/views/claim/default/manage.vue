@@ -18,7 +18,7 @@
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
 import claims from './claims';
-import assessments from './assessments';
+import assessments from './assessments.vue';
 import stake from './stake/index';
 import { BigNumber } from 'bignumber.js';
 

@@ -18,6 +18,7 @@ class AssessmentsService {
     this.contracts = contracts;
     
     this.initClaimsCount();
+    console.info("加载assessments");
   }
   
   async initClaimsCount(){

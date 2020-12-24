@@ -24,6 +24,10 @@ import Fragment from 'vue-fragment'
 import vueSkeleton from 'vue-skeleton-antd';
 import CustomComponents from '@/components/CustomComponents'
 import elTableInfiniteScroll from 'el-table-infinite-scroll';
+import { BigNumber } from 'bignumber.js';
+
+// 默认为20，超过20位就变成科学计数了，导致数据转换错误，设置100，超过100位才显示为科学计数
+BigNumber.config({ EXPONENTIAL_AT: 100 })
 
 Vue.use(CustomComponents);
 

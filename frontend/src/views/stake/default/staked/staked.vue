@@ -182,7 +182,7 @@ export default {
     withdrawRewards(){
       this.loading = true;
       const instance = this.PooledStaking.getContract().instance;
-      instance.withdrawReward().then(res => {
+      instance.withdrawReward(this.member.account, { from: this.member.account }).then(res => {
         this.loading = false;
         this.$message.success("Withdraw successfully");
         this.$emit("refresh", "rewards");

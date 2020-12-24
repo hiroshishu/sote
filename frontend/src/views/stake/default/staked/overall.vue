@@ -13,16 +13,14 @@
         </el-row>
         <div class="overall">
           <el-row class="secondary-text" :gutter="20">
-            <el-col :span="6">CURRENT STAKED</el-col>
-            <el-col :span="6">DEPOSIT USAGE</el-col>
-            <el-col :span="6">TOTAL REWARDS</el-col>
-            <el-col :span="6">ANNUALIZED RETURNS</el-col>
+            <el-col :span="8">CURRENT STAKED</el-col>
+            <el-col :span="8">DEPOSIT USAGE</el-col>
+            <el-col :span="8">TOTAL REWARDS</el-col>
           </el-row>
           <el-row class="highlight" :gutter="20">
-            <el-col :span="6">{{staked}} SOTE</el-col>
-            <el-col :span="6">{{depositUsage}}%</el-col>
-            <el-col :span="6">{{$etherToNumber(member.rewards)}} SOTE</el-col>
-            <el-col :span="6">Unknown</el-col>
+            <el-col :span="8">{{staked}} SOTE</el-col>
+            <el-col :span="8">{{depositUsage}}%</el-col>
+            <el-col :span="8">{{$etherToNumber(member.rewards)}} SOTE</el-col>
           </el-row>
         </div>
       </el-form>

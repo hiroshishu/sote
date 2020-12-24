@@ -92,7 +92,7 @@ export default {
       const instance = this.PooledStaking.getContract().instance;
       this.projects.forEach((item, index) => {
         instance.contractStake(item.address).then(res => {
-          this.options.allStaked = BigNumber(this.options.allStaked).plus(this.$etherToNumber(res.toString())).toString();
+          this.options.allStaked = BigNumber(this.options.allStaked).plus(res.toString()).toString();
         });
       });
     },
