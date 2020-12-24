@@ -16,7 +16,6 @@
             <el-col :span="6">TOTAL STAKED</el-col>
             <el-col :span="6">COVER PURCHASED</el-col>
             <el-col :span="6">TOTAL REWARDS</el-col>
-            <el-col :span="6">AVERAGE RETURNS</el-col>
           </el-row>
           <el-row class="highlight" :gutter="20">
             <el-col :span="6">{{$etherToNumber(options.allStaked)}} SOTE</el-col>
