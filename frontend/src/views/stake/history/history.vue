@@ -114,15 +114,15 @@ export default {
         curId = BigNumber(curId).minus(1).toString();
       }
     },
-    requestDate(row){
+    due(row){
       if(row.unstakeAt){
         return this.$secondsToDateString(row.unstakeAt);  
       }
       return "-";
     },
-    due(row){
+    requestDate(row){
       if(row.unstakeAt){
-        return this.$secondsToDateString(BigNumber(row.unstakeAt).plus(BigNumber(this.settings.unstakedPendingDay).times(24 * 60 * 60)).toString());  
+        return this.$secondsToDateString(BigNumber(row.unstakeAt).minus(BigNumber(this.settings.unstakedPendingDay).times(24 * 60 * 60)).toString());  
       }
       return "-";
     }
