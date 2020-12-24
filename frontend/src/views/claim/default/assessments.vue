@@ -89,7 +89,7 @@ export default {
       },
       verdictsColors: {
         "-1": "dange",
-        "0": "info",
+        "0": "warning",
         "1": "success",
       },
       key: "assess_",

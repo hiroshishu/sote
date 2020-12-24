@@ -90,7 +90,7 @@ export default {
         "14": "Payout Finished",
       },
       claimStatusColors: {
-        "0": "",
+        "0": "warning",
         "1": "warning",
         "2": "warning",
         "3": "warning",
