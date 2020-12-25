@@ -5,7 +5,7 @@ import { BigNumber } from 'bignumber.js'
 export const getCoverContracts = async (vue) => {
   const [contractsRes, capacitiesRes] = await Promise.all([
     request({
-      url: `/data/contracts.json`,
+      url: `/data/contracts.json?nocache=${new Date().getTime()}`,
       method: 'get'
     }),
     request({
