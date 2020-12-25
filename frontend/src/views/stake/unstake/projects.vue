@@ -34,7 +34,7 @@
         </el-table-column>
         <el-table-column
           prop="unstaked"
-          label="UNSTAKED">
+          label="PENDING UNSTAKED">
           <template slot-scope="scope">
             {{unstaked(scope.row)}}
           </template>
