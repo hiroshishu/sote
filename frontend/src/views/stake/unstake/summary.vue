@@ -94,7 +94,7 @@ export default {
     confirm(){
       const vBN = BigNumber(this.unstaking);
       if(vBN.lte(0)){
-        this.$message.error(`Unstake ${0} SOTE minimum all conracts.`);
+        this.$message.error(`Unstake ${0} SOTE minimum all projects.`);
         return;
       }
       this.$emit("confirm");
@@ -110,7 +110,7 @@ export default {
         return unstake.gt(0) && unstake.lt(this.settings.stake.minAmountPerContract);
       }).length;
       if(perError > 0){
-        this.error = `Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
+        this.error = `Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per project.`;
         return false;
       }
       const errRemaining = this.options.stakedProjects.filter(item => {
@@ -127,7 +127,7 @@ export default {
         return remainingStaked.gt(0) && remainingStaked.lt(this.settings.stake.minAmountPerContract);
       }).length;
       if(errCount > 0){
-        this.error = `Remaining stake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
+        this.error = `Remaining stake ${this.settings.stake.minAmountPerContract} SOTE minumum per project.`;
         return false;
       }
       return true;
