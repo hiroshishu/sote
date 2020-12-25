@@ -5,7 +5,7 @@
       <h2>Soteria Rewards</h2>
       <el-row type="flex" justify="space-between" align="middle">
         <el-col :span="6">You have {{$etherToNumber(member.rewards)}} SOTE available</el-col>
-        <el-col :span="4"><el-button type="primary" disabled round class="withdraw-btn" @click="withdrawAll">Withdraw all</el-button></el-col>
+        <el-col :span="4"><el-button type="primary" round class="withdraw-btn" @click="withdrawAll">Withdraw all</el-button></el-col>
       </el-row>
     </el-card>
     <channel />
