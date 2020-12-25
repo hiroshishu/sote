@@ -105,14 +105,7 @@ export default {
       if(vBN.lte(0)){
         return false;
       }
-      const perError = this.options.stakedProjects.filter(item => {
-        const unstake = BigNumber(item.unstaking);
-        return unstake.gt(0) && unstake.lt(this.settings.stake.minAmountPerContract);
-      }).length;
-      if(perError > 0){
-        this.error = `Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
-        return false;
-      }
+      
       const errRemaining = this.options.stakedProjects.filter(item => {
         const remainingStaked = BigNumber(item.ownerStaked).minus(item.unstaking).minus(item.unstaked);
         return remainingStaked.lt(0);
@@ -128,6 +121,15 @@ export default {
       }).length;
       if(errCount > 0){
         this.error = `Remaining stake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
+        return false;
+      }
+      
+      const perError = this.options.stakedProjects.filter(item => {
+        const unstake = BigNumber(item.unstaking);
+        return unstake.gt(0) && unstake.lt(this.settings.stake.minAmountPerContract);
+      }).length;
+      if(perError > 0){
+        this.error = `Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
         return false;
       }
       return true;

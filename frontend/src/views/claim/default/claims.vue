@@ -3,7 +3,7 @@
     id="claim-default-open"
     :data="claims"
     stripe
-    v-loading.fullscreen.lock="loading"
+    v-loading.fullscreen.lock="false"
     element-loading-text="Claims loading ..."
     v-el-table-infinite-scroll="load"
     height="calc(100vh - 300px)"
@@ -187,10 +187,17 @@ export default {
           if(claim){
             // 缓存数据更新状态
             console.info("cache data......");
-            const data = await instance.getClaimStatusNumber(curload.toString());
-            const statno = data.statno.toString();
-            claim.status = statno;
-            await this.getVoteId(claim);
+            if(!claim.finished){
+              const data = await instance.getClaimStatusNumber(curload.toString());
+              const statno = data.statno.toString();
+              claim.status = statno;
+              if(BigNumber(statno).gt(5)){
+                claim.finished = true;
+              }else{
+                await this.getVoteId(claim);
+              }
+            }
+            
             this.claims.push(claim);
             curload --;
             loadCount++;

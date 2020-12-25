@@ -91,10 +91,7 @@ export default {
       return BigNumber(value).toFixed(2, 1);
     },
     formatStaked(row){
-      if(row.oldOwnerStaked == undefined){
-        row.oldOwnerStaked = row.ownerStaked;
-      }
-      return this.toFixed(row.oldOwnerStaked) - this.unstaked(row);
+      return BigNumber(row.ownerStaked).minus(row.unstaking).minus(row.unstaked).toFixed(2, 1);
     },
     rules(row){
       return [{ trigger: 'blur', validator: (rule, value, callback) => {
@@ -104,12 +101,7 @@ export default {
     validateUnstaking(rule, value, callback, row){
       this.options.error = null;
       const unstake = BigNumber(value).plus(row.unstaked);
-      // unstaking 最少20
-      if(BigNumber(value).gt(0) && BigNumber(value).lt(this.settings.stake.minAmountPerContract)){
-        this.options.error = `Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
-        callback(new Error(`Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`));
-        return;
-      }
+      
       const remainingStaked = BigNumber(row.ownerStaked).minus(unstake);
       // 剩余的stake必须大于20，或者全部unstake
       if(remainingStaked.lt(0)){
@@ -121,6 +113,12 @@ export default {
       if(remainingStaked.gt(0) && remainingStaked.lt(this.settings.stake.minAmountPerContract)){
         this.options.error = `Remaining stake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
         callback(new Error(`Remaining stake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`));
+        return;
+      }
+      // unstaking 最少20
+      if(BigNumber(value).gt(0) && BigNumber(value).lt(this.settings.stake.minAmountPerContract)){
+        this.options.error = `Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`;
+        callback(new Error(`Unstake ${this.settings.stake.minAmountPerContract} SOTE minumum per contract.`));
         return;
       }
       callback();

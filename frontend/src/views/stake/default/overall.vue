@@ -13,14 +13,14 @@
         </el-row>
         <div class="overall">
           <el-row class="secondary-text" :gutter="20">
-            <el-col :span="6">TOTAL STAKED</el-col>
-            <el-col :span="6">COVER PURCHASED</el-col>
-            <el-col :span="6">TOTAL REWARDS</el-col>
+            <el-col :span="8">TOTAL STAKED</el-col>
+            <el-col :span="8">COVER PURCHASED</el-col>
+            <el-col :span="8">TOTAL REWARDS</el-col>
           </el-row>
           <el-row class="highlight" :gutter="20">
-            <el-col :span="6">{{$etherToNumber(options.allStaked)}} SOTE</el-col>
-            <el-col :span="6">{{$etherToNumber(purchasedCover)}} BNB</el-col>
-            <el-col :span="6">N/A</el-col>
+            <el-col :span="8">{{$etherToNumber(options.allStaked)}} SOTE</el-col>
+            <el-col :span="8">{{$etherToNumber(purchasedCover)}} BNB</el-col>
+            <el-col :span="8">N/A</el-col>
           </el-row>
         </div>
       </el-form>

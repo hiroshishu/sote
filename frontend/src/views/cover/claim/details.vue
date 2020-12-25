@@ -1,5 +1,21 @@
 <template>
   <div id="cover-claim-details">
+    <el-card>
+      <div slot="header" class="clearfix">
+        <highlight>Incident details</highlight>
+      </div>
+      <el-form>
+        <el-form-item label-width="0px">
+          Please provide a description of what happened and any relevant evidence such as transaction ids, announcements, links, screenshots etc.
+        </el-form-item>
+        <el-form-item label-width="0px">
+          <el-input type="textarea" :rows="5" placeholder="Type here..."></el-input>
+        </el-form-item>
+        <el-form-item label-width="0px">
+          
+        </el-form-item>
+      </el-form>
+    </el-card>
   </div>
 </template>
 

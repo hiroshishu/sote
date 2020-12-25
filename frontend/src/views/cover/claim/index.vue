@@ -4,7 +4,7 @@
     <el-card class="box-card">
       <div slot="header" class="title">Open claim</div>
       <el-steps :active="options.active" align-center finish-status="success" process-status="finish">
-        <el-step title="Incident details"></el-step>
+        <!-- <el-step title="Incident details"></el-step> -->
         <!-- <el-step title="Affected addresses"></el-step>
         <el-step title="Submit proof"></el-step> -->
         <el-step title="Submit claim"></el-step>
@@ -14,10 +14,10 @@
     <el-row :gutter="20">
       <el-col :span="18">
         <transition name="el-fade-in-linear" mode="out-in">
-          <coverDetails :options="options" v-if="options.active==0"/>
+          <!-- <coverDetails :options="options" v-if="options.active==0"/> -->
           <!-- <addresses :options="options"  v-if="options.active==1"/>
           <proof :options="options" v-if="options.active==2"/> -->
-          <claim :options="options" v-if="options.active==1"/>
+          <claim :options="options" v-if="options.active==0"/>
         </transition>
       </el-col>
       <el-col :span="6">
@@ -30,9 +30,6 @@
 <script>
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
-import coverDetails from './details'
-import addresses from './addresses'
-import proof from './proof'
 import claim from './claim'
 import cover from './cover'
 import { ROUTE_NAMES } from '@/utils/Constants.js'
@@ -40,7 +37,7 @@ import ClaimsContract from '@/services/Claims'
 
 export default {
   components:{
-    coverDetails, addresses, proof, claim, cover
+    claim, cover
   },
   data() {
     return {
@@ -109,7 +106,7 @@ export default {
       }
     },
     next(contract){
-      if(this.options.active<1){
+      if(this.options.active<0){
         this.options.active++;  
       }else{
         // 提交索赔

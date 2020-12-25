@@ -52,7 +52,7 @@ export default {
       // titles: ["Summary", "Summary", "Addresses", "Summary"],
       // buttonText: ["Continue", "Continue", "Submit proof", "Submit claim"],
       titles: ["Summary", "Summary"],
-      buttonText: ["Continue", "Submit claim"],
+      buttonText: ["Submit claim"],
       top: 0,
       isContinue: false,
     }
