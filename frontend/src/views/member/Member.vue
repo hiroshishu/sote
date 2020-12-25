@@ -4,7 +4,7 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span class="page-title">My SOTE holdings</span>
-        <span class="right-bottom"><el-button type="primary" round @click="withdraw">Withdraw Membership</el-button></span>
+        <span class="right-bottom"><el-button type="primary" :disabled="canNotWithdraw" round @click="withdraw">Withdraw Membership</el-button></span>
       </div>
       <el-table
         :data="tableData"
@@ -79,6 +79,21 @@ export default {
       'web3Status',
 	  'settings'
     ]),
+    hasCoverAndStake(){
+      return BigNumber(this.member.coverDeposit).gt(0) || BigNumber(this.member.assessment).gt(0) || BigNumber(this.member.stakeDeposit).gt(0);
+    },
+    hasLockedOfGo(){
+      return false;
+    },
+    hasRewards(){
+      return BigNumber(this.member.rewards).gt(0);
+    },
+    hasBalance(){
+      return BigNumber(this.member.balance).gt(0);
+    },
+    canNotWithdraw(){
+      return this.hasCoverAndStake || this.hasLockedOfGo || this.hasRewards || this.hasBalance;
+    }
   },
   watch: {
     web3Status: watch.web3Status,

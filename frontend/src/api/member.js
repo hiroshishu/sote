@@ -22,8 +22,10 @@ export async function getCoverDeposit(vue){
   }
   let count = BigNumber(0);
   for(let i=0;i<ids.length;i++){
-    const coverPermium = await instance.getCoverPremiumSOTE(ids[i].toString());
-    count = count.plus(coverPermium.toString());
+    const cover = await instance.getCoverDetailsByCoverID2(ids[i].toString());
+    if(cover.status.toString() == "0"){
+      count = count.plus(cover.sumAssured.toString());
+    }
   }
   vue.$store.dispatch("member/changeMember", {
     key: "coverDeposit",
