@@ -93,7 +93,7 @@
       </el-table>
       <el-row>
         <div style="text-align: center;">
-          <el-button type="text" @click="addMore">Add more contracts</el-button>
+          <el-button type="text" @click="addMore">Add more projects</el-button>
         </div>
       </el-row>
     </el-card>
