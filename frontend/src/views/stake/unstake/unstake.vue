@@ -5,7 +5,6 @@
       <svg-icon icon-class="circle" class="icon-name error-color"></svg-icon>
       If you unstake from a project you will enter a 90 day lock up period.
       During this time you will continue to receive SOTE rewards
-      (but <highlight>not</highlight> shield mining incentive rewards)
       and can still lose some (or all) of your deposit if a successful claim is made.
     </div>
   </el-card>
