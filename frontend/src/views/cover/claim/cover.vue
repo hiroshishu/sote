@@ -6,7 +6,7 @@
       </div>
       <div style="margin-bottom: 20px;" v-if="options.active!=2">
         <div style="line-height: 40px;" class="title">
-          <svg-icon :icon-class="options.cover.contract.icon" class="icon-name"></svg-icon>
+          <img :src="options.cover.contract.icon" class="project-large-icon" />
           <span>{{options.cover.contract.name}}</span>
         </div>
         <el-form label-width="120px">

@@ -30,7 +30,7 @@
             NEW
           </DegreesBadge>
           <div style="line-height: 40px;" class="title">
-            <svg-icon :icon-class="contract.icon" class="icon-name"></svg-icon>
+            <img :src="contract.icon" class="project-large-icon" />
             <span>{{contract.name}}</span>
           </div>
           <el-form label-width="120px">

@@ -9,7 +9,7 @@
       </div>
       <div style="margin-bottom: 20px;">
         <div style="line-height: 40px;" class="title">
-          <svg-icon :icon-class="options.claim.contract.icon" class="icon-name"></svg-icon>
+          <img :src="options.claim.contract.icon" class="project-large-icon" />
           <span>{{options.claim.contract.name}}</span>
         </div>
         <el-form label-width="120px">

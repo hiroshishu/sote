@@ -6,7 +6,7 @@
     <div>
       <el-form label-width="120px">
         <div style="line-height: 40px;" class="title">
-          <svg-icon :icon-class="options.curContract.icon" class="icon-name"></svg-icon>
+          <img :src="options.curContract.icon" class="project-large-icon" />
           <span>{{options.curContract.name}}</span>
         </div>
         <el-form-item label="Address:">

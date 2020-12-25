@@ -1,5 +1,5 @@
 [{
-    "icon": "claim",
+    "icon": "/images/claim.svg",
     "name": "Compound Sai",
     "type": "Smart contracts",
     "yearlyCost": "8.4%",
@@ -11,7 +11,7 @@
     "description": "Earn 0.1 KEEP / SOTE weekly!",
     "status": "new"
 },{
-    "icon": "claim",
+    "icon": "/images/logo.png",
     "name": "bZx",
     "type": "Smart contracts",
     "yearlyCost": "8.4%",
@@ -23,7 +23,7 @@
     "description": "",
     "status": "new"
 },{
-    "icon": "claim",
+    "icon": "/images/claim.svg",
     "name": "Unknown",
     "type": "Custodians",
     "yearlyCost": "8.4%",
@@ -35,7 +35,7 @@
     "description": "",
     "status": "incentivized"
 },{
-    "icon": "claim",
+    "icon": "/images/claim.svg",
     "name": "Compound ETH",
     "type": "Custodians",
     "yearlyCost": "8.4%",
@@ -47,7 +47,7 @@
     "description": "Earn 0.1 KEEP / SOTE weekly!",
     "status": "incentivized"
 },{
-    "icon": "claim",
+    "icon": "/images/claim.svg",
     "name": "0x V2.1",
     "type": "Smart contracts",
     "yearlyCost": "8.4%",
@@ -59,7 +59,7 @@
     "description": "",
     "status": ""
 },{
-    "icon": "claim",
+    "icon": "/images/claim.svg",
     "name": "QuotationData",
     "type": "Smart contracts",
     "yearlyCost": "8.4%",

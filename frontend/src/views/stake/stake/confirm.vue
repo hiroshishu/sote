@@ -8,7 +8,7 @@
         prop="name"
         label="PROJECT">
         <template slot-scope="scope">
-          <svg-icon :icon-class="scope.row.icon" class="icon-name"></svg-icon>
+          <img :src="scope.row.icon" class="project-list-icon" />
           {{scope.row.name}}
         </template>
       </el-table-column>

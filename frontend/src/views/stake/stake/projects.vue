@@ -40,7 +40,7 @@
                 {{project.status.toUpperCase()}}
               </DegreesBadge>
               <div style="line-height: 40px;" class="title">
-                <svg-icon :icon-class="project.icon" class="icon-name"></svg-icon>
+                <img :src="project.icon" class="project-large-icon" />
                 <span>{{project.name}}</span>
               </div>
               <div style="height:25px;">

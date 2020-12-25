@@ -17,7 +17,7 @@
       label="PROJECT">
       <template slot-scope="scope">
         <div v-if="scope.row.contract">
-          <svg-icon :icon-class="scope.row.contract.icon" class="icon-name"></svg-icon>
+          <img :src="scope.row.contract.icon" class="project-list-icon" />
           <span>{{scope.row.contract.name}}</span>
         </div>
       </template>

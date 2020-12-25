@@ -1,7 +1,7 @@
 <template>
   <div id="stake-stake-selected-selected" class="secondary-text">
     <div v-for="(project, index) in options.selectedProject">
-      <svg-icon :icon-class="project.icon" class="icon-name"></svg-icon>
+      <img :src="project.icon" class="project-list-icon" />
       <span>{{project.name}}</span>
       <i class="el-icon-delete" v-if="project.stakedStatus != 'staked'" @click="options.selectedProject.splice(index, 1)"/>
     </div>
