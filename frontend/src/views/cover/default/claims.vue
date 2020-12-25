@@ -3,7 +3,7 @@
     id="cover-default-claims"
     :data="claims"
     stripe
-    v-loading.fullscreen.lock="loading"
+    v-loading.fullscreen.lock="false"
     element-loading-text="Claims loading ..."
     v-el-table-infinite-scroll="load"
     height="calc(100vh - 300px)"

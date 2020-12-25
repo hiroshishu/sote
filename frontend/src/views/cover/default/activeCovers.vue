@@ -3,7 +3,7 @@
     id="cover-default-active"
     :data="activeCovers"
     stripe
-    v-loading.fullscreen.lock="loading"
+    v-loading.fullscreen.lock="false"
     element-loading-text="Cover loading ..."
     style="width: 100%">
     <el-table-column

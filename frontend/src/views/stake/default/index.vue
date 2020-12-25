@@ -1,5 +1,5 @@
 <template>
-  <div id="stake-default" v-loading.fullscreen.lock="loading"
+  <div id="stake-default" v-loading.fullscreen.lock="false"
         element-loading-text="Data is loading ...">
     <div v-if="options.stakedProjects.length == 0">
       <overall :options="options"/>
