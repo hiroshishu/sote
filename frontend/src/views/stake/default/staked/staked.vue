@@ -67,7 +67,7 @@
               {{toFixed(options.rewards)}} SOTE
             </div>
             <div class="normal-text">
-              Keep an eye out <el-button type="text">here</el-button> for <highlight>shield mining</highlight> rewards from community partners. <i class="el-icon-search"></i>
+              Withdraw staking rewards.
             </div>
             <br />
             <div class="buttonArea" style="text-align: center;">
