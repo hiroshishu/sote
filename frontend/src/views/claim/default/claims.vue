@@ -197,7 +197,8 @@ export default {
                 await this.getVoteId(claim);
               }
             }
-            
+            // 缓存数据
+            this.cacheObject(curload.toString(), claim);
             this.claims.push(claim);
             curload --;
             loadCount++;
