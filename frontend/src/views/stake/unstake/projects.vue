@@ -94,7 +94,7 @@ export default {
       if(row.oldOwnerStaked == undefined){
         row.oldOwnerStaked = row.ownerStaked;
       }
-      return this.toFixed(row.oldOwnerStaked);
+      return this.toFixed(row.oldOwnerStaked) - this.unstaked(row);
     },
     rules(row){
       return [{ trigger: 'blur', validator: (rule, value, callback) => {
