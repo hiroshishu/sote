@@ -2,7 +2,7 @@
   <div id="cover-claim-claim">
     <el-card>
       <div slot="header" class="clearfix">
-        <highlight>2 claims remanining!</highlight>
+        <highlight>{{options.remainingClaims}} claims remaining!</highlight>
       </div>
       <div class="tips normal-text">
         To make the best use of your claim attempts, make sure you fulfill all 

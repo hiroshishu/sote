@@ -34,6 +34,7 @@ import claim from './claim'
 import cover from './cover'
 import { ROUTE_NAMES } from '@/utils/Constants.js'
 import ClaimsContract from '@/services/Claims'
+import { BigNumber } from 'bignumber.js'
 
 export default {
   components:{
@@ -86,7 +87,7 @@ export default {
     },
     initCoveData(){
       this.options.cover = JSON.parse(JSON.stringify(this.$route.params));
-      console.info(this.options.cover);
+      this.options.remainingClaims = BigNumber(this.options.cover.status).eq(0) ? 2 : 1;
       if(this.options.cover.memberAddress.toLowerCase() != this.member.account.toLowerCase()){
         console.warn("The account is not match, redirect to cover default page.");
         this.$router.push({ name: this.$RouteNames.COVER_DEFAULT });
