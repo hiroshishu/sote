@@ -1,7 +1,7 @@
 <template>
   <el-table
     id="cover-default-claims"
-    :data="claims"
+    :data="options.claims"
     stripe
     v-loading.fullscreen.lock="false"
     element-loading-text="Claims loading ..."
@@ -60,12 +60,13 @@ import QuotationDataContract from '@/services/QuotationData';
 import Moment from 'moment';
 import { getCoverContracts, loadCover } from '@/api/cover.js';
 import { STATUS, statusFormatForMember } from '@/utils/claimStatus.js';
-
+import { BigNumber } from 'bignumber.js';
 
 export default {
   name: "claims",
   components:{
   },
+  props: ["options"],
   data() {
     return {
       loading: false,
@@ -77,38 +78,6 @@ export default {
       latestLoadTime: null,
       ClaimsData: null,
       QuotationData: null,
-      claimStatus: {
-        "0": "Pending",
-        "1": "Pending",
-        "2": "Pending",
-        "3": "Pending",
-        "4": "Pending",
-        "5": "Pending",
-        "6": "Denied",
-        "7": "Accepted",
-        "8": "Accepted",
-        "9": "Denied",
-        "10": "Accepted",
-        "11": "Denied",
-        "12": "Payout Pending",
-        "14": "Payout Finished",
-      },
-      claimStatusColors: {
-        "0": "warning",
-        "1": "warning",
-        "2": "warning",
-        "3": "warning",
-        "4": "warning",
-        "5": "warning",
-        "6": "danger",
-        "7": "success",
-        "8": "success",
-        "9": "danger",
-        "10": "success",
-        "11": "danger",
-        "12": "info",
-        "14": "info",
-      },
       key: "member_claim_",
       onload: false,
     }
@@ -159,7 +128,7 @@ export default {
       this.contracts = response.data;
     },
     async initClaimsCount(){
-      this.claims.splice(0, this.claims.length);
+      this.options.claims.splice(0, this.options.claims.length);
       const instance = this.ClaimsData.getContract().instance;
       try{
         this.claimIds = await instance.getAllClaimsByAddress(this.member.account);
@@ -204,7 +173,7 @@ export default {
         if(start == this.claimIds.length - 1){
           // 第一次加载
           this.loading = true;
-          this.claims = [];
+          this.options.claims = [];
         }
         const instance = this.ClaimsData.getContract().instance;
         while(true){
@@ -224,10 +193,17 @@ export default {
           if(claim){
             // 缓存数据更新状态
             console.info("cache data......");
-            const data = await instance.getClaimStatusNumber(curClaimId);
-            const statno = data.statno.toString();
-            claim.status = statno;
-            this.claims.push(claim);
+            if(!claim.finished){
+              const data = await instance.getClaimStatusNumber(curClaimId);
+              const statno = data.statno.toString();
+              claim.status = statno;
+              if(BigNumber(statno).gt(5)){
+                claim.finished = true;
+              }
+              // 缓存数据
+              this.cacheObject(this.key + curClaimId, claim);
+            }
+            this.options.claims.push(claim);
             curload --;
             loadCount++;
             continue;
@@ -249,7 +225,7 @@ export default {
           claim.cover = cover;
           claim.contract = cover.contract;
 
-          this.claims.push(claim);
+          this.options.claims.push(claim);
           // 缓存数据
           this.cacheObject(this.key + curClaimId, claim);
           console.info(claim);

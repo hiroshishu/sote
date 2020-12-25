@@ -2,13 +2,13 @@
   <div id="cover-manage">
     <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="Covers" name="activeCovers">
-        <ActiveCovers />
+        <ActiveCovers :options="options" />
       </el-tab-pane>
       <!-- <el-tab-pane label="Inactive Covers" name="inactiveCovers">
           Inactive Covers
       </el-tab-pane> -->
       <el-tab-pane label="Claims" name="claims">
-        <claims />
+        <claims :options="options" />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -27,7 +27,10 @@ export default {
   },
   data() {
     return {
-      activeName: "activeCovers"
+      activeName: "activeCovers",
+      options: {
+        claims: [],
+      }
     }
   },
   computed: {

@@ -64,11 +64,13 @@ import { mapGetters } from 'vuex';
 import QuotationDataContract from '@/services/QuotationData';
 import Moment from 'moment';
 import { getCoverContracts, loadCover } from '@/api/cover.js';
+import { BigNumber } from 'bignumber.js';
 
 export default {
   name: "ActiveCovers",
   components:{
   },
+  props: ["options"],
   data() {
     return {
       loading: false,
@@ -150,7 +152,9 @@ export default {
 
     },
     cannotClaim(row){
-      return row.status==1 ||row.status==3 || row.status==4 || row.status==5;
+      const canClaimStatus = (row.status==1 ||row.status==3 || row.status==4 || row.status==5);
+      
+      return canClaimStatus || (row.status==2 && this.options.claims.filter(item => BigNumber(item.coverId).eq(row.cid)).length>=2);
     },
     claim(row){
       this.$router.push({ name: this.$RouteNames.COVER_CLAIM, params: JSON.parse(JSON.stringify(row)) });
