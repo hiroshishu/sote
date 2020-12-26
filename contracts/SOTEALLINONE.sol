@@ -9200,7 +9200,9 @@ contract IGovernance {
             uint category,
             uint status,
             uint finalVerdict,
-            uint totalReward
+            uint totalReward,
+            string title,
+            string desc
         );
 
     function canCloseProposal(uint _proposalId) public view returns(uint closeValue);
@@ -9925,6 +9927,8 @@ contract Governance is IGovernance, Iupgradable {
         uint commonIncentive;
         uint dateUpd;
         address owner;
+        string title;
+        string desc;
     }
 
     struct ProposalVote {
@@ -10438,7 +10442,9 @@ contract Governance is IGovernance, Iupgradable {
             uint category,
             uint status,
             uint finalVerdict,
-            uint totalRewar
+            uint totalRewar,
+            string title,
+            string desc
         )
     {
         return(
@@ -10446,7 +10452,9 @@ contract Governance is IGovernance, Iupgradable {
             allProposalData[_proposalId].category,
             allProposalData[_proposalId].propStatus,
             allProposalData[_proposalId].finalVerdict,
-            allProposalData[_proposalId].commonIncentive
+            allProposalData[_proposalId].commonIncentive,
+            allProposalData[_proposalId].title,
+            allProposalData[_proposalId].desc,
         );
     }
 
@@ -10698,6 +10706,8 @@ contract Governance is IGovernance, Iupgradable {
         uint _proposalId = totalProposals;
         allProposalData[_proposalId].owner = msg.sender;
         allProposalData[_proposalId].dateUpd = now;
+        allProposalData[_proposalId].title = _proposalTitle;
+        allProposalData[_proposalId].desc = _proposalSD;
         allProposalSolutions[_proposalId].push("");
         totalProposals++;
 
