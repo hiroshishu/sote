@@ -10715,8 +10715,8 @@ contract Governance is IGovernance, Iupgradable {
             msg.sender,
             _proposalId,
             now,
-            _proposalTitle,  //
-            _proposalSD,     //
+            _proposalTitle,
+            _proposalSD,
             _proposalDescHash
         );
 
