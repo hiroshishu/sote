@@ -1,0 +1,45 @@
+{
+
+  "categories": [
+    {"name": "Update Token Parameters",             "index": "20", "contractName": "TokenData", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update TokenControl Parameters",      "index": "21", "contractName": "TokenControl", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update Governance Parameters",        "index": "22", "contractName": "Governance", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update QuotationData Parameters",     "index": "23", "contractName": "QuotationData", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update ClaimsData Parameters",        "index": "24", "contractName": "ClaimsData", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update PoolData Parameters",          "index": "25", "contractName": "PoolData", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update MCR Parameters",               "index": "26", "contractName": "MCR", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+  ],
+
+
+  "allCategories": [
+    {"name": "Add new member role",                    "index": "1", "contractName": "MemberRoles", "method": "addRole", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update member role",                     "index": "2", "contractName": "MemberRoles", "method": "updateRole", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Add new category",                       "index": "3", "contractName": "ProposalCategory", "method": "newCategory", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Edit category",                          "index": "4", "contractName": "ProposalCategory", "method": "editCategory", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Upgrade a contract Implementation",      "index": "5", "contractName": "SOTEMaster", "method": "upgradeContractImplementation", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Implement Emergency Pause",              "index": "6", "contractName": "SOTEMaster", "method": "startEmergencyPause", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Extend or Switch Off Emergency Pause",   "index": "7", "contractName": "SOTEMaster", "method": "addEmergencyPause", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Burn Claims Assessor Bond",              "index": "8", "contractName": "TokenFunctions", "method": "burnCAToken", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Pause Claim Assessor Voting for 3 days", "index": "9", "contractName": "ClaimsData", "method": "setUserClaimVotePausedOn", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Withdraw funds to Pay for Support Services",              "index": "12", "contractName": "Pool1", "method": "transferEther", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Add Investment Asset",                "index": "13", "contractName": "PoolData", "method": "addInvestmentAssetCurrency", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Edit Investment Asset min and max holding percentages",   "index": "14", "contractName": "PoolData", "method": "changeInvestmentAssetHoldingPerc", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update Investment Asset Status",      "index": "15", "contractName": "PoolData", "method": "changeInvestmentAssetStatus", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Change AB",                           "index": "16", "contractName": "MemberRoles", "method": "swapABMember", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Add Currency Asset",                  "index": "17", "contractName": "PoolData", "method": "addCurrencyAssetCurrency", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update Token Parameters",             "index": "20", "contractName": "TokenData", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update TokenControl Parameters",      "index": "21", "contractName": "TokenControl", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update Governance Parameters",        "index": "22", "contractName": "Governance", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update QuotationData Parameters",     "index": "23", "contractName": "QuotationData", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update ClaimsData Parameters",        "index": "24", "contractName": "ClaimsData", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update PoolData Parameters",          "index": "25", "contractName": "PoolData", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update MCR Parameters",               "index": "26", "contractName": "MCR", "method": "updateUintParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Change master address",               "index": "27", "contractName": "SOTEMaster", "method": "updateAddressParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Update Owner Parameters",             "index": "28", "contractName": "SOTEMaster", "method": "updateOwnerParameters", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Release new smart contract code",     "index": "29", "contractName": "SOTEMaster", "method": "upgradeContract", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Edit Currency Asset Address",         "index": "30", "contractName": "PoolData", "method": "changeCurrencyAssetAddress", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Edit Currency Asset baseMin",         "index": "31", "contractName": "PoolData", "method": "changeCurrencyAssetBaseMin", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Edit Investment Asset Address and decimal",             "index": "32", "contractName": "PoolData", "method": "changeInvestmentAssetAddressAndDecimal", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Trading Trigger Check",              "index": "33", "contractName": "", "method": "externalLiquidityTrade", "params": ["bytes8", "uint"], "description": "xxx"}
+  ]
+}
