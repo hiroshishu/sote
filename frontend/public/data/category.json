@@ -40,6 +40,7 @@
     {"name": "Edit Currency Asset Address",         "index": "30", "contractName": "PoolData", "method": "changeCurrencyAssetAddress", "params": ["bytes8", "uint"], "description": "xxx"},
     {"name": "Edit Currency Asset baseMin",         "index": "31", "contractName": "PoolData", "method": "changeCurrencyAssetBaseMin", "params": ["bytes8", "uint"], "description": "xxx"},
     {"name": "Edit Investment Asset Address and decimal",             "index": "32", "contractName": "PoolData", "method": "changeInvestmentAssetAddressAndDecimal", "params": ["bytes8", "uint"], "description": "xxx"},
-    {"name": "Trading Trigger Check",              "index": "33", "contractName": "", "method": "externalLiquidityTrade", "params": ["bytes8", "uint"], "description": "xxx"}
+    {"name": "Trading Trigger Check",              "index": "33", "contractName": "Pool2", "method": "externalLiquidityTrade", "params": ["bytes8", "uint"], "description": "xxx"},
+    {"name": "Trading Trigger Check",              "index": "34", "contractName": "SOTEMaster", "method": "addNewInternalContract", "params": ["bytes8", "uint"], "description": "xxx"}
   ]
 }

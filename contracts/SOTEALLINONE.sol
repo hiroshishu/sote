@@ -8734,6 +8734,7 @@ contract ProposalCategory is  Governed, IProposalCategory, Iupgradable {
         categoryActionHashes[31] = abi.encodeWithSignature("changeCurrencyAssetBaseMin(bytes4,uint256)");
         categoryActionHashes[32] = abi.encodeWithSignature("changeInvestmentAssetAddressAndDecimal(bytes4,address,uint8)");//solhint-disable-line
         categoryActionHashes[33] = abi.encodeWithSignature("externalLiquidityTrade()");
+        categoryActionHashes[34] = abi.encodeWithSignature("addNewInternalContract(bytes2,address,uint)");
     }
 
     /**
