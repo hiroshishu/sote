@@ -41,6 +41,10 @@ categorizeProposal
 submitProposalWithSolution
 ```
 ## 4. 全体会员投票
+```
+submitVote(uint _proposalId, uint _solutionChosen)
+
+```
 ## 5. 投票比例达到阈值，或者过期， 状态成为：closed(accepted, rejected)
 
 # API
