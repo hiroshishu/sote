@@ -31,12 +31,12 @@
 ```
 
 # 提案流程
-## 1. 会员createProposal， 状态成为：draft
-## 2. AB对提案分类，并设置激励: AwaitingSolution
+## 1. 会员createProposal， 状态变为：draft
+## 2. AB对提案分类，并设置激励. 状态变为：AwaitingSolution
 ```
 categorizeProposal
 ```
-## 3. 提案创建人输入要更新的参数和值， 状态成为：pending
+## 3. 提案创建人输入要更新的参数和值， 状态变为：VotingStarted
 ```
 submitProposalWithSolution
 ```
