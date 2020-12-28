@@ -70,7 +70,7 @@ function createProposalwithSolution(
 * 必须是AB会员
 * 什么情况下会调用该方法?
 
-## 3. Governance合约 更新提案
+## 3. Governance合约 更新提案 【接口已删除】
 `updateProposal(uint _proposalId, string calldata _proposalTitle, string calldata _proposalSD, string calldata _proposalDescHash) ` 
 * 必须是提案创建人
 ```
@@ -99,7 +99,50 @@ function createProposalwithSolution(
 * _solutionHash 执行方案的hash:操作函数hashID以及操作的数值
 * _action执行函数调用的bytes
 * 必须是提案创建人
-* 什么情况下会调用该方法?
+
+* 参数调用代码示例
+工具函数
+```
+const abi = require('ethereumjs-abi');
+const Web3 = require('web3');
+
+function encode (...args) {
+
+  if (args.length === 1) {
+    return '0x';
+  }
+
+  const [fn, ...params] = args;
+  const types = fn
+    .slice(0, fn.length - 1)
+    .split('(')[1]
+    .split(',');
+
+  for (let i = 0; i < types.length; i++) {
+    if (types[i].includes('bytes') && !params[i].startsWith('0x')) {
+      params[i] = Web3.utils.toHex(params[i]);
+    }
+  }
+
+  return encode1(types, params);
+}
+
+function encode1 (...args) {
+  const encoded = abi.rawEncode.apply(this, args);
+  return '0x' + encoded.toString('hex');
+}
+```
+
+调用
+```
+let actionHash = encode(
+          'updateUintParameters(bytes8,uint)',
+          'CADEPT',
+          12
+        );
+        
+gv.submitProposalWithSolution(1, 'proposal', actionHash);
+```
 
 ## 5. Governance合约  会员提案投票
 `submitVote(uint _proposalId, uint _solutionChosen)`
