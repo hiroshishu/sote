@@ -156,7 +156,11 @@ gv.submitProposalWithSolution(1, 'proposal', actionHash);
 ## 6. Governance合约  投票后关闭提案
 `closeProposal(uint _proposalId)`
 * _proposalId 提案ID
-* 什么情况下会调用该方法?
+* 什么情况下会调用该方法? 
+```
+    * @dev Checks If the proposal voting time is up and it's ready to close
+    *      i.e. Closevalue is 1 if proposal is ready to be closed, 2 if already closed, 0 otherwise!
+```
 * 谁有权限调用
 
 ## 7. Governance合约  提案详情 【查合约】
