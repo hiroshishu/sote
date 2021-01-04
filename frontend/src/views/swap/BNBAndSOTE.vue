@@ -104,7 +104,7 @@
             },
             form: {
                 type: "BNB",
-                amount: "0",
+                amount: "",
                 toAmount: "0",
             },
             bnbUSD: 0,
