@@ -75,6 +75,7 @@ export default {
           if(this.rewards.filter(item => !item).length == 0){
             this.onload = true;
           }
+          this.$emit("rewardsData", this.rewards);
         }
       }
     },

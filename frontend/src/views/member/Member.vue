@@ -214,7 +214,7 @@ export default {
         this.withdrawAssessment();
         return;
       }
-      this.$message.info(`Click row ${row.availableFunds}`);
+      this.$router.replace("/system/reward");
     },
     withdrawAssessment(){
       this.loading = true;

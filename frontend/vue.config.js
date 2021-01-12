@@ -47,6 +47,13 @@ module.exports = {
         pathRewrite: {
           ['^/quote-api']: ''
         }
+      },
+      ["/bnbQuote-api"]: {
+        target: "https://pro-api.coinmarketcap.com/v1",
+        changeOrigin: true,
+        pathRewrite: {
+          ['^/bnbQuote-api']: ''
+        }
       }
     }
   },

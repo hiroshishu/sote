@@ -8,9 +8,6 @@
           To earn reward as a claims assessor you need to stake an amount of SOTE for 30 days minimum.
           Your verdict power and rewards are proportional to your stake and for the specified period you can't sell these tokens or use them for other purposes.
           If the Advisory Board deems voting to be fraudulent, they have the power to burn this amount.
-          For more info
-          <el-button type="text">click here</el-button>
-          or for the in-depth documents outlining the mechanics <el-button type="text">click here</el-button>.
         </div>
       </el-col>
       <el-col :span="12">
