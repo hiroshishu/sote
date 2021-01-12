@@ -7,7 +7,7 @@
     "title":"Distributed Autonomous Organization",
     "content":"Soteria is a blockchain-based organisation with a legal structure making sure that the members are not personally liable for the mutual as a whole. To obtain these benefits you need join the mutual by sign this agreement and pay the membership fee."
   },{
-    "title":"Membership costs 0.1 BNB",
+    "title":"Membership costs ${memberFee} BNB",
     "content":"A small membership fee is the mutual requirement."
   },{
     "title":"AML",

@@ -6,7 +6,7 @@
         <h2 class="main-text">Soteria Cover</h2>
         <span class="normal-text">Buy and manage your covers.</span>
         <span class="right-area">
-          <el-button type="primary" plain round>How it works</el-button>
+          <el-button type="primary" plain round @click="howItWorks">How it works</el-button>
           <el-button type="primary" round @click="buyCover">Buy Cover</el-button>
         </span>
         <el-divider></el-divider>
@@ -93,6 +93,10 @@ export default {
         console.error(e);
         this.$message.error(e.message);
       });
+    },
+    howItWorks(){
+      // 查看pdf
+      window.open('pdf/SmartContractCoverWording.pdf');
     }
   }
 }
