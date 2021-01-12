@@ -43,7 +43,6 @@
 |	16|	TD	|	TokenData		     | Contains all data related to tokens|
 |	17|	TF	|	TokenFunction	   |all token related non-standard functions specific to Nexus Mutual	|
 |	18|	PS	|	Pooled Staking	 |Proxy	|
-|	19|	CSI	|	CommunityStakingIncentives	|		|
 
 -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------
