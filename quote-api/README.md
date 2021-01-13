@@ -44,3 +44,7 @@ vi .env
 6. 配置bsc rpc链接。
 
 配置完毕，启动quote-api。
+
+### 白名单维护
+`src/models/contract-whitelist.js`文件第14行
+* 修改`http://soteria.fund/contracts.json`路径,上传`contracts.json`到网站根目录。
