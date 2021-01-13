@@ -107,7 +107,7 @@ export default {
       instance.getLastMCR().then(res => {
         console.info(res, res.toString());
         this.mcrPercent = res[0].toString();
-        this.mcr = res[1].toString();
+        this.mcr = res[2].toString();
       });
     }
   }
