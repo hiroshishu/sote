@@ -20,7 +20,7 @@ cp env.sample .env
 vi .env
 
 # 运行
-npm start
+配置好所有配置项后，在服务器上 quote-api根目录，执行命令，   `pm2 start src/index.js`    启动服务
 ```
 
 
