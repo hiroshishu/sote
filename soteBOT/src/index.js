@@ -21,6 +21,7 @@ const MAX_GAS_PRICE = MAX_GAS_PRICE_GWEI * GWEI_IN_WEI;
 
 // PoolStaking触发
 async function init () {
+  
   log.info(`Using MAX_GAS_PRICE of ${MAX_GAS_PRICE}`);
 
   log.info(`Connecting to node at ${PROVIDER_URL}.`);
@@ -39,6 +40,7 @@ async function init () {
   const pooledStaking = nexusContractLoader.instance('PS');
 
   while (true) {
+    await sleep(300000);
     try {
       const hasPendingActions = await pooledStaking.hasPendingActions();
 
@@ -206,6 +208,7 @@ async function trigger() {
   const clInst = nexusContractLoader.instance('CL');
   
   while(true){
+    await sleep(300000);
     try {
       
         const len = await pdInst.getApilCallLength();
