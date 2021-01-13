@@ -142,7 +142,8 @@ async function mcr() {
   const mcrInst = nexusContractLoader.instance('MC');
   
   try {
-    var bnb7000 = toBN('7000000000000000000000');
+    // bnb 10000
+    var bnb7000 = toBN('10000000000000000000000');
     var mcrdata =await mcrInst.calVtpAndMCRtp();
     log.info(`mcr data ${mcrdata[0].toString()} from ${mcrdata[1].toString()}`);
     if(mcrdata[0].gt(bnb7000)){
