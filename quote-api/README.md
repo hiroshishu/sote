@@ -46,5 +46,7 @@ vi .env
 配置完毕，启动quote-api。
 
 ### 白名单维护
-`src/models/contract-whitelist.js`文件第14行
-* 修改`http://soteria.fund/contracts.json`路径,上传`contracts.json`到网站根目录。
+1. contracts.json文件中的合约地址表示报价系统的白名单，不在该文件中的合约地址，quote-api将不进行报价。
+* `src/models/contract-whitelist.js`文件第14行，修改为`http://app.soteria.finance/contracts.json`路径
+* 上传`contracts.json`到网站根目录。`http://app.soteria.finance/contracts.json`可以访问。
+2. 【注意】soteria上线新的保险合约项目，需要将保险项目的合约地址填写在contracts.json文件中。
