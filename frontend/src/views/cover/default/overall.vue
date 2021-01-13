@@ -88,7 +88,7 @@ export default {
     getCoverLength() {
       const contract = this.QuotationData.getContract();
       contract.instance.getCoverLength().then(response => {
-        this.totalCoversSold = response.toString();
+        this.totalCoversSold = parseInt(response.toString()) - 1;
       }).catch((e) => {
         console.error(e);
         this.$message.error(e.message);
