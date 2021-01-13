@@ -26,3 +26,5 @@ Setup your environment variables as shown in the provided `env.sample` file.
 npm i
 npm start
 ```
+不使用npm start启动
+配置好所有配置项后，在服务器上 soteBOT根目录，执行命令，   pm2 start src/index.js    启动服务
