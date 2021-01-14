@@ -71,8 +71,8 @@ export default {
   data() {
     return {
       form:{
-        amount: 0,
-        period: 0,
+        amount: '',
+        period: '',
       },
       rules: {
         period: [
@@ -128,7 +128,7 @@ export default {
       if(newValue.length > 0){
         newValue = parseInt(newValue);
       }else{
-        newValue = 0;
+        newValue = '';
       }
       this.form.amount = newValue;
       return newValue;
@@ -139,13 +139,14 @@ export default {
       if(newValue.length > 0){
         newValue = parseInt(newValue);
       }else{
-        newValue = 0;
+        newValue = '';
       }
       this.form.period = newValue;
       return newValue;
     },
     becomeAssessor(){
-      const amount = this.$ether(this.form.amount.toString());
+      const formAmount = this.form.amount || 0;
+      const amount = this.$ether(formAmount.toString());
       if(BigNumber(amount.toString()).comparedTo(0) <= 0){
         this.$message.error("Please enter a valid amount");
         return;
