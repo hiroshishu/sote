@@ -96,6 +96,10 @@ export default {
     },
     getAllStaked(){
       const instance = this.PooledStaking.getContract().instance;
+      if(this.projects.length==0){
+        this.loadingStaked = false;
+        return;
+      }
       this.loadingStaked = true;
       this.projects.forEach(async (item, index) => {
         const res = await instance.contractStake(item.address);
