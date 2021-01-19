@@ -1,50 +1,10 @@
 {
-  "0x8B3d70d628Ebd30D4A2ea82DB95bA2e906c71633":{
-    "name":"bZx",
+  "0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F":{
+    "name":"Pancake",
     "type": "contract",
-    "dateAdded":"2020-01-01",
-    "logo":"https://api.nexusmutual.io/coverables/images/bzx.png",
-    "github":"https://github.com/bZxNetwork",
-    "messari":""
-  },
-  "0xAF350211414C5DC176421Ea05423F0cC494261fB":{
-    "name":"Saturn DAO Token",
-    "type": "contract",
-    "dateAdded":"2020-01-01",
-    "logo":"https://api.nexusmutual.io/coverables/images/saturndao.png",
-    "github":"",
-    "messari":""
-  },
-  "0x6e95C8E8557AbC08b46F3c347bA06F8dC012763f":{
-    "name":"Gnosis Multi-sig",
-    "type": "contract",
-    "dateAdded":"2020-01-01",
-    "logo":"https://api.nexusmutual.io/coverables/images/gnosis-multisig.png",
-    "github":"https://github.com/gnosis/MultiSigWallet",
-    "messari":"https://messari.io/asset/gnosis/profile"
-  },
-  "0x519b70055af55A007110B4Ff99b0eA33071c720a":{
-    "name":"dxDAO",
-    "type": "contract",
-    "dateAdded":"2020-01-01",
-    "logo":"https://api.nexusmutual.io/coverables/images/dxdao.png",
-    "github":"",
-    "messari":""
-  },
-  "0x802275979B020F0ec871c5eC1db6e412b72fF20b":{
-    "name":"Nuo",
-    "type": "contract",
-    "dateAdded":"2020-01-01",
-    "logo":"https://api.nexusmutual.io/coverables/images/nuo.png",
-    "github":"https://github.com/NuoNetwork",
-    "messari":""
-  },
-  "0xc1D2819CE78f3E15Ee69c6738eB1B400A26e632A":{
-    "name":"Pool Together",
-    "type": "contract",
-    "dateAdded":"2020-01-01",
-    "logo":"https://api.nexusmutual.io/coverables/images/pooltogether.png",
-    "github":"https://github.com/pooltogether",
+    "dateAdded":"2021-01-19",
+    "logo":"https://app.soteria.finance/images/pancake.svg",
+    "github":"https://github.com/pancakeswap",
     "messari":""
   }
 }
