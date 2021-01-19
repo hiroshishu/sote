@@ -3,7 +3,7 @@
     element-loading-text="Payment membership fee in progress...">
     <el-row>
       <h1 class="main-text">Welcome</h1>
-      <label class="normal-text">Being a member gives you the ability to swap SOTE tokens, buy cover, and earn rewards from staking, governance and claim assessment.</label>
+      <label class="normal-text">Being a member gives you the ability to swap SOTE tokens, buy cover, and earn rewards from staking, governance and claim assessments.</label>
     </el-row>
     <el-divider></el-divider>
     <el-row>

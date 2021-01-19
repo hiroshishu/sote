@@ -4,7 +4,7 @@
         <el-form :model="form" :rules="rules" ref="form" :disabled="!member.isMember">
         <el-row>
             <h2 class="main-text">Swap</h2>
-            <div class="normal-text">Buy or sell SOTE tokens. SOTE tokens grant you proportional power in the Soteria.</div>
+            <div class="normal-text">Buy or sell SOTE tokens. SOTE tokens grant you proportional power in Soteria.</div>
         </el-row>
         <el-divider></el-divider>
         <el-row>
