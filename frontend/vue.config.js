@@ -49,11 +49,11 @@ module.exports = {
           ['^/quote-api']: ''
         }
       },
-      ["/bnbQuote-api"]: {
-        target: "https://pro-api.coinmarketcap.com/v1",
+      ["/bnb-price"]: {
+        target: "https://app.soteria.finance/bnb-price/",
         changeOrigin: true,
         pathRewrite: {
-          ['^/bnbQuote-api']: ''
+          ['^/bnb-price']: ''
         }
       }
     }

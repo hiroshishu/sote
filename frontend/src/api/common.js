@@ -120,18 +120,13 @@ export async function getRate(vue){
 // 查询BNB和美元汇率
 export async function getBNBQuote(vue){
   request({
-    url:`/bnbQuote-api/cryptocurrency/quotes/latest`,
+    url:`/bnb-price/`,
     method:'get',
-    params: {
-      "symbol": "BNB"
-    },
-    headers: {
-      'X-CMC_PRO_API_KEY': vue.$store.getters.settings.bnbQuotesKey
-    },
   }).then(res => {
+    console.log(res)
     vue.$store.dispatch("member/changeMember", {
       key: "bnbQuote",
-      value: res.data.data.BNB.quote.USD.price
+      value: res.data.price
     });
   }).catch(e => {
 
