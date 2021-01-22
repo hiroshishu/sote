@@ -21,7 +21,6 @@ const MAX_GAS_PRICE = MAX_GAS_PRICE_GWEI * GWEI_IN_WEI;
 
 // PoolStaking触发
 async function init () {
-  
   log.info(`Using MAX_GAS_PRICE of ${MAX_GAS_PRICE}`);
 
   log.info(`Connecting to node at ${PROVIDER_URL}.`);
@@ -40,7 +39,7 @@ async function init () {
   const pooledStaking = nexusContractLoader.instance('PS');
 
   while (true) {
-    await sleep(300000);
+    await sleep(100000);
     try {
       const hasPendingActions = await pooledStaking.hasPendingActions();
 
@@ -142,23 +141,34 @@ async function mcr() {
   const nexusContractLoader = new NexusContractLoader(NETWORK, versionDataURL, provider, address);
   await nexusContractLoader.init();
   const mcrInst = nexusContractLoader.instance('MC');
+  const pdInst = nexusContractLoader.instance('PD');
   
   try {
-    // bnb 10000
-    var bnb7000 = toBN('10000000000000000000000');
+    const minCap = await pdInst.minCap();
+    
+    const sum = await mcrInst.getAllSumAssurance();
+
+    //bnb 30000
+    var bnb7000 = toBN('30000000000000000000000');
     var mcrdata =await mcrInst.calVtpAndMCRtp();
     log.info(`mcr data ${mcrdata[0].toString()} from ${mcrdata[1].toString()}`);
     if(mcrdata[0].gt(bnb7000)){
       bnb7000 = mcrdata[0];
     }
-    var gasEstimate = await mcrInst.addMCRData.estimateGas(mcrdata[1].toString(), mcrdata[0].toString(), bnb7000, [toHex('BNB')], [100], getNowFormatDate(), { gas: MAX_GAS });
+
+    var threshold = await mcrInst.getThresholdValues(mcrdata[0].toString(),bnb7000,sum.toString(),minCap.toString());
+    // log.info(JSON.stringify(`${threshold.lowerThreshold}   ${threshold.upperThreshold}`));
+
+    var lowTh = parseInt(threshold.lowerThreshold.toString())+1;
+    // log.info(JSON.stringify(`${lowTh}`));
+    var gasEstimate = await mcrInst.addMCRData.estimateGas(lowTh.toString(), mcrdata[0].toString(), bnb7000, [toHex('BNB')], [100], getNowFormatDate(), { gas: MAX_GAS });
     const gasPrice = toBN('20000000000');
 
     const increasedGasEstimate = Math.floor(gasEstimate * 1.3);
     const nonce = await web3.eth.getTransactionCount(address);
     log.info(JSON.stringify({ gasEstimate, increasedGasEstimate, gasPrice, nonce }));
 
-    const tx = await mcrInst.addMCRData(mcrdata[1].toString(), mcrdata[0].toString(), bnb7000, [toHex('BNB')], [100], getNowFormatDate(),{
+    const tx = await mcrInst.addMCRData(lowTh.toString(), mcrdata[0].toString(), bnb7000, [toHex('BNB')], [100], getNowFormatDate(),{
       gas: increasedGasEstimate,
       gasPrice,
       nonce,
@@ -208,7 +218,7 @@ async function trigger() {
   const clInst = nexusContractLoader.instance('CL');
   
   while(true){
-    await sleep(300000);
+    await sleep(100000);
     try {
       
         const len = await pdInst.getApilCallLength();
