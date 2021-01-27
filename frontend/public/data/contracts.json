@@ -19,5 +19,16 @@
     "APY": "13.2%",
     "description": "The most complete all-in-one project in BSC: AMM + NFT Marketplace. ",
     "status": "new"
+  },
+
+  {
+    "icon": "/images/blink.png",
+    "name": "Blink",
+    "type": "Smart contracts",
+    "yearlyCost": null,
+    "address": "0x63870A18B6e42b01Ef1Ad8A2302ef50B7132054F",
+    "APY": null,
+    "description": "A top Gaming&Mining and Gambling Platform on BSC.",
+    "status": "new"
   }
 ]
