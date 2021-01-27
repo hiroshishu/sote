@@ -136,8 +136,13 @@ export default {
     },
     async loadMembers(role){
       const instance = this.MemberRoles.getContract().instance;
-      const res = await instance.members(role);
-      return res;
+      try{
+        const res = await instance.members(role);
+        return res;
+      }catch(e){
+        console.error("Role: " + role, e);
+        return {};
+      }
     }
   }
 }

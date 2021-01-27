@@ -19,7 +19,7 @@
           </el-row>
           <el-row class="highlight" :gutter="20">
             <el-col :span="8">{{$etherToNumber(options.allStaked)}} SOTE</el-col>
-            <el-col :span="8">{{$etherToNumber(purchasedCover)}} BNB</el-col>
+            <el-col :span="8">{{purchasedCover}} BNB</el-col>
             <el-col :span="8">{{$etherToNumber(member.rewards)}} SOTE</el-col>
           </el-row>
         </div>

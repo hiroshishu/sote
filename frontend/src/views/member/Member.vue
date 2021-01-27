@@ -159,7 +159,9 @@ export default {
     },
     getColumnValue(row, column){
       if(column.property == "amount"){
-        console.info(row.amount, this.member[row.amount]);
+        if(row.amount == "coverDeposit"){
+          return this.member[row.amount];
+        }
         return this.$etherToNumber(this.member[row.amount]);
       }
       if(column.property == "withdrawable" && row.withdrawable && row.withdrawable!="0"){
