@@ -14,5 +14,13 @@
     "logo": "https://app.soteria.finance/images/bakery.png",
     "github": "https://github.com/BakeryProject",
     "messari": ""
+  },
+  "0x63870A18B6e42b01Ef1Ad8A2302ef50B7132054F": {
+    "name": "Blink",
+    "type": "contract",
+    "dateAdded": "2021-01-27",
+    "logo": "https://app.soteria.finance/images/blink.png",
+    "github": "https://blink.wink.org",
+    "messari": ""
   }
 }

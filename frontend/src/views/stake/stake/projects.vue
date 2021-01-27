@@ -43,8 +43,8 @@
                 <img :src="project.icon" class="project-large-icon" />
                 <span>{{project.name}}</span>
               </div>
-              <div style="height:25px;">
-                <div>{{project.description}}</div>
+              <div class="desc">
+                <div class="desc-ellipsis">{{project.description}}</div>
               </div>
               <el-form label-width="100px">
                 <el-form-item label="Project type">
@@ -188,7 +188,7 @@ export default {
       const ownerStaked = await contract.instance.stakerContractStake(this.member.account, item.address);
       item.stakedStatus = "staked";// 代表已经stake过了
       item.ownerStaked = this.$etherToValue(ownerStaked.toString());
-      
+
       const unstaked = await contract.instance.stakerContractPendingUnstakeTotal(this.member.account, item.address);
       item.unstaked = this.$etherToValue(unstaked.toString());
       item.unstaking = 0;
@@ -246,6 +246,18 @@ export default {
 }
 .title{
   vertical-align: middle;
-
+}
+.desc {
+  margin-top: 8px;
+  height: 50px;
+  &-ellipsis {
+    line-height: 18px;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+  }
 }
 </style>
