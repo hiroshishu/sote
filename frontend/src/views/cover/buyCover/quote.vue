@@ -189,7 +189,7 @@ export default {
         this.options.quote = res.data;
         const { price, period, amount, expiresAt, generatedAt } = this.options.quote
         this.options.expiresTime = this.options.getQuoteTime + expiresAt * 1000 - generatedAt;
-        this.options.yearlyCost = ((this.$etherToNumber(price.toString()) / period) * 365 / amount).toFixed(2)
+        this.options.yearlyCost = (this.$etherToNumber(price.toString()) / period) * 365 / amount
         this.options.active++;
         this.loading = false;
       }).catch(e=>{
