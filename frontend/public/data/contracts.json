@@ -41,5 +41,16 @@
     "APY": null,
     "description": "A new generation of cross chain oracle.",
     "status": "new"
+  },
+
+  {
+    "icon": "/images/bscex.png",
+    "name": "BSCEX",
+    "type": "Smart contracts",
+    "yearlyCost": null,
+    "address": "0x5Ac52EE5b2a633895292Ff6d8A89bB9190451587",
+    "APY": null,
+    "description": "The world's first decentralized crypto exchange & ecosystem on Binance Smartchain.",
+    "status": "new"
   }
 ]

@@ -30,5 +30,13 @@
     "logo": "https://app.soteria.finance/images/sphinx.png",
     "github": "https://sphinx.finance",
     "messari": ""
+  },
+  "0x5Ac52EE5b2a633895292Ff6d8A89bB9190451587": {
+    "name": "BSCEX",
+    "type": "contract",
+    "dateAdded": "2021-02-01",
+    "logo": "https://app.soteria.finance/images/bscex.png",
+    "github": "https://github.com/Bscex",
+    "messari": ""
   }
 }
