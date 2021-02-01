@@ -12,9 +12,9 @@
         <el-form-item label="Address:">
           {{options.curContract.address}}
         </el-form-item>
-        <el-form-item label="Yearly cost %:">
-          {{options.curContract.yearlyCost}}
-        </el-form-item>
+<!--        <el-form-item label="Yearly cost %:">-->
+<!--          {{options.curContract.yearlyCost}}-->
+<!--        </el-form-item>-->
         <el-form-item label="Capacity BNB:" style="margin-bottom: 20px;">
           {{options.curContract.capacityBNB}}
         </el-form-item>

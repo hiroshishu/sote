@@ -41,6 +41,7 @@ export default {
         quote: null,
         getQuoteTime: null,
         expiresTime: null,
+        yearlyCost: '' // 年花费保额百分比
       },
       defaultOptions: {
         active: 0,

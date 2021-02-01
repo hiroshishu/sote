@@ -22,7 +22,7 @@
             {{options.curContract.address}}
           </el-form-item>
           <el-form-item label="Yearly cost %">
-            {{options.curContract.yearlyCost}}
+            {{ options.yearlyCost * 100 }} %
           </el-form-item>
           <el-form-item label="Capacity">
             {{options.curContract.capacityBNB}} BNB
