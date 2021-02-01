@@ -14,7 +14,7 @@
                 <el-card>
                   <div slot="header" class="clearfix">
                     <span>Amount</span>
-                    <el-link @click="options.amount=parseInt(options.curContract.capacityBNB)" type="success" :underline="false" style="float: right; padding: 3px 0">Max</el-link>
+                    <el-link @click="options.amount=parseInt(options.curContract.capacityBNB).toString()" type="success" :underline="false" style="float: right; padding: 3px 0">Max</el-link>
                   </div>
                   <div>
                     <el-form-item prop="amount">
@@ -36,7 +36,7 @@
                 <el-card>
                   <div slot="header" class="clearfix">
                     <span>Period</span>
-                    <el-link @click="options.period=settings.cover.maxPeriod" type="success" :underline="false" style="float: right; padding: 3px 0">Max</el-link>
+                    <el-link @click="options.period=settings.cover.maxPeriod.toString()" type="success" :underline="false" style="float: right; padding: 3px 0">Max</el-link>
                   </div>
                   <div>
                     <el-form-item prop="period">
