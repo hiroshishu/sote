@@ -44,6 +44,14 @@
     "type": "contract",
     "dateAdded": "2021-02-02",
     "logo": "https://app.soteria.finance/images/dforce.png",
+    "github": "https://github.com/dforce-network",
+    "messari": ""
+  },
+  "0xc78248D676DeBB4597e88071D3d889eCA70E5469": {
+    "name": "ForTube(BSC)",
+    "type": "contract",
+    "dateAdded": "2021-02-03",
+    "logo": "https://app.soteria.finance/images/fortube.png",
     "github": "https://github.com/thefortube",
     "messari": ""
   }

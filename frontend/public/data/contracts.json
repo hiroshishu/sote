@@ -63,5 +63,16 @@
     "APY": null,
     "description": "An integrated and interoperable and scalable open finance protocol network.",
     "status": "new"
+  },
+
+  {
+    "icon": "/images/fortube.png",
+    "name": "ForTube(BSC)",
+    "type": "Smart contracts",
+    "yearlyCost": null,
+    "address": "0xc78248D676DeBB4597e88071D3d889eCA70E5469",
+    "APY": null,
+    "description": "World's Top DeFi Lending Platform.",
+    "status": "new"
   }
 ]
