@@ -10,7 +10,7 @@
             <el-form-item label="Sort by">
               <el-radio-group v-model="form.sortBy" @change="sort">
                 <el-radio-button label="NEWTEST">NEWTEST</el-radio-button>
-                <el-radio-button label="MOSTSTAEKD">MOST STAEKD</el-radio-button>
+                <el-radio-button label="MOSTSTAEKD">MOST STAKED</el-radio-button>
               </el-radio-group>
             </el-form-item>
           </el-col>
