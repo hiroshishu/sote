@@ -74,5 +74,16 @@
     "APY": null,
     "description": "World's Top DeFi Lending Platform.",
     "status": "new"
+  },
+
+  {
+    "icon": "/images/qian.png",
+    "name": "QIAN(BSC)",
+    "type": "Smart contracts",
+    "yearlyCost": null,
+    "address": "0xb8C540d00dd0Bf76ea12E4B4B95eFC90804f924E",
+    "APY": null,
+    "description": "An open architecture for stable cryptocurrencies.",
+    "status": "new"
   }
 ]

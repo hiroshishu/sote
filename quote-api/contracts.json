@@ -54,5 +54,13 @@
     "logo": "https://app.soteria.finance/images/fortube.png",
     "github": "https://github.com/thefortube",
     "messari": ""
+  },
+  "0xb8C540d00dd0Bf76ea12E4B4B95eFC90804f924E": {
+    "name": "QIAN(BSC)",
+    "type": "contract",
+    "dateAdded": "2021-02-04",
+    "logo": "https://app.soteria.finance/images/qian.png",
+    "github": "https://github.com/QIAN-Protocol",
+    "messari": ""
   }
 }
