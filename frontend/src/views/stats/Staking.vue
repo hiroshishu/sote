@@ -19,7 +19,7 @@
             <div class="skeleton" v-if="loadingRewards">
               <Skeleton class="skeleton-item" active :paragraph="{rows:1}" :title="false"/>
             </div>
-            <highlight v-else><span v-format="'#,##0.00'">{{$etherToNumber(allRewards)}}</span> SOTE</highlight>
+            <highlight v-else><span v-format="'#,##0.00'">{{allRewards}}</span> SOTE</highlight>
             <!-- <highlight v-else>{{bnbRewards}} BNB / ${{bnbRewardsUSD}}</highlight> -->
           </el-form-item>
         </el-col>
@@ -35,6 +35,7 @@ import PooledStakingContract from '@/services/PooledStaking';
 import { getStakeProjects } from '@/api/stake.js';
 import { BigNumber } from 'bignumber.js';
 import MemberRolesContract from '@/services/MemberRoles';
+import {totalStakingReward} from "@/api/stat";
 
 export default {
   components: { },
@@ -76,6 +77,7 @@ export default {
   },
   methods: {
     async initData() {
+      this.getAllRewards();
       if(this.projects.length == 0){
         try{
           const response = await getStakeProjects(this);
@@ -92,7 +94,6 @@ export default {
       if(!this.PooledStaking) this.PooledStaking = await this.getContract(PooledStakingContract);
       if(!this.MemberRoles) this.MemberRoles = await this.getContract(MemberRolesContract);
       this.getAllStaked();
-      this.getAllRewards();
     },
     getAllStaked(){
       const instance = this.PooledStaking.getContract().instance;
@@ -111,39 +112,15 @@ export default {
       });
     },
     async getAllRewards(){
-      const instance = this.PooledStaking.getContract().instance;
-      let members = [];
-      for(let i=0;i<4;i++){
-        const res = await this.loadMembers(i);
-        console.info(res);
-        if(res.memberArray){
-          members = members.concat(res.memberArray.map(item => {
-            return {address: item.toString()};
-          }));
-        }
-      }
-      if(members.length==0){
+      await totalStakingReward().then(res => {
+        this.allRewards = res.data;
         this.loadingRewards = false;
-        return;
-      }
-      members.forEach(async (item, index) => {
-        const res = await instance.stakerReward(item.address);
-        this.allRewards = BigNumber(this.allRewards).plus(res.toString()).toString();
-        if(index == members.length - 1){
-          this.loadingRewards = false;
-        }
+      }).catch(e => {
+        this.$message.error(e.message);
+        this.allRewards = 0;
+        this.loadingRewards = false;
       });
     },
-    async loadMembers(role){
-      const instance = this.MemberRoles.getContract().instance;
-      try{
-        const res = await instance.members(role);
-        return res;
-      }catch(e){
-        console.error("Role: " + role, e);
-        return {};
-      }
-    }
   }
 }
 </script>

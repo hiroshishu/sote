@@ -20,7 +20,7 @@
           <el-row class="highlight" :gutter="20">
             <el-col :span="8">{{$etherToNumber(options.allStaked)}} SOTE</el-col>
             <el-col :span="8">{{purchasedCover}} BNB</el-col>
-            <el-col :span="8">{{$etherToNumber(member.rewards)}} SOTE</el-col>
+            <el-col :span="8">{{allRewards}} SOTE</el-col>
           </el-row>
         </div>
       </el-form>
@@ -32,6 +32,7 @@
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
 import QuotationDataContract from "@/services/QuotationData";
+import {totalStakingReward} from "@/api/stat";
 
 export default {
   name: "Overall",
@@ -42,6 +43,7 @@ export default {
     return {
       purchasedCover: 0,
       QuotationData: null,
+      allRewards: 0,
     }
   },
   computed: {
@@ -65,6 +67,7 @@ export default {
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
         this.initContract();
       }
+      this.getAllRewards();
     },
     async initContract(){
       this.QuotationData = await this.getContract(QuotationDataContract);
@@ -82,7 +85,13 @@ export default {
     staking(){
       this.$router.push("/system/stake/stake");
     },
-
+    async getAllRewards(){
+      await totalStakingReward().then(res => {
+        this.allRewards = res.data;
+      }).catch(e => {
+        this.$message.error(e.message);
+      });
+    },
   }
 }
 </script>

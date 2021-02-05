@@ -25,8 +25,11 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="Unique Addresses">
-            <el-button type="text" @click="open">SOTE Holders Addresses</el-button>
+          <el-form-item label="Count of Members">
+            <div class="skeleton" v-if="loadingCountOfMembers">
+              <Skeleton class="skeleton-item" active :paragraph="{rows:1}" :title="false"/>
+            </div>
+            <highlight v-else>{{countOfMembers}}</highlight>
           </el-form-item>
         </el-col>
       </el-row>
@@ -39,6 +42,7 @@ import {mapGetters} from 'vuex'
 import {watch} from "@/utils/watch";
 import SOTETokenContract from '@/services/SOTEToken';
 import { BigNumber } from 'bignumber.js';
+import {countOfMembers} from "@/api/stat";
 
 export default {
   components: { },
@@ -47,6 +51,8 @@ export default {
     return {
       SOTEToken: null,
       totalSupply: 0,
+      loadingCountOfMembers: true,
+      countOfMembers: 0,
     }
   },
   computed: {
@@ -72,6 +78,7 @@ export default {
       if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
         this.initContract();
       }
+      this.getCountOfMembers();
     },
     async initContract(){
       if(!this.SOTEToken) this.SOTEToken = await this.getContract(SOTETokenContract);
@@ -81,6 +88,16 @@ export default {
       const instance = this.SOTEToken.getContract().instance;
       instance.totalSupply().then(res => {
         this.totalSupply = res.toString();
+      });
+    },
+    async getCountOfMembers(){
+      countOfMembers().then(res => {
+        this.countOfMembers = res.data;
+        this.loadingCountOfMembers = false;
+      }).catch(e => {
+        this.$message.error(e.message);
+        this.countOfMembers = 0;
+        this.loadingCountOfMembers = false;
       });
     },
     open(){
