@@ -142,13 +142,13 @@ class QuoteEngine {
    */
   async getUnstakeRequests (contractAddress) {
 
-    const ASSUMED_BLOCK_TIME = 15;
-    const UNSTAKE_PROCESSING_DAYS = 90;
-    const BUFFER_DAYS = 30;
-    const DAY_IN_SECONDS = 24 * 60 * 60;
-    const blocksBack = (UNSTAKE_PROCESSING_DAYS + BUFFER_DAYS) * DAY_IN_SECONDS / ASSUMED_BLOCK_TIME;
+    // const ASSUMED_BLOCK_TIME = 15;
+    // const UNSTAKE_PROCESSING_DAYS = 90;
+    // const BUFFER_DAYS = 30;
+    // const DAY_IN_SECONDS = 24 * 60 * 60;
+    // const blocksBack = (UNSTAKE_PROCESSING_DAYS + BUFFER_DAYS) * DAY_IN_SECONDS / ASSUMED_BLOCK_TIME;
     const block = await this.web3.eth.getBlock('latest');
-    const fromBlock = block.number - blocksBack;
+    const fromBlock = block.number - 4990;
     const events = await this.pooledStaking.getPastEvents('UnstakeRequested', { fromBlock, filter: { contractAddress } });
 
     return events.map(e => e.args);
