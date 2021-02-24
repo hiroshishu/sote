@@ -193,7 +193,7 @@ class QuoteEngine {
    */
   async getActiveCoverAmounts (contractAddress) {
     const qd = this.nexusContractLoader.instance('QD');
-    console.log("qd "+qd.address)
+    // console.log("qd "+qd.address)
     const lowerCasedContractAddress = contractAddress.toLowerCase();
     const contractAddresses = [lowerCasedContractAddress];
     if (DEPENDANT_CONTRACTS[lowerCasedContractAddress]) {
@@ -217,7 +217,7 @@ class QuoteEngine {
       );
       activeCoverAmounts.push(...amounts);
     }
-    console.log("okok "+activeCoverAmounts)
+    // console.log("okok "+activeCoverAmounts)
     return activeCoverAmounts;
   }
 

@@ -39,13 +39,12 @@ async function init () {
   const pooledStaking = nexusContractLoader.instance('PS');
 
   while (true) {
-    await sleep(100000);
+    await sleep(POLL_INTERVAL_MILLIS);
     try {
       const hasPendingActions = await pooledStaking.hasPendingActions();
 
       if (!hasPendingActions) {
         log.info(`No pending actions present. Sleeping for ${POLL_INTERVAL_MILLIS} before checking again.`);
-        await sleep(POLL_INTERVAL_MILLIS);
         continue;
       }
 
@@ -55,7 +54,6 @@ async function init () {
 
       if (gasPrice > MAX_GAS_PRICE) {
         log.warn(`Gas price ${gasPrice} exceeds MAX_GAS_PRICE=${MAX_GAS_PRICE}. Not executing the the transaction at this time.`);
-        await sleep(POLL_INTERVAL_MILLIS);
         continue;
       }
 
@@ -73,7 +71,6 @@ async function init () {
 
     } catch (e) {
       log.error(`Failed to handle pending actions: ${e.stack}`);
-      await sleep(POLL_INTERVAL_MILLIS);
     }
   }
 }
@@ -218,7 +215,7 @@ async function trigger() {
   const clInst = nexusContractLoader.instance('CL');
   
   while(true){
-    await sleep(100000);
+    await sleep(POLL_INTERVAL_MILLIS);
     try {
       
         const len = await pdInst.getApilCallLength();
@@ -235,13 +232,13 @@ async function trigger() {
           const cla = "0x434c4100";
           const mcrf = "0x4d435246";
           // cov == apicall[0].toString() ||
-          if(cov == apicall[0].toString() || cla == apicall[0].toString() || mcrf == apicall[0].toString()){
+          if(cov === apicall[0].toString() || cla === apicall[0].toString() || mcrf === apicall[0].toString()){
             // log.info(`time : ${apicall[3].toString()}.${apicall[4].toString()}`);
-            if(apicall[3].toString() == apicall[4].toString()){
+            if(apicall[3].toString() === apicall[4].toString()){
               try {
-                if(cla == apicall[0].toString()){
+                if(cla === apicall[0].toString()){
                   const isClose = await clInst.checkVoteClosing(apicall[2].toString());
-                  if(isClose.toString() != 1){
+                  if(isClose.toString() !== 1){
                     continue;
                   }
                 }
@@ -249,6 +246,8 @@ async function trigger() {
                 const gasEstimate = await maInst.delegateCallBack.estimateGas(callid, { gas: MAX_GAS })
                 
                 const increasedGasEstimate = Math.floor(gasEstimate * 1.3);
+
+                log.info(`gas: ${increasedGasEstimate}`)
                 const gasPrice = '20000000000';
                 const nonce = await web3.eth.getTransactionCount(address);
                 const tx = await maInst.delegateCallBack(callid, {
@@ -259,11 +258,8 @@ async function trigger() {
 
                 log.info(`Gas used: ${tx.receipt.gasUsed}.`);
               } catch (error) {
-                log.error(`Failed to handle trigger gasEstimate apiid: ${callid.toString()}`);
-                continue;
+                log.error(`Failed to handle trigger gasEstimate apiid: ${callid.toString()}, message: ${error.message}`);
               }
-              
-              
             }
           }
         }
