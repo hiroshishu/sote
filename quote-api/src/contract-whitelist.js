@@ -1,6 +1,7 @@
 const NodeCache = require('node-cache');
 const fetch = require('node-fetch');
 const log = require('./log');
+const { getEnv } = require('./utils');
 
 const cache = new NodeCache({ stdTTL: 60, checkperiod: 120 });
 
@@ -11,7 +12,7 @@ async function getWhitelist () {
   let whitelist = cache.get(WHITELIST_KEY);
   if (!whitelist) {
     whitelist = {};
-    const data = await fetch('http://127.0.0.1/contracts.json').then(res => res.json());
+    const data = await fetch(getEnv('CONTRACTS_DATA_URL')).then(res => res.json());
     for (const address of Object.keys(data)) {
       if (!data[address].deprecated) {
         const contractData = data[address];

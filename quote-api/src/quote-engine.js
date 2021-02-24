@@ -200,14 +200,11 @@ class QuoteEngine {
       contractAddresses.push(...DEPENDANT_CONTRACTS[lowerCasedContractAddress]);
     }
     const contractAddressesLowerCased = contractAddresses.map(a => a.toLowerCase());
-    
     const activeCoverAmounts = [];
     for (const contractAddress of contractAddressesLowerCased) {
-      
       const amounts = await Promise.all(
         CURRENCIES.map(async (currency) => {
           const sumAssured = await qd.getTotalSumAssuredSC(contractAddress, hex(currency));
-  
           return {
             sumAssured: Decimal(sumAssured.toString()),
             contractAddress,
