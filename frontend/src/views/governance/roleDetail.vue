@@ -75,7 +75,7 @@ export default {
       if(this.options.active.id){
         instance.members(this.options.active.id).then(res => {
           if(res.memberArray){
-            this.members = res.memberArray.map(item => { 
+            this.members = res.memberArray.map(item => {
               return {address: item.toString()};
             });
           }
@@ -90,11 +90,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
 #gov-role-detail{
   height: calc(100vh - 146px);
   .box-card{
+    display: flex;
+    flex-direction: column;
     height: calc(100%);
+    .normal-text {
+      line-height: 24px;
+    }
   }
 }
 </style>
@@ -102,7 +106,9 @@ export default {
 #gov-role-detail{
   .box-card{
     .el-card__body{
-      height: calc(100% - 110px);
+      //height: calc(100% - 110px);
+      flex-grow: 1;
+      overflow-y: auto;
     }
   }
 }

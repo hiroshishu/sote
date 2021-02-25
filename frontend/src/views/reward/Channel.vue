@@ -1,7 +1,7 @@
 <template>
   <div class="channel">
-    <el-row :gutter="20" type="flex" justify="space-between">
-      <el-col :span="8">
+    <el-row :gutter="20" type="flex" justify="space-between" style="flex-wrap: wrap">
+      <el-col :xs="24" :sm="24" :md="8" class="mb20">
         <el-card class="item box-card">
           <div class="item-info">
             <div class="name">STAKING</div>
@@ -11,7 +11,7 @@
           <el-button type="primary" plain round @click="toStake">Stake</el-button>
         </el-card>
       </el-col>
-      <el-col :span="8">
+      <el-col :xs="24" :sm="24" :md="8" class="mb20">
         <el-card class="item box-card">
           <div class="item-info">
             <div class="name">CLAIM ASSESSMENT</div>
@@ -21,7 +21,7 @@
           <el-button type="primary" plain round @click="viewOpenClaims">View open claims</el-button>
         </el-card>
       </el-col>
-      <el-col :span="8">
+      <el-col :xs="24" :sm="24" :md="8" class="mb20">
         <el-card class="item box-card">
           <div class="item-info">
             <div class="name">GOVERNANCE</div>

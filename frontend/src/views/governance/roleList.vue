@@ -1,5 +1,5 @@
 <template>
-  <div id="gov-role">
+  <div id="gov-role" :class="{'heightAuto': device === 'mobile'}">
     <el-card class="box-card">
       <el-table
         ref="singleTable"
@@ -47,6 +47,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'device',
       'web3',
       'member',
       'web3Status',
@@ -107,6 +108,9 @@ export default {
 #gov-role{
   height: calc(100vh - 146px);
   text-align: center;
+  &.heightAuto {
+    height: auto;
+  }
   .box-card{
     height: 100%;
   }
@@ -125,10 +129,5 @@ export default {
     margin-left: 10px;
     font-weight: bold;
   }
-}
-</style>
-<style lang="scss">
-#gov-role{
-  
 }
 </style>

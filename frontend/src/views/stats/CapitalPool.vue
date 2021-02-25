@@ -3,40 +3,32 @@
     <el-divider content-position="left">
       <h4>Capital Pool</h4>
     </el-divider>
-    <el-form label-width="200px">
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="Capital Pool Size">
-            <highlight>
-              <span v-format="'#,##0.00'">{{$etherToNumber(cps)}}</span> BNB /
-              $<span v-format="'#,##0.00'">{{cpsUSD}}</span>
-            </highlight>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="MCR%">
-            <highlight>{{mcrPercentage}}%</highlight>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="Minimum Capital Requirement">
-            <highlight>
-              <span v-format="'#,##0.00'">{{$etherToNumber(mcr)}}</span> BNB /
-              $<span v-format="'#,##0.00'">{{mcrUSD}}</span>
-            </highlight>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Active Cover Amount to Capital Pool Size Ratio">
-            <highlight>
-              <span v-format="'#,##0.00'">{{ratio}}%</span>
-            </highlight>
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
+    <el-row>
+      <el-col class="mb20" :xs="24" :sm="12">
+        <span class="title">Capital Pool Size</span>
+        <highlight>
+          <span v-format="'#,##0.00'">{{$etherToNumber(cps)}}</span> BNB /
+          $<span v-format="'#,##0.00'">{{cpsUSD}}</span>
+        </highlight>
+      </el-col>
+      <el-col class="mb20" :xs="24" :sm="12">
+        <span class="title">MCR%</span>
+        <highlight>{{mcrPercentage}}%</highlight>
+      </el-col>
+      <el-col class="mb20" :xs="24" :sm="12">
+        <span class="title">Minimum Capital Requirement</span>
+        <highlight>
+          <span v-format="'#,##0.00'">{{$etherToNumber(mcr)}}</span> BNB /
+          $<span v-format="'#,##0.00'">{{mcrUSD}}</span>
+        </highlight>
+      </el-col>
+      <el-col :xs="24" :sm="12">
+        <span class="title">Active Cover Amount to Capital Pool Size Ratio</span>
+        <highlight>
+          <span v-format="'#,##0.00'">{{ratio}}%</span>
+        </highlight>
+      </el-col>
+    </el-row>
   </div>
 </template>
 

@@ -11,8 +11,7 @@
         style="width: 100%">
         <el-table-column
           type="index"
-          label="No."
-          width="100">
+          label="No.">
         </el-table-column>
         <el-table-column
           property="name"
@@ -83,7 +82,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
 #gov-category{
   height: calc(100vh - 146px);
   text-align: center;

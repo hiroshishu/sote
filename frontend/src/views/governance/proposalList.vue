@@ -1,6 +1,8 @@
 <template>
-  <div id="gov-proposal" v-loading="loading"
-        element-loading-text="Data loading ...">
+  <div
+    id="gov-proposal"
+    v-loading="loading"
+    element-loading-text="Data loading ...">
     <el-card class="box-card">
       <el-button type="primary" class="createBtn" size="small" round @click="createOptions.showCreate = true;">Create Proposal</el-button>
       <div class="proposals">
@@ -210,7 +212,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
 #gov-proposal{
   height: calc(100vh - 146px);
   text-align: center;
@@ -252,6 +253,12 @@ export default {
       float: right;
       font-size: 12px;
     }
+  }
+}
+@media only screen and (max-width: 767px)  {
+  #gov-proposal .proposals .footer {
+    float: none;
+    text-align: left;
   }
 }
 </style>

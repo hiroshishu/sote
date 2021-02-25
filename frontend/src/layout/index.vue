@@ -79,6 +79,7 @@ export default {
         }
         const version = this.web3.web3Provider.networkVersion;
         const defaultVersion = this.settings.networkVersion;
+        console.log('version defaultVersion:: ', version, defaultVersion);
         //判断网络是否正确
         this.tooltipType = "network";
         return version != defaultVersion;

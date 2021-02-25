@@ -1,16 +1,16 @@
 <template>
-    <fragment v-if="item.meta && !item.hidden">
-      <el-menu-item-group>
-        <span slot="title">{{item.meta.title}}</span>
-        <Permission v-for="subRoute in item.children" :permissions="[subRoute.name]" type="remove">
-          <app-link v-if="subRoute.meta" :to="resolvePath(subRoute.path)">
-            <el-menu-item :index="item.path + '/' + subRoute.path">
-              <item :icon="item.meta.icon||(subRoute.meta&&subRoute.meta.icon)" :title="subRoute.meta.title" />
-            </el-menu-item>
-          </app-link>
-        </Permission>
-      </el-menu-item-group>
-    </fragment>
+  <fragment v-if="item.meta && !item.hidden">
+    <el-menu-item-group>
+      <span slot="title">{{item.meta.title}}</span>
+      <Permission v-for="subRoute in item.children" :permissions="[subRoute.name]" type="remove">
+        <app-link v-if="subRoute.meta" :to="resolvePath(subRoute.path)">
+          <el-menu-item :index="item.path + '/' + subRoute.path">
+            <item :icon="item.meta.icon||(subRoute.meta&&subRoute.meta.icon)" :title="subRoute.meta.title" />
+          </el-menu-item>
+        </app-link>
+      </Permission>
+    </el-menu-item-group>
+  </fragment>
 </template>
 
 <script>

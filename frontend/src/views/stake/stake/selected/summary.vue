@@ -5,7 +5,7 @@
         <el-form-item label="Balance">{{$etherToNumber(member.balance)}} SOTE</el-form-item>
       </el-form>
     </el-row>
-    <el-progress :text-inside="true" :stroke-width="25" :percentage="percentage" status="exception"></el-progress>
+    <el-progress :text-inside="true" :stroke-width="25" :percentage="percentage" status="exception" class="mb8"></el-progress>
     <el-row>
       <span>{{usedAmountShow}} SOTE</span>
       <span style="float: right;">{{remainingShow}} SOTE</span>

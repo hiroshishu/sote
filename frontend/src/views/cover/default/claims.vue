@@ -10,6 +10,7 @@
     style="width: 100%">
     <el-table-column
       prop="contract"
+      min-width="160"
       label="PROJECT">
       <template slot-scope="scope">
         <div v-if="scope.row.contract">
@@ -19,29 +20,34 @@
       </template>
     </el-table-column>
     <el-table-column
-      prop="claimId" width="100"
+      prop="claimId"
+      width="100"
       label="Claim ID">
     </el-table-column>
     <el-table-column
-      prop="coverId" width="100"
+      prop="coverId"
+      width="100"
       label="Cover ID">
     </el-table-column>
     <el-table-column
-      prop="cover.sumAssured" width="240"
+      prop="cover.sumAssured"
+      min-width="240"
       label="COVER AMOUNT">
       <template slot-scope="scope">
         {{scope.row.cover.sumAssured}} BNB
       </template>
     </el-table-column>
     <el-table-column
-      prop="cover.coverPeriod" width="200"
+      prop="cover.coverPeriod"
+      min-width="200"
       label="Cover PERIOD">
       <template slot-scope="scope">
         {{formatPeriod(scope.row)}}
       </template>
     </el-table-column>
     <el-table-column
-      prop="status" width="150"
+      prop="status"
+      min-width="150"
       label="STATUS">
       <template slot-scope="scope">
         <el-tag :type="statusFormatForTag(scope.row)" :class="{ 'el-tag-blue': statusFormatForTag(scope.row)=='' }">

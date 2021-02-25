@@ -92,7 +92,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
 .icon-name {
   width: 40px;
   height: 40px;

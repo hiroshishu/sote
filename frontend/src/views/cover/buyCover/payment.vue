@@ -190,7 +190,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
 .clearfix{
   line-height: 14px;
   font-size: 14px;
@@ -226,7 +225,6 @@ export default {
 }
 </style>
 <style lang="scss">
-@import '@/styles/element-variables.scss';
 #cover-buyCover-payment{
   color: #909399;
   .el-checkbox__label {

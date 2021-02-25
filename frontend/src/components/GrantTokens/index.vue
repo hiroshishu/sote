@@ -1,17 +1,25 @@
 <template>
-  <div id="grantToken" v-loading.fullscreen.lock="loading"
+  <div
+    id="grantToken"
+    v-loading.fullscreen.lock="loading"
     v-if="showGrants()"
     element-loading-text="Transaction is confirming ...">
     <el-card class="box-card" v-for="contAllowance in contractsAllowance" v-if="showGrant(contAllowance)">
-      <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
-      Make sure sufficient SOTE allowance approved before swap or deposit. Current allowance to
-      <el-button type="text">{{contAllowance.contractName}}</el-button> contract is:
-      <span class="highlight">{{formatAllowance(contAllowance.curAllowance)}}</span><span class="end">.</span>
-      <el-button type="primary" round @click="grant(contAllowance)" size="small">Approve</el-button>
+      <el-row type="flex" style="flex-wrap: wrap;" justify="space-between" align="middle">
+        <el-col :xs="24" :sm="24" :md="20" style="line-height: 24px" :class="{'mb16': device === 'mobile'}">
+          <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
+          Make sure sufficient SOTE allowance approved before swap or deposit. Current allowance to
+          <span style="color: #FC5653">{{contAllowance.contractName}}</span> contract is:
+          <span class="highlight">{{formatAllowance(contAllowance.curAllowance)}}</span><span class="end">.</span>
+        </el-col>
+        <el-button type="primary" round @click="grant(contAllowance)" size="small">Approve</el-button>
+      </el-row>
     </el-card>
-    <el-dialog :title="'Grant ' + curAllowance.contractName + ' permission'"
-        :visible.sync="dialogFormVisible" append-to-body
-        :close-on-click-modal="false">
+    <el-dialog
+      :title="'Grant ' + curAllowance.contractName + ' permission'"
+      :visible.sync="dialogFormVisible"
+      append-to-body
+      :close-on-click-modal="false">
       <el-form :model="form" label-width="150px">
         <el-form-item label="Current allowance:">
           <span class="highlight">{{formatAllowance(curAllowance.curAllowance)}}</span> SOTE
@@ -37,7 +45,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import elementStyle from '@/styles/element-variables.scss';
 import SOTETokenContract from '@/services/SOTEToken';
 import { watch } from '@/utils/watch.js';
 import { getAllowance, grantAllowance } from '@/api/common.js'
@@ -69,6 +76,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'device',
       'web3',
       'web3Status',
       'member'
@@ -208,7 +216,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
 #grantToken{
   display: inline-block;
   font-size: 14px;

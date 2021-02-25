@@ -55,5 +55,17 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+  #stats{
+    .title {
+      margin-right: 12px;
+      padding: 8px 0;
+      line-height: 24px;
+      font-weight: 700;
+      color: #606266;
+    }
+    .li-highlight {
+      padding: 8px 0;
+    }
+  }
 </style>

@@ -4,24 +4,40 @@
       <el-form :disabled="!member.isMember">
         <el-row>
           <h2 class="main-text">Soteria Staking</h2>
-          <span class="normal-text">Earn rewards by staking SOTE on projects you think are secure.</span>
-          <span class="right-area">
-            <!-- <el-button type="primary" plain round @click="stats">Stats</el-button> -->
-            <el-button type="primary" round @click="staking">Start staking</el-button>
-          </span>
+          <el-row type="flex" style="flex-wrap: wrap;" justify="space-between" align="middle">
+            <el-col :xs="24" :sm="24" :md="16" class="normal-text" :class="{'mb16': device === 'mobile'}" style="line-height: 24px">Earn rewards by staking SOTE on projects you think are secure.</el-col>
+            <div class="right-area">
+              <!-- <el-button type="primary" plain round @click="stats">Stats</el-button> -->
+              <el-button type="primary" round @click="staking">Start staking</el-button>
+            </div>
+          </el-row>
           <el-divider></el-divider>
         </el-row>
         <div class="overall">
-          <el-row class="secondary-text" :gutter="20">
-            <el-col :span="8">CURRENT STAKED</el-col>
-            <el-col :span="8">DEPOSIT USAGE</el-col>
-            <el-col :span="8">TOTAL REWARDS</el-col>
+          <el-row>
+            <el-col :xs="24" :sm="8" class="mb20">
+              <div class="secondary-text mb8">CURRENT STAKED</div>
+              <div class="highlight">{{staked}} SOTE</div>
+            </el-col>
+            <el-col :xs="24" :sm="8" class="mb20">
+              <div class="secondary-text mb8">DEPOSIT USAGE</div>
+              <div class="highlight">{{depositUsage}}%</div>
+            </el-col>
+            <el-col :xs="24" :sm="8" class="mb20">
+              <div class="secondary-text mb8">TOTAL REWARDS</div>
+              <div class="highlight">{{toFixed(options.rewards)}} SOTE</div>
+            </el-col>
           </el-row>
-          <el-row class="highlight" :gutter="20">
-            <el-col :span="8">{{staked}} SOTE</el-col>
-            <el-col :span="8">{{depositUsage}}%</el-col>
-            <el-col :span="8">{{toFixed(options.rewards)}} SOTE</el-col>
-          </el-row>
+<!--          <el-row class="secondary-text" :gutter="20">-->
+<!--            <el-col :span="8">CURRENT STAKED</el-col>-->
+<!--            <el-col :span="8">DEPOSIT USAGE</el-col>-->
+<!--            <el-col :span="8">TOTAL REWARDS</el-col>-->
+<!--          </el-row>-->
+<!--          <el-row class="highlight" :gutter="20">-->
+<!--            <el-col :span="8">{{staked}} SOTE</el-col>-->
+<!--            <el-col :span="8">{{depositUsage}}%</el-col>-->
+<!--            <el-col :span="8">{{toFixed(options.rewards)}} SOTE</el-col>-->
+<!--          </el-row>-->
         </div>
       </el-form>
     </el-card>
@@ -44,6 +60,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'device',
       'web3',
       'member',
       'web3Status',
@@ -89,12 +106,4 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
-#stake-staked-overall{
-  .overall {
-    .el-row {
-      margin-bottom: 20px !important;
-    }
-  }
-}
 </style>

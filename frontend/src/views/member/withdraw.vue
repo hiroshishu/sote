@@ -100,7 +100,7 @@ export default {
 
 #member-withdraw{
   .box-card{
-    height: 300px;
+    //height: 300px;
   }
   .normal-text{
     line-height: 35px;

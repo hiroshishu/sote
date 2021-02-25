@@ -84,6 +84,15 @@ div:focus {
 .secondary-text{
   color: #909399;
 }
+.mb8 {
+  margin-bottom: 8px;
+}
+.mb16 {
+  margin-bottom: 16px;
+}
+.mb20 {
+  margin-bottom: 20px;
+}
 
 .li-title {
   color: #606266;
@@ -106,11 +115,11 @@ div:focus {
   font-size: 22px;
   color: $--color-primary;
 }
-.right-area {
-  position: absolute;
-  right: 0px;
-  top: 40px;
-}
+//.right-area {
+//  position: absolute;
+//  right: 0px;
+//  top: 40px;
+//}
 .router-link-active{
   li {
     color: $--color-primary !important;

@@ -3,9 +3,11 @@
         element-loading-text="Transaction is confirming ...">
     <el-card class="box-card">
       <h2>Soteria Rewards</h2>
-      <el-row type="flex" justify="space-between" align="middle">
-        <el-col :span="6">You have {{$etherToNumber(member.rewards)}} SOTE available</el-col>
-        <el-col :span="4"><el-button type="primary" round class="withdraw-btn" @click="withdrawAll">Withdraw all</el-button></el-col>
+      <el-row type="flex" justify="space-between" align="middle" style="flex-wrap: wrap">
+        <el-col :xs="24" :sm="24" :md="16" :class="{'mb16': device === 'mobile'}" style="line-height: 24px">You have {{$etherToNumber(member.rewards)}} SOTE available</el-col>
+        <div class="right-area">
+          <el-button type="primary" round class="withdraw-btn" @click="withdrawAll">Withdraw all</el-button>
+        </div>
       </el-row>
     </el-card>
     <channel @rewardsData="rewardsData" />
@@ -29,7 +31,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['web3Status', 'member']),
+    ...mapGetters(['device', 'web3Status', 'member']),
   },
   watch: {
     web3Status: watch.web3Status

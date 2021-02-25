@@ -3,28 +3,22 @@
     <el-divider content-position="left">
       <h4>Staking</h4>
     </el-divider>
-    <el-form label-width="200px">
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="Total Amount Staked">
-            <div class="skeleton" v-if="loadingStaked">
-              <Skeleton class="skeleton-item" active :paragraph="{rows:1}" :title="false"/>
-            </div>
-            <highlight v-else><span v-format="'#,##0.00'">{{$etherToNumber(allStaked)}}</span> SOTE</highlight>
-            <!-- <highlight v-else>{{bnbStaked}} BNB / ${{bnbStakedUSD}}</highlight> -->
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Total Staking Reward">
-            <div class="skeleton" v-if="loadingRewards">
-              <Skeleton class="skeleton-item" active :paragraph="{rows:1}" :title="false"/>
-            </div>
-            <highlight v-else><span v-format="'#,##0.00'">{{allRewards}}</span> SOTE</highlight>
-            <!-- <highlight v-else>{{bnbRewards}} BNB / ${{bnbRewardsUSD}}</highlight> -->
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
+    <el-row>
+      <el-col :xs="24" :sm="12" class="mb20">
+        <span class="title">Total Amount Staked</span>
+        <div class="skeleton" v-if="loadingStaked">
+          <Skeleton class="skeleton-item" active :paragraph="{rows:1}" :title="false"/>
+        </div>
+        <highlight v-else><span v-format="'#,##0.00'">{{$etherToNumber(allStaked)}}</span> SOTE</highlight>
+      </el-col>
+      <el-col :xs="24" :sm="12">
+        <span class="title">Total Staking Reward</span>
+        <div class="skeleton" v-if="loadingRewards">
+          <Skeleton class="skeleton-item" active :paragraph="{rows:1}" :title="false"/>
+        </div>
+        <highlight v-else><span v-format="'#,##0.00'">{{allRewards}}</span> SOTE</highlight>
+      </el-col>
+    </el-row>
   </div>
 </template>
 

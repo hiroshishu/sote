@@ -7,7 +7,7 @@
           Claim {{options.claim.claimId}}
         </LiBorderRadius>
       </div>
-      <div style="margin-bottom: 20px;">
+      <div class="mb20">
         <div style="line-height: 40px;" class="title">
           <img :src="options.claim.contract.icon" class="project-large-icon" />
           <span>{{options.claim.contract.name}}</span>

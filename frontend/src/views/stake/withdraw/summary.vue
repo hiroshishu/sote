@@ -3,7 +3,7 @@
         element-loading-text="Transaction is confirming ...">
     <el-card :style="{top: top+'px'}">
       <h3 class="main-text">Summary</h3>
-      <div style="margin-bottom: 20px;">
+      <div class="mb20">
         <el-row class="normal-text-bold">
           <span>Staked</span>
           <span style="float: right;">REMAINING</span>

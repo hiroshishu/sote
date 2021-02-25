@@ -1,7 +1,7 @@
 <template>
   <div id="stake-introduce">
     <el-row :gutter="20">
-      <el-col v-for="introduce in introduces" :span="8" style="margin-bottom: 20px;">
+      <el-col v-for="introduce in introduces" :xs="24" :sm="12" :md="8" class="mb20">
         <el-card class="box-card">
           <div style="line-height: 40px;text-align: center;">
             <svg-icon :icon-class="introduce.icon" class="icon-name"></svg-icon>
@@ -57,7 +57,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
 .icon-name {
   width: 40px;
   height: 40px;

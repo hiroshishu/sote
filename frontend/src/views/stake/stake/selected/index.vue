@@ -4,7 +4,7 @@
       <div slot="header" class="clearfix">
         <highlight>{{titles[options.active > 3 ? 3 : options.active]}}</highlight>
       </div>
-      <div style="margin-bottom: 20px;">
+      <div class="mb20">
           <selected v-if="options.active==0" :options="options" />
 
           <projectSummary v-if="options.active==1" :options="options" />

@@ -91,7 +91,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
 #cover-buyCover{
   .el-page-header{
     margin-bottom: 20px;
@@ -105,6 +104,7 @@ export default {
   font-size: 14px !important;
 }
 #cover-buyCover .el-step__title{
+  white-space: nowrap;
   font-size: 14px !important;
 }
 </style>

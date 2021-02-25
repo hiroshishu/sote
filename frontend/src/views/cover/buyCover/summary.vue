@@ -15,7 +15,7 @@
 <!--        <el-form-item label="Yearly cost %:">-->
 <!--          {{options.curContract.yearlyCost}}-->
 <!--        </el-form-item>-->
-        <el-form-item label="Capacity BNB:" style="margin-bottom: 20px;">
+        <el-form-item label="Capacity BNB:" class="mb20">
           {{options.curContract.capacityBNB}}
         </el-form-item>
         <div style="text-align: center;">

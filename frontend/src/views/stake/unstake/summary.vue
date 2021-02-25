@@ -3,7 +3,7 @@
         element-loading-text="Transaction is confirming ...">
     <el-card :style="{top: top+'px'}">
       <h3 class="main-text">Summary</h3>
-      <div style="margin-bottom: 20px;">
+      <div class="mb20">
         <el-form label-width="120px" label-position="left">
           <div>
             <highlight>Before</highlight>
@@ -105,7 +105,7 @@ export default {
       if(vBN.lte(0)){
         return false;
       }
-      
+
       const errRemaining = this.options.stakedProjects.filter(item => {
         const remainingStaked = BigNumber(item.ownerStaked).minus(item.unstaking).minus(item.unstaked);
         return remainingStaked.lt(0);
@@ -123,7 +123,7 @@ export default {
         this.error = `Remaining stake ${this.settings.stake.minAmountPerContract} SOTE minumum per project.`;
         return false;
       }
-      
+
       const perError = this.options.stakedProjects.filter(item => {
         const unstake = BigNumber(item.unstaking);
         return unstake.gt(0) && unstake.lt(this.settings.stake.minAmountPerContract);

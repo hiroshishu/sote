@@ -8,76 +8,167 @@
       <el-divider content-position="left">
         <h4>Details</h4>
       </el-divider>
-      <el-form label-width="500px" label-position="left">
-        <el-form-item label="Role allowed to vote:">
-          {{roles[parseInt(detail.memberRoleToVote)]}}
-        </el-form-item>
-        <el-form-item label="Vote percent required for accepting the solution:">
-          {{detail.majorityVotePerc}}
-        </el-form-item>
-        <el-form-item label="Threshold percentage of voters:">
-          {{detail.quorumPerc}}
-        </el-form-item>
-        <el-form-item label="Role allowed to create proposal:">
-          {{formatAllowedToCreateProposal()}}
-        </el-form-item>
-        <el-form-item label="Period of time for which voting process continues:">
-          {{detail.closingTime/60/60/24}} days
-        </el-form-item>
-        <el-form-item label="Minimum numbers of tokens to be locked before creating proposal:">
-          {{detail.minStake}}
-        </el-form-item>
-      </el-form>
+      <el-row class="section">
+        <el-col class="mb8">
+          <el-row>
+            <el-col :xs="24" :sm="20" :md="16" class="title">Role allowed to vote:</el-col>
+            <el-col :xs="24" :sm="4" :md="8" class="content">{{roles[parseInt(detail.memberRoleToVote)]}}</el-col>
+          </el-row>
+        </el-col>
+        <el-col class="mb8">
+          <el-row>
+            <el-col :xs="24" :sm="20" :md="16" class="title">Vote percent required for accepting the solution:</el-col>
+            <el-col :xs="24" :sm="4" :md="8" class="content">{{detail.majorityVotePerc}}</el-col>
+          </el-row>
+        </el-col>
+        <el-col class="mb8">
+          <el-row>
+            <el-col :xs="24" :sm="20" :md="16" class="title">Threshold percentage of voters:</el-col>
+            <el-col :xs="24" :sm="4" :md="8" class="content">{{detail.quorumPerc}}</el-col>
+          </el-row>
+        </el-col>
+        <el-col class="mb8">
+          <el-row>
+            <el-col :xs="24" :sm="20" :md="16" class="title">Role allowed to create proposal:</el-col>
+            <el-col :xs="24" :sm="4" :md="8" class="content">{{formatAllowedToCreateProposal()}}</el-col>
+          </el-row>
+        </el-col>
+        <el-col class="mb8">
+          <el-row>
+            <el-col :xs="24" :sm="20" :md="16" class="title">Period of time for which voting process continues:</el-col>
+            <el-col :xs="24" :sm="4" :md="8" class="content">{{detail.closingTime/60/60/24}} days</el-col>
+          </el-row>
+        </el-col>
+        <el-col>
+          <el-row>
+            <el-col :xs="24" :sm="20" :md="16" class="title">Minimum numbers of tokens to be locked before creating proposal:</el-col>
+            <el-col :xs="24" :sm="4" :md="8" class="content">{{detail.minStake}}</el-col>
+          </el-row>
+        </el-col>
+      </el-row>
+
+<!--      <el-form label-width="500px" label-position="left">-->
+<!--        <el-form-item label="Role allowed to vote:">-->
+<!--          {{roles[parseInt(detail.memberRoleToVote)]}}-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="Vote percent required for accepting the solution:">-->
+<!--          {{detail.majorityVotePerc}}-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="Threshold percentage of voters:">-->
+<!--          {{detail.quorumPerc}}-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="Role allowed to create proposal:">-->
+<!--          {{formatAllowedToCreateProposal()}}-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="Period of time for which voting process continues:">-->
+<!--          {{detail.closingTime/60/60/24}} days-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="Minimum numbers of tokens to be locked before creating proposal:">-->
+<!--          {{detail.minStake}}-->
+<!--        </el-form-item>-->
+<!--      </el-form>-->
       <el-divider content-position="left">
         <h4>Extended Data</h4>
       </el-divider>
-      <el-form label-width="240px" label-position="left">
-        <el-form-item label="Advisory Board Majority Vote:">
-          {{extended.categoryABReq}}
-        </el-form-item>
-      </el-form>
+      <el-row class="section">
+        <el-col :xs="24" :sm="10" :lg="7" class="title">Advisory Board Majority Vote:</el-col>
+        <el-col :xs="24" :sm="14" :lg="17" class="content">{{extended.categoryABReq}}</el-col>
+      </el-row>
+<!--      <el-form label-width="240px" label-position="left">-->
+<!--        <el-form-item label="Advisory Board Majority Vote:">-->
+<!--          {{extended.categoryABReq}}-->
+<!--        </el-form-item>-->
+<!--      </el-form>-->
+
       <el-divider content-position="left">
         <h4>On-Chain Action To Be Triggered If Proposal Passed</h4>
       </el-divider>
-      <el-form label-width="180px" label-position="left">
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="Contract Name:">
-              {{options.active.contractName}}
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="Default Incentive:">
-              {{action.defaultIncentive}}
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-form-item label="Function:">
-          {{options.active.method}}({{params}})
-        </el-form-item>
-        <el-form-item label="Parameter:">
-          <el-table
-            :data="options.active.params"
-            highlight-current-row
-            row-class-name="role-row"
-            style="width: 100%">
-            <el-table-column
-              type="index"
-              label="Index"
-              width="100">
-            </el-table-column>
-            <el-table-column
-              property="type"
-              label="Type"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              property="desc"
-              label="Description">
-            </el-table-column>
-          </el-table>
-        </el-form-item>
-      </el-form>
+      <el-row class="section">
+        <el-col class="mb8">
+          <el-row>
+            <el-col :xs="24" :sm="6" :lg="5" class="title">Contract Name:</el-col>
+            <el-col :xs="24" :sm="18" :lg="19" class="content">{{options.active.contractName}}</el-col>
+          </el-row>
+        </el-col>
+        <el-col class="mb8">
+          <el-row>
+            <el-col :xs="24" :sm="6" :lg="5" class="title">Default Incentive:</el-col>
+            <el-col :xs="24" :sm="18" :lg="19" class="content">{{action.defaultIncentive}}</el-col>
+          </el-row>
+        </el-col>
+        <el-col class="mb8">
+          <el-row>
+            <el-col :xs="24" :sm="6" :lg="5" class="title">Function:</el-col>
+            <el-col :xs="24" :sm="18" :lg="19" class="content">{{options.active.method}}({{params}})</el-col>
+          </el-row>
+        </el-col>
+        <el-col class="mb8">
+          <el-row>
+            <el-col :xs="24" :sm="6" :lg="5" class="title">Parameter:</el-col>
+            <el-col :xs="24" :sm="18" :lg="19" class="content">
+              <el-table
+                :data="options.active.params"
+                highlight-current-row
+                row-class-name="role-row"
+                style="width: 100%">
+                <el-table-column
+                  type="index"
+                  min-width="60"
+                  label="Index">
+                </el-table-column>
+                <el-table-column
+                  property="type"
+                  label="Type">
+                </el-table-column>
+                <el-table-column
+                  property="desc"
+                  label="Description">
+                </el-table-column>
+              </el-table>
+            </el-col>
+          </el-row>
+        </el-col>
+      </el-row>
+
+<!--      <el-form label-width="180px" label-position="left">-->
+<!--        <el-row>-->
+<!--          <el-col :span="12">-->
+<!--            <el-form-item label="Contract Name:">-->
+<!--              {{options.active.contractName}}-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
+<!--          <el-col :span="12">-->
+<!--            <el-form-item label="Default Incentive:">-->
+<!--              {{action.defaultIncentive}}-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
+<!--        </el-row>-->
+<!--        <el-form-item label="Function:">-->
+<!--          {{options.active.method}}({{params}})-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="Parameter:">-->
+<!--          <el-table-->
+<!--            :data="options.active.params"-->
+<!--            highlight-current-row-->
+<!--            row-class-name="role-row"-->
+<!--            style="width: 100%">-->
+<!--            <el-table-column-->
+<!--              type="index"-->
+<!--              label="Index"-->
+<!--              width="100">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column-->
+<!--              property="type"-->
+<!--              label="Type"-->
+<!--              width="180">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column-->
+<!--              property="desc"-->
+<!--              label="Description">-->
+<!--            </el-table-column>-->
+<!--          </el-table>-->
+<!--        </el-form-item>-->
+<!--      </el-form>-->
     </el-card>
   </div>
 </template>
@@ -109,7 +200,7 @@ export default {
   computed: {
     ...mapGetters([
       'web3',
-      'member', 
+      'member',
       'web3Status',
     ]),
     params(){
@@ -188,7 +279,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
 #gov-category-detail{
   height: calc(100vh - 146px);
   .box-card{
@@ -201,6 +291,21 @@ export default {
 </style>
 <style lang="scss">
 #gov-category-detail{
+  .section {
+    padding-bottom: 16px;
+    .title {
+      display: inline-block;
+      padding: 8px 0;
+      text-align: left;
+      font-weight: 700;
+      color: #606266;
+    }
+    .content {
+      display: inline-block;
+      padding: 8px 0;
+    }
+  }
+
   .box-card{
     .el-card__body{
       height: calc(100% - 110px);

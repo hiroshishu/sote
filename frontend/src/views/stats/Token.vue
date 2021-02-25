@@ -3,37 +3,29 @@
     <el-divider content-position="left">
       <h4>Token</h4>
     </el-divider>
-    <el-form label-width="200px">
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="SOTE Price">
-            <highlight>1 SOTE = {{options.rate}} BNB</highlight>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="SOTE Supply">
-            <highlight>
-              <span v-format="'#,##0.00'">{{$etherToNumber(totalSupply)}}</span> SOTE
-            </highlight>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="SOTE Market Cap">
-            <highlight>$<span v-format="'#,##0.00'">{{totalSupplyUSD}}</span></highlight>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Count of Members">
-            <div class="skeleton" v-if="loadingCountOfMembers">
-              <Skeleton class="skeleton-item" active :paragraph="{rows:1}" :title="false"/>
-            </div>
-            <highlight v-else>{{countOfMembers}}</highlight>
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
+    <el-row>
+      <el-col :xs="24" :sm="12" class="mb20">
+        <span class="title">SOTE Price</span>
+        <highlight>1 SOTE = {{options.rate}} BNB</highlight>
+      </el-col>
+      <el-col :xs="24" :sm="12" class="mb20">
+        <span class="title">SOTE Supply</span>
+        <highlight>
+          <span v-format="'#,##0.00'">{{$etherToNumber(totalSupply)}}</span> SOTE
+        </highlight>
+      </el-col>
+      <el-col :xs="24" :sm="12" class="mb20">
+        <span class="title">SOTE Market Cap</span>
+        <highlight>$<span v-format="'#,##0.00'">{{totalSupplyUSD}}</span></highlight>
+      </el-col>
+      <el-col :xs="24" :sm="12">
+        <span class="title">Count of Members</span>
+        <div class="skeleton" v-if="loadingCountOfMembers">
+          <Skeleton class="skeleton-item" active :paragraph="{rows:1}" :title="false"/>
+        </div>
+        <highlight v-else>{{countOfMembers}}</highlight>
+      </el-col>
+    </el-row>
   </div>
 </template>
 

@@ -11,7 +11,7 @@
     </el-card>
     <br />
     <el-row :gutter="20">
-      <el-col :span="18">
+      <el-col :xs="24" :sm="24" :md="24" :lg="18" class="mb20">
         <transition name="el-fade-in-linear" mode="out-in">
           <projects :options="options" v-if="options.active==0" @selectProject="selectProject"/>
           <deposit :options="options" v-if="options.active==1" @addMore="options.active=0"/>
@@ -19,7 +19,7 @@
           <confirm :options="options" v-if="options.active==3" @addMore="options.active=0"/>
         </transition>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="24" :md="24" :lg="6">
         <selected class="right-top" :options="options" @next="next" @back="back"/>
       </el-col>
     </el-row>

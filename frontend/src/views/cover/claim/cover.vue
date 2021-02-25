@@ -4,7 +4,7 @@
       <div slot="header" class="clearfix">
         <highlight>{{titles[options.active]}}</highlight>
       </div>
-      <div style="margin-bottom: 20px;" v-if="options.active!=2">
+      <div class="mb20" v-if="options.active!=2">
         <div style="line-height: 40px;" class="title">
           <img :src="options.cover.contract.icon" class="project-large-icon" />
           <span>{{options.cover.contract.name}}</span>
@@ -24,7 +24,7 @@
           </el-form-item>
         </el-form>
       </div>
-      <div style="margin-bottom: 20px;" v-else>
+      <div class="mb20" v-else>
         <LiBorderRadius class="account">
           {{formatterLongString(options.account, 20, 5, 5)}}
           <span v-if="options.verified">Verified</span>

@@ -3,7 +3,7 @@
         element-loading-text="Transaction is confirming ...">
     <el-card :style="{top: top+'px'}">
       <h3 class="main-text">Summary</h3>
-      <div style="margin-bottom: 20px;">
+      <div class="mb20">
         <el-form label-width="120px" label-position="left">
           <el-form-item label="Pending:">
             {{$toFixed(unstaked)}} SOTE

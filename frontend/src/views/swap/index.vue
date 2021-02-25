@@ -8,9 +8,7 @@
       <el-tab-pane label="WSOTE & SOTE" name="wsote">
         <wSOTEAndSOTE @refresh="refreshAllowance" />
       </el-tab-pane>
-
     </el-tabs>
-
   </div>
 </template>
 
@@ -36,7 +34,7 @@ export default {
       'web3',
       'member',
       'web3Status',
-	  'settings'
+      'settings'
     ]),
   },
   watch: {
@@ -72,8 +70,4 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
-#swap{
-
-}
 </style>

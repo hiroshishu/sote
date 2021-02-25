@@ -2,7 +2,7 @@
   <div id="claim-default-stake-becomeAssessor" v-loading.fullscreen.lock="loading"
     element-loading-text="Transaction is confirming ...">
     <el-row :gutter="20">
-      <el-col :span="12">
+      <el-col :xs="24" :sm="24" :md="12">
         <div class="normal-text-bold">Become a claims assessor</div>
         <div class="secondary-text">
           To earn reward as a claims assessor you need to stake an amount of SOTE for 30 days minimum.
@@ -10,10 +10,10 @@
           If the Advisory Board deems voting to be fraudulent, they have the power to burn this amount.
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :xs="24" :sm="24" :md="12">
         <el-form ref="form" :rules="rules" :model="form">
           <el-row class="transfer-area" :gutter="15">
-            <el-col :span="12">
+            <el-col :xs="24" :sm="12">
               <el-card>
                 <div slot="header" class="normal-text">
                   <span>Stake</span>
@@ -30,7 +30,7 @@
                 <div class="right-rate" style="color:#FFFFFF;"> ~ </div>
               </el-card>
             </el-col>
-            <el-col :span="12">
+            <el-col :xs="24" :sm="12">
               <el-card>
                 <div slot="header" class="normal-text">
                   <span>Stake period</span>
@@ -49,9 +49,9 @@
             </el-col>
           </el-row>
           <el-row class="buttonArea">
-              <div class="right-rate">
-                  <el-button type="primary" round @click="becomeAssessor">Confirm</el-button>
-              </div>
+            <div class="right-rate">
+              <el-button type="primary" round @click="becomeAssessor">Confirm</el-button>
+            </div>
           </el-row>
         </el-form>
       </el-col>

@@ -5,8 +5,8 @@
         <highlight>Find Project</highlight>
       </div>
       <el-form inline label-width="100px" :model="form">
-        <el-row style="margin-bottom: 20px;">
-          <el-col :span="12">
+        <el-row>
+          <el-col :xs="24" :sm="24" :md="12" class="mb20">
             <el-form-item label="Sort by">
               <el-radio-group v-model="form.sortBy" @change="sort">
                 <el-radio-button label="NEWTEST">NEWTEST</el-radio-button>
@@ -14,7 +14,7 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :xs="24" :sm="24" :md="12" class="mb20">
             <el-form-item label="Show">
               <el-checkbox-group v-model="form.show" @change="filter">
                 <el-checkbox-button label="Smart contracts" key="Smart contracts">Smart contracts</el-checkbox-button>
@@ -26,7 +26,12 @@
         <el-row>
           <el-col :span="24">
             <el-form-item label="Search">
-              <el-input placeholder="e.g. Compound" clearable @keyup.native="filter" @change="filter" v-model="form.search"></el-input>
+              <el-input
+                placeholder="e.g. Compound"
+                clearable
+                @keyup.native="filter"
+                @change="filter"
+                v-model="form.search"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -34,47 +39,57 @@
     </el-card>
     <br/>
     <el-row :gutter="20">
-      <el-col v-for="(project, index) in projects" :span="8" style="margin-bottom: 20px;">
-          <el-card class="li-degrees-badge-parent">
-              <DegreesBadge v-if="project.status && project.status.length>0" :color="colors[project.status]" :fromColor="fromColors[project.status]" :toColor="toColors[project.status]">
-                {{project.status.toUpperCase()}}
-              </DegreesBadge>
-              <div style="line-height: 40px;" class="title">
-                <img :src="project.icon" class="project-large-icon" />
-                <span>{{project.name}}</span>
-              </div>
-              <div class="desc">
-                <div class="desc-ellipsis">{{project.description}}</div>
-              </div>
-              <el-form label-width="100px">
-                <el-form-item label="Project type">
-                  {{project.type}}
-                </el-form-item>
-                <el-form-item label="Staked">
-                  {{(project.staked && project.staked > 0) ? $etherToNumber(project.staked) : project.staked}} SOTE
-                </el-form-item>
-                <el-form-item label="APY">
-                  {{project.APY?project.APY:"N/A"}}
-                </el-form-item>
-              </el-form>
-              <div style="text-align: center;" v-if="project.status!='discard'">
-                <el-button type="primary" :disabled="isSelected(project)" round size="mini" style="width: 150px;" @click="selectProject(project)">Select</el-button>
-              </div>
-          </el-card>
+      <el-col v-for="project in projects" :xs="24" :sm="12" :md="12" :lg="8" class="mb20">
+        <el-card class="li-degrees-badge-parent">
+          <DegreesBadge
+            v-if="project.status && project.status.length>0"
+            :color="colors[project.status]"
+            :fromColor="fromColors[project.status]"
+            :toColor="toColors[project.status]">
+            {{ project.status.toUpperCase() }}
+          </DegreesBadge>
+          <div style="line-height: 40px;" class="title">
+            <img :src="project.icon" class="project-large-icon"/>
+            <span>{{ project.name }}</span>
+          </div>
+          <div class="desc">
+            <div class="desc-ellipsis">{{ project.description }}</div>
+          </div>
+          <el-form label-width="100px">
+            <el-form-item label="Project type">
+              {{ project.type }}
+            </el-form-item>
+            <el-form-item label="Staked">
+              {{ (project.staked && project.staked > 0) ? $etherToNumber(project.staked) : project.staked }} SOTE
+            </el-form-item>
+            <el-form-item label="APY">
+              {{ project.APY ? project.APY : "N/A" }}
+            </el-form-item>
+          </el-form>
+          <div style="text-align: center;" v-if="project.status!='discard'">
+            <el-button
+              type="primary"
+              :disabled="isSelected(project)"
+              round
+              size="mini"
+              style="width: 150px;"
+              @click="selectProject(project)">Select
+            </el-button>
+          </div>
+        </el-card>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import { watch } from '@/utils/watch.js';
-import { mapGetters } from 'vuex';
-import { getStakeProjects } from '@/api/stake.js';
+import {watch} from '@/utils/watch.js';
+import {mapGetters} from 'vuex';
+import {getStakeProjects} from '@/api/stake.js';
 import PooledStakingContract from '@/services/PooledStaking'
 
 export default {
-  components:{
-  },
+  components: {},
   props: ["options"],
   data() {
     return {
@@ -112,40 +127,40 @@ export default {
   watch: {
     web3Status: watch.web3Status,
   },
-  created(){
+  created() {
     this.initData();
-    this.$Bus.bindEvent(this.$EventNames.switchAccount, this._uid, (account)=>{
+    this.$Bus.bindEvent(this.$EventNames.switchAccount, this._uid, (account) => {
       this.initData();
     });
   },
   methods: {
-    async initData(){
-      try{
+    async initData() {
+      try {
         const response = await getStakeProjects(this);
         this.projects = response.data;
         this.oldProjects = JSON.parse(JSON.stringify(response.data));
-      }catch(e){
+      } catch (e) {
         console.error("Get projects failed.", e);
       }
-      if(this.web3Status === this.WEB3_STATUS.AVAILABLE){
+      if (this.web3Status === this.WEB3_STATUS.AVAILABLE) {
         this.initContract();
       }
     },
-    async initContract(){
+    async initContract() {
       this.PooledStaking = await this.getContract(PooledStakingContract);
       this.getAllStaked();
-      if(!this.$route.params.stakedProjects){
+      if (!this.$route.params.stakedProjects) {
         this.getDeposit();
         this.getStakedProjects();
       }
     },
-    getDeposit(){
+    getDeposit() {
       const contract = this.PooledStaking.getContract();
       contract.instance.stakerDeposit(this.member.account).then(res => {
         this.options.totalAmount = this.$etherToValue(res.toString());
       });
     },
-    getAllStaked(){
+    getAllStaked() {
       const contract = this.PooledStaking.getContract();
       this.projects.forEach((item, index) => {
         contract.instance.contractStake(item.address).then(res => {
@@ -154,36 +169,36 @@ export default {
         });
       });
     },
-    getStakedProjects(){
+    getStakedProjects() {
       const contract = this.PooledStaking.getContract();
       contract.instance.stakerContractsArray(this.member.account).then(async res => {
         this.stakedProjects = res;
         console.info(res);
-        const count = this.options.selectedProject.filter(item=>this.stakedProjects.indexOf(item.address)>=0).length;
-        if(count > 0){
+        const count = this.options.selectedProject.filter(item => this.stakedProjects.indexOf(item.address) >= 0).length;
+        if (count > 0) {
           return;
         }
         const map = {};
-        this.projects.filter(item=>this.stakedProjects.indexOf(item.address)>=0).forEach(item=>{
+        this.projects.filter(item => this.stakedProjects.indexOf(item.address) >= 0).forEach(item => {
           const project = JSON.parse(JSON.stringify(item));
-          if(!project.stake){
+          if (!project.stake) {
             project.stake = "0";
           }
           map[project.address] = project;
         });
         // 按顺序加载已stake合约，否则不能顺利进行下次stake
-        for(let i=0;i<this.stakedProjects.length;i++){
+        for (let i = 0; i < this.stakedProjects.length; i++) {
           const item = map[this.stakedProjects[i]];
-          if(item){
+          if (item) {
             await this.setStatedForAddress(item);
             this.options.selectedProject.push(item);
           }
         }
-      }).catch((e)=>{
+      }).catch((e) => {
         this.$message.error(e.message);
       });
     },
-    async setStatedForAddress(item){
+    async setStatedForAddress(item) {
       const contract = this.PooledStaking.getContract();
       const ownerStaked = await contract.instance.stakerContractStake(this.member.account, item.address);
       item.stakedStatus = "staked";// 代表已经stake过了
@@ -193,34 +208,34 @@ export default {
       item.unstaked = this.$etherToValue(unstaked.toString());
       item.unstaking = 0;
     },
-    isSelected(project){
-      return this.options.selectedProject.filter(item=>item.name == project.name).length > 0;
+    isSelected(project) {
+      return this.options.selectedProject.filter(item => item.name == project.name).length > 0;
     },
-    sort(){
+    sort() {
       let sort = "new";
-      if(this.form.sortBy != "NEWTEST"){
+      if (this.form.sortBy != "NEWTEST") {
         sort = "incentivized";
       }
-      this.projects = this.projects.sort(item=> item.status == sort ? -1 : 1);
+      this.projects = this.projects.sort(item => item.status == sort ? -1 : 1);
     },
-    search(value){
-      return this.oldProjects.filter(item=>item.name.indexOf(value)>=0);
+    search(value) {
+      return this.oldProjects.filter(item => item.name.indexOf(value) >= 0);
     },
-    filter(){
+    filter() {
       let projects = null;
-      if(this.form.search.length>0){
+      if (this.form.search.length > 0) {
         projects = this.search(this.form.search);
-      }else{
+      } else {
         projects = this.oldProjects;
       }
-      this.projects = projects.filter(item=>this.form.show.indexOf(item.type)>=0);
+      this.projects = projects.filter(item => this.form.show.indexOf(item.type) >= 0);
       this.sort();
     },
-    selectProject(project){
-      if(!project.stake){
+    selectProject(project) {
+      if (!project.stake) {
         project.stake = "0";
       }
-      if(!project.ownerStaked){
+      if (!project.ownerStaked) {
         project.ownerStaked = "0";
       }
       this.options.selectedProject.push(JSON.parse(JSON.stringify(project)));
@@ -230,13 +245,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
 .el-form-item {
   margin-bottom: 0px;
-  .el-input{
-    width:246px;
+
+  .el-input {
+    width: 246px;
   }
 }
+
 .icon-name {
   width: 40px;
   height: 40px;
@@ -244,12 +260,15 @@ export default {
   margin-right: 20px;
   margin-bottom: 20px;
 }
-.title{
+
+.title {
   vertical-align: middle;
 }
+
 .desc {
   margin-top: 8px;
   height: 50px;
+
   &-ellipsis {
     line-height: 18px;
     word-break: break-word;

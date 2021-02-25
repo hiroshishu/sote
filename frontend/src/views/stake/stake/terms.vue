@@ -1,7 +1,7 @@
 <template>
   <div id="stake-stake-terms">
     <el-row>
-      <el-col v-for="term in terms" :span="24" style="margin-bottom: 20px;">
+      <el-col v-for="term in terms" :span="24" class="mb20">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <highlight>{{term.title}}</highlight>

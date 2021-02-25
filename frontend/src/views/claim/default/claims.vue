@@ -9,11 +9,13 @@
     height="calc(100vh - 300px)"
     style="width: 100%">
     <el-table-column
-      prop="claimId" width="100"
+      prop="claimId"
+      width="100"
       label="ID">
     </el-table-column>
     <el-table-column
       prop="contract"
+      min-width="160"
       label="PROJECT">
       <template slot-scope="scope">
         <div v-if="scope.row.contract">
@@ -23,21 +25,24 @@
       </template>
     </el-table-column>
     <el-table-column
-      prop="cover.coverPeriod" width="200"
+      prop="cover.coverPeriod"
+      min-width="200"
       label="Cover PERIOD">
       <template slot-scope="scope">
         {{formatPeriod(scope.row)}}
       </template>
     </el-table-column>
     <el-table-column
-      prop="cover.sumAssured" width="240"
+      prop="cover.sumAssured"
+      min-width="240"
       label="COVER AMOUNT">
       <template slot-scope="scope">
         {{scope.row.cover.sumAssured}} BNB
       </template>
     </el-table-column>
     <el-table-column
-      prop="status" width="150"
+      prop="status"
+      min-width="150"
       label="STATUS">
       <template slot-scope="scope">
         <el-tag :type="statusFormatForTag(scope.row)">
@@ -45,7 +50,8 @@
         </el-tag>
       </template>
     </el-table-column>
-    <el-table-column width="100"
+    <el-table-column
+      min-width="100"
       label="ACTION">
       <template slot-scope="scope">
         <el-link type="primary" :disabled="assessed(scope.row)" v-if="canAssess(scope.row)" :underline="false" @click="assess(scope.row)">Assess</el-link>

@@ -1,23 +1,25 @@
 <template>
   <div v-if="!member.isMember">
-    <el-card class="box-card">
-        <div class="tip normal-text">
+    <el-card class="box-card mb20">
+      <el-row class="normal-text" style="flex-wrap: wrap;" type="flex" justify="space-between" align="middle">
+        <el-col :xs="24" :sm="24" :md="24" :lg="18" class="tip">
           <svg-icon icon-class="circle" class="icon error-color"></svg-icon>
           This address is not a member. Please make sure you have the correct address connected, or become a member.
-          <el-button round @click="toMembership" type="primary" style="float: right;">Start Membership Process</el-button>
-        </div>
+        </el-col>
+        <el-button round @click="toMembership" type="primary">Start Membership Process</el-button>
+      </el-row>
     </el-card>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import {mapGetters} from 'vuex';
+
 export default {
   name: 'LiStartMembership',
   data() {
 
-    return {
-    }
+    return {}
   },
   computed: {
     ...mapGetters([
@@ -27,7 +29,7 @@ export default {
     ]),
   },
   methods: {
-    toMembership(){
+    toMembership() {
       this.$router.replace("/start/member");
     }
   }
@@ -35,18 +37,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.tip{
-  line-height: 60px;
+.tip {
+  line-height: 24px;
+  padding: 18px 0;
+
   .el-button {
-    float: right;
-    position: relative;
-    top: 10px;
+    //position: relative;
+    //top: 10px;
   }
 }
-.icon{
+
+.icon {
   margin-right: 10px;
-}
-.box-card{
-  margin-bottom: 20px;
 }
 </style>

@@ -24,7 +24,15 @@
     </el-card>
     <br/>
     <el-row :gutter="20">
-      <el-col v-for="contract in contracts" v-if="contract.status!='discard'" :span="6" style="margin-bottom: 20px;">
+      <el-col
+        v-for="contract in contracts"
+        :key="contract.address"
+        v-if="contract.status!='discard'"
+        :xs="24"
+        :sm="12"
+        :md="12"
+        :lg="6"
+        class="mb20">
         <el-card class="li-degrees-badge-parent">
           <DegreesBadge v-if="contract.new=='yes'" color="#dfe6ec" fromColor="#FC5653" toColor="#ff4949">
             NEW

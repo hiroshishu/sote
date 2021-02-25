@@ -3,29 +3,25 @@
     <el-divider content-position="left">
       <h4>Cover</h4>
     </el-divider>
-    <el-form label-width="200px">
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="Active Cover Amount">
-            <highlight>
-              <span v-format="'#,##0.00'">{{bnbCoverAmount}}</span> BNB /
-              $<span v-format="'#,##0.00'">{{bnbCoverAmoutUSD}}</span>
-            </highlight>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="Total Premiums Paid">
-            <div class="skeleton" v-if="loading">
-              <Skeleton class="skeleton-item" active :paragraph="{rows:1}" :title="false"/>
-            </div>
-            <highlight v-else>
-              <span v-format="'#,##0.00'">{{bnbTotalPremium}}</span> BNB /
-              $<span v-format="'#,##0.00'">{{bnbTotalPremiumUSD}}</span>
-            </highlight>
-          </el-form-item>
-        </el-col>
-      </el-row>
-    </el-form>
+    <el-row>
+      <el-col class="mb20">
+        <span class="title">Active Cover Amount</span>
+        <highlight>
+          <span v-format="'#,##0.00'">{{bnbCoverAmount}}</span> BNB /
+          $<span v-format="'#,##0.00'">{{bnbCoverAmoutUSD}}</span>
+        </highlight>
+      </el-col>
+      <el-col>
+        <span class="title">Total Premiums Paid</span>
+        <div class="skeleton" v-if="loading">
+          <Skeleton class="skeleton-item" active :paragraph="{rows:1}" :title="false"/>
+        </div>
+        <highlight v-else>
+          <span v-format="'#,##0.00'">{{bnbTotalPremium}}</span> BNB /
+          $<span v-format="'#,##0.00'">{{bnbTotalPremiumUSD}}</span>
+        </highlight>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -110,12 +106,14 @@ export default {
 <style lang="scss" scoped>
 #stats-cover{
   .skeleton{
-    display: table;
-    height: 40px;
-    width: 100%;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+    left: 0;
+    width: 120px;
   }
   .skeleton-item{
-    display: table-cell;
+    //display: table-cell;
     vertical-align: middle;
   }
 }

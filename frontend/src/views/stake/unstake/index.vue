@@ -1,6 +1,8 @@
 <template>
-  <div id="stake-unstake" v-loading.fullscreen.lock="loading"
-        element-loading-text="Transaction is confirming ...">
+  <div
+    id="stake-unstake"
+    v-loading.fullscreen.lock="loading"
+    element-loading-text="Transaction is confirming ...">
     <el-card class="box-card">
       <div slot="header"><highlight>Unstake</highlight></div>
       Choose the projects you no longer want to stake.
