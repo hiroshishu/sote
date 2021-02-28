@@ -12,12 +12,12 @@
     <el-dialog
       title="Tooltip"
       :visible="showError"
-      width="500px"
+      :width="device==='mobile'?'90%':'500px'"
       :close-on-click-moda="false"
       :close-on-press-escape="false"
       :show-close="false"
       append-to-body
-      >
+    >
       <div v-if="tooltipType=='network'">
         <h1>Unsupported Network</h1>
 
@@ -60,6 +60,7 @@ export default {
   mixins: [ResizeMixin],
   computed: {
     ...mapGetters([
+      'device',
       'web3',
       'member',
       'settings',

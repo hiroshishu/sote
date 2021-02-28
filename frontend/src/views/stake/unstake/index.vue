@@ -5,14 +5,14 @@
     element-loading-text="Transaction is confirming ...">
     <el-card class="box-card">
       <div slot="header"><highlight>Unstake</highlight></div>
-      Choose the projects you no longer want to stake.
+      <div class="normal-text">Choose the projects you no longer want to stake.</div>
     </el-card>
     <el-row :gutter="20" v-if="options">
-      <el-col :span="18">
+      <el-col :xs="24" :sm="24" :md="24" :lg="18" class="mb20">
         <unstake :options="options"/>
         <projects :options="options"/>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="24" :sm="24" :md="24" :lg="6">
         <unstakeSummary class="right-top" :options="options" @confirm="confirm"/>
       </el-col>
     </el-row>

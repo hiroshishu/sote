@@ -1,45 +1,45 @@
 <template>
   <el-card id="stake-withdraw-withdraw" class="box-card">
     <el-form :model="options" :rules="rules" ref="form">
-    <h3 class="main-text">Withdraw</h3>
-    <el-row :gutter="20">
-      <el-col :span="12">
-        <el-card>
-          <div slot="header" class="clearfix">
-            <span>Amount</span>
-          </div>
-          <div>
-            <el-form-item prop="withdraw">
+      <h3 class="main-text">Withdraw</h3>
+      <el-row :gutter="20">
+        <el-col :xs="24" :sm="12" class="mb20">
+          <el-card>
+            <div slot="header" class="clearfix">
+              <span>Amount</span>
+            </div>
+            <div>
+              <el-form-item prop="withdraw">
                 <el-input placeholder="Please enter an amount" class="right-input" v-model="options.withdraw" @input="checkAmount">
-                    <template slot="append">SOTE</template>
+                  <template slot="append">SOTE</template>
                 </el-input>
-            </el-form-item>
-          </div>
-          <div class="right-rate" style="color:#FFFFFF;"> ~ </div>
-        </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card class="box-card-to">
-          <div slot="header" class="clearfix">
-            <span>Remaining deposit</span>
-          </div>
-          <div>
-            <el-form-item prop="deposit">
+              </el-form-item>
+            </div>
+            <div class="right-rate" style="color:#FFFFFF;"> ~ </div>
+          </el-card>
+        </el-col>
+        <el-col :xs="24" :sm="12">
+          <el-card class="box-card-to">
+            <div slot="header" class="clearfix">
+              <span>Remaining deposit</span>
+            </div>
+            <div>
+              <el-form-item prop="deposit">
                 <el-input disabled class="right-input" :value="remainingDeposit">
-                    <template slot="append">
-                        SOTE
-                    </template>
+                  <template slot="append">
+                    SOTE
+                  </template>
                 </el-input>
-            </el-form-item>
-          </div>
-          <div class="right-rate" style="color:#DCDFE6;"> ~ </div>
-        </el-card>
-      </el-col>
-    </el-row>
-    <el-row class="normal-text" style="line-height: 25px;margin-top: 10px;">
-      <svg-icon icon-class="circle" class="icon-name"></svg-icon>
-      You can withdraw {{$etherToValue(options.maxWithdraw)}} SOTE maximum.
-    </el-row>
+              </el-form-item>
+            </div>
+            <div class="right-rate" style="color:#DCDFE6;"> ~ </div>
+          </el-card>
+        </el-col>
+      </el-row>
+      <el-row class="normal-text" style="margin-top: 10px;">
+        <svg-icon icon-class="circle" class="icon-name"></svg-icon>
+        You can withdraw {{$etherToValue(options.maxWithdraw)}} SOTE maximum.
+      </el-row>
     </el-form>
   </el-card>
 </template>
@@ -127,7 +127,7 @@ export default {
         callback(new Error('Enter a amount must be greater than 0!'));
         return;
       }
-      
+
       if(vBN.gt(this.$etherToValue(this.options.maxWithdraw))){
         console.info("不能超过最大值");
         callback(new Error(`You can withdraw ${this.$etherToValue(this.options.maxWithdraw)} SOTE maximum.`));

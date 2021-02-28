@@ -7,6 +7,7 @@
         style="width: 100%">
         <el-table-column
           prop="name"
+          min-width="160"
           label="PROJECT">
           <template slot-scope="scope">
             <img :src="scope.row.icon" class="project-list-icon" />
@@ -20,7 +21,8 @@
             {{toFixed(scope.row.ownerStaked)}} SOTE
           </template>
         </el-table-column>
-        <el-table-column width="200px"
+        <el-table-column
+          min-width="160"
           label="OPTIONS">
           <template slot-scope="scope">
             <el-link type="primary" v-if="isUnstake(scope.row)" :underline="false" @click="unstake" style="margin-right:20px;">Unstake</el-link>

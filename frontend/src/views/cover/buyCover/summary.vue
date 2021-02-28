@@ -19,8 +19,8 @@
           {{options.curContract.capacityBNB}}
         </el-form-item>
         <div style="text-align: center;">
-          <el-button type="primary" plain round size="small" @click="back" >Back</el-button>
-          <el-button type="primary" round size="small" @click="getQuote" >Get quote</el-button>
+          <el-button type="primary" plain round size="small" @click="back">Back</el-button>
+          <el-button type="primary" round size="small" @click="getQuote">Get quote</el-button>
         </div>
       </el-form>
     </div>

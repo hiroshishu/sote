@@ -44,9 +44,10 @@
     <br/>
 
     <el-row class="balance-area">
-      <el-col :xs="24" :sm="12" class="mb20">
+      <el-col :xs="24" :sm="12" :md="8" class="mb20">
         <div class="mb20">
-          <span class="normal-text">SOTE Balance</span>
+          <span class="normal-text" v-if="device==='mobile'">Balance</span>
+          <span class="normal-text" v-else>SOTE Balance</span>
           <span style="color: #606266">
             <el-tag type="success" hit>
               {{ formatterBalance(member.balance) }}
@@ -62,9 +63,10 @@
           </span>
         </div>
       </el-col>
-      <el-col :xs="24" :sm="12">
+      <el-col :xs="24" :sm="12" :md="16">
         <div class="mb20">
-          <span class="normal-text">wSOTE Balance</span>
+          <span class="normal-text" v-if="device==='mobile'">Balance</span>
+          <span class="normal-text" v-else>wSOTE Balance</span>
           <span style="color: #606266">
             <el-tag type="success" hit>
               {{ formatterBalance(member.wbalance) }}
@@ -315,19 +317,31 @@ export default {
   }
 
   .li-highlight[red] {
+    line-height: 24px;
     color: #ff4949;
     //margin-left: 20px;
   }
 
-  .balance-area {
-    .normal-text {
-      display: inline-block;
-      margin-right: 12px;
-      width: 120px;
-      text-align: right;
-      font-weight: 700;
-      color: #606266;
-    }
+  .balance-area .normal-text {
+    display: inline-block;
+    margin-right: 12px;
+    //width: 120px;
+    min-width: 86px;
+    //text-align: right;
+    font-weight: 700;
+    color: #606266;
+  }
+}
+
+@media only screen and (max-width: 757px) {
+  .li-highlight[red] {
+    display: block;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .balance-area .normal-text {
+    width: 150px;
+    text-align: right;
   }
 }
 

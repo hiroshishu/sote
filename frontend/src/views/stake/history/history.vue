@@ -8,6 +8,7 @@
         style="width: 100%">
         <el-table-column
           prop="name"
+          min-width="160px"
           label="PROJECT">
           <template slot-scope="scope">
             <img :src="scope.row.icon" class="project-list-icon" />
@@ -16,6 +17,7 @@
         </el-table-column>
         <el-table-column
           prop="unstaked"
+          min-width="100px"
           label="AMOUNT">
           <template slot-scope="scope">
             {{$toFixed(scope.row.unstaked)}} SOTE
@@ -23,10 +25,14 @@
         </el-table-column>
         <el-table-column
           prop="unstakeAt"
-          label="REQUEST" :formatter="requestDate">
+          min-width="100px"
+          label="REQUEST"
+          :formatter="requestDate">
         </el-table-column>
         <el-table-column
-          label="DUE" :formatter="due">
+          label="DUE"
+          min-width="100px"
+          :formatter="due">
         </el-table-column>
       </el-table>
     </div>
@@ -56,7 +62,7 @@ export default {
       'web3Status',
       'settings'
     ]),
-    
+
   },
   watch: {
     web3Status: watch.web3Status,
@@ -116,13 +122,13 @@ export default {
     },
     due(row){
       if(row.unstakeAt){
-        return this.$secondsToDateString(row.unstakeAt);  
+        return this.$secondsToDateString(row.unstakeAt);
       }
       return "-";
     },
     requestDate(row){
       if(row.unstakeAt){
-        return this.$secondsToDateString(BigNumber(row.unstakeAt).minus(BigNumber(this.settings.unstakedPendingDay).times(24 * 60 * 60)).toString());  
+        return this.$secondsToDateString(BigNumber(row.unstakeAt).minus(BigNumber(this.settings.unstakedPendingDay).times(24 * 60 * 60)).toString());
       }
       return "-";
     }

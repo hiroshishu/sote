@@ -37,7 +37,7 @@
           <DegreesBadge v-if="contract.new=='yes'" color="#dfe6ec" fromColor="#FC5653" toColor="#ff4949">
             NEW
           </DegreesBadge>
-          <div style="line-height: 40px;" class="title">
+          <div class="title">
             <img :src="contract.icon" class="project-large-icon" />
             <span>{{contract.name}}</span>
           </div>
@@ -137,7 +137,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
+#cover-buyCover-contracts {
+  .secondary-text {
+    padding: 8px 0;
+    line-height: 24px;
+  }
+}
 .el-form-item {
   margin-bottom: 0px;
   .el-input{
@@ -151,6 +156,7 @@ export default {
   margin-right: 20px;
 }
 .title{
+  line-height: 40px;
   vertical-align: middle;
   font-size: 16px;
   font-weight: bold;

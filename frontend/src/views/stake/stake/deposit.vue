@@ -55,7 +55,7 @@
             </el-card>
           </el-col>
         </el-row>
-        <el-row class="normal-text" style="line-height: 24px;">
+        <el-row class="normal-text">
           <svg-icon icon-class="circle" class="icon-name error-color"></svg-icon>
           Stake
           <highlight>20 SOTE minimum</highlight>

@@ -7,6 +7,7 @@
         style="width: 100%">
         <el-table-column
           prop="name"
+          min-width="160"
           label="PROJECT">
           <template slot-scope="scope">
             <img :src="scope.row.icon" class="project-list-icon" />
@@ -15,6 +16,7 @@
         </el-table-column>
         <el-table-column
           prop="ownerStaked"
+          min-width="168px"
           label="AVAILABLE AMOUNT">
           <template slot-scope="scope">
             {{formatStaked(scope.row)}} SOTE
@@ -22,6 +24,7 @@
         </el-table-column>
         <el-table-column
           prop="unstaking"
+          min-width="200px"
           label="UNSTAKE">
           <template slot-scope="scope">
             <el-form :model="scope.row">
@@ -34,6 +37,7 @@
         </el-table-column>
         <el-table-column
           prop="unstaked"
+          min-width="180px"
           label="PENDING UNSTAKED">
           <template slot-scope="scope">
             {{unstaked(scope.row)}}
@@ -101,7 +105,7 @@ export default {
     validateUnstaking(rule, value, callback, row){
       this.options.error = null;
       const unstake = BigNumber(value).plus(row.unstaked);
-      
+
       const remainingStaked = BigNumber(row.ownerStaked).minus(unstake);
       // 剩余的stake必须大于20，或者全部unstake
       if(remainingStaked.lt(0)){

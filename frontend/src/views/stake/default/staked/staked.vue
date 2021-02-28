@@ -1,8 +1,10 @@
 <template>
-  <div id="stake-default-staked-staked" v-loading.fullscreen.lock="loading"
-        element-loading-text="Transaction is confirming ...">
-    <el-row :gutter="20">
-      <el-col :span="8">
+  <div
+    id="stake-default-staked-staked"
+    v-loading.fullscreen.lock="loading"
+    element-loading-text="Transaction is confirming ...">
+    <el-row :gutter="20" type="flex" style="flex-wrap: wrap;" justify="space-between" align="middle">
+      <el-col :xs="24" :sm="12" :md="8" class="mb20">
         <el-card class="box-card">
           <div slot="header">TOTAL PROJECTS</div>
           <div class="content">
@@ -19,7 +21,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="8">
+      <el-col :xs="24" :sm="12" :md="8" class="mb20">
         <el-card class="box-card">
           <div slot="header">DEPOSIT</div>
           <div class="content">
@@ -39,7 +41,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="8">
+      <el-col :xs="24" :sm="12" :md="8" class="mb20">
         <el-card class="box-card">
           <div slot="header">AVAILABLE FOR STAKING</div>
           <div class="content">
@@ -56,10 +58,7 @@
           </div>
         </el-card>
       </el-col>
-    </el-row>
-    <br />
-    <el-row :gutter="20">
-      <el-col :span="8" class="mb20">
+      <el-col :xs="24" :sm="12" :md="8" class="mb20">
         <el-card class="box-card">
           <div slot="header">AVAILABLE REWARDS</div>
           <div class="content">
@@ -76,7 +75,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="8" class="mb20">
+      <el-col :xs="24" :sm="12" :md="8" class="mb20">
         <el-card class="box-card">
           <div slot="header">UNSTAKED AMOUNT PENDING</div>
           <div class="content">
@@ -96,7 +95,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="8" class="mb20">
+      <el-col :xs="24" :sm="12" :md="8" class="mb20">
         <el-card class="box-card" style="display: none;">
           <div slot="header">PROJECTS PERFORMANCE</div>
           <div class="content">
@@ -114,6 +113,7 @@
         </el-card>
       </el-col>
     </el-row>
+    <br />
     <projects :options="options" />
   </div>
 </template>

@@ -5,7 +5,7 @@
         <el-row>
           <h2 class="main-text">Soteria Staking</h2>
           <el-row type="flex" style="flex-wrap: wrap;" justify="space-between" align="middle">
-            <el-col :xs="24" :sm="24" :md="16" class="normal-text" :class="{'mb16': device === 'mobile'}" style="line-height: 24px">Earn rewards by staking SOTE on projects you think are secure.</el-col>
+            <el-col :xs="24" :sm="24" :md="16" class="normal-text" :class="{'mb16': device === 'mobile'}">Earn rewards by staking SOTE on projects you think are secure.</el-col>
             <div class="right-area">
               <!-- <el-button type="primary" plain round @click="stats">Stats</el-button> -->
               <el-button type="primary" round @click="staking">Start staking</el-button>

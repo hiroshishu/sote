@@ -296,10 +296,13 @@ export default {
 
 #BNBAndSOTE {
   padding-bottom: 20px;
+
+  .normal-text {
+    line-height: 24px;
+  }
 }
 
 .tip {
-  line-height: 24px;
   padding: 18px 0;
 }
 

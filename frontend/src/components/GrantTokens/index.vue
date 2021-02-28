@@ -18,6 +18,7 @@
     <el-dialog
       :title="'Grant ' + curAllowance.contractName + ' permission'"
       :visible.sync="dialogFormVisible"
+      :width="device==='mobile' ? '100%' : '50%'"
       append-to-body
       :close-on-click-modal="false">
       <el-form :model="form" label-width="150px">

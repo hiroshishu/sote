@@ -1,6 +1,8 @@
 <template>
-  <div id="stake-withdraw-summary" v-loading.fullscreen.lock="loading"
-        element-loading-text="Transaction is confirming ...">
+  <div
+    id="stake-withdraw-summary"
+    v-loading.fullscreen.lock="loading"
+    element-loading-text="Transaction is confirming ...">
     <el-card :style="{top: top+'px'}">
       <h3 class="main-text">Summary</h3>
       <div class="mb20">

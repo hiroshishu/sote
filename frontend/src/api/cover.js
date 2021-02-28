@@ -34,7 +34,7 @@ export const getQuote = (params) => {
 
 export const loadCover = async (vue, cid, isUpdate, contracts)=>{
   const QuotationData = await vue.getContract(QuotationDataContract);
-  const instance = QuotationData.getContract().instance; 
+  const instance = QuotationData.getContract().instance;
   console.info("读取cover");
   const cacheKey = "member_cover_" + cid;
   let cover = vue.getObjectCache(cacheKey);
@@ -65,7 +65,7 @@ export const loadCover = async (vue, cid, isUpdate, contracts)=>{
     memberAddress: nonStatusCover._memberAddress.toString(),
   }
   cover.contract = contracts ? contracts.find(item=>item.address.toLowerCase() == cover.scAddress.toString().toLowerCase()) : null;
-  
+
   vue.cacheObject(cacheKey, cover);
   console.info("完成cover");
   return cover;

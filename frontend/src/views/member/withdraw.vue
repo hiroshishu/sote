@@ -7,23 +7,23 @@
             <span class="page-title">Withdraw membership</span>
           </div>
           <div class="normal-text">
-            Membership can be withdrawn only if the following conditions are met:
-            <div :class="{important: hasCoverAndStake}">
+            <div class="item">Membership can be withdrawn only if the following conditions are met:</div>
+            <div :class="{important: hasCoverAndStake}" class="item">
               <svg-icon icon-class="circle" :class="{'icon-name': true, green: !hasCoverAndStake}"></svg-icon>
               No <highlight> active covers </highlight> or
               <highlight>tokens staked</highlight>
               on claim assessment or pooled staking.
             </div>
-            <div :class="{important: hasLockedOfGo}">
+            <div :class="{important: hasLockedOfGo}" class="item">
               <svg-icon icon-class="circle" :class="{'icon-name': true, green: !hasLockedOfGo}"></svg-icon>
               No <highlight>tokens locked</highlight>
               in <highlight>governance voting</highlight>.
             </div>
-            <div :class="{important: hasRewards}">
+            <div :class="{important: hasRewards}" class="item">
               <svg-icon icon-class="circle" :class="{'icon-name': true, green: !hasRewards}"></svg-icon>
               No <highlight>rewards</highlight> pending to be claimed.
             </div>
-            <div :class="{important: hasBalance}">
+            <div :class="{important: hasBalance}" class="item">
               <svg-icon icon-class="circle" :class="{'icon-name': true, green: !hasBalance}"></svg-icon>
               Your <highlight>SOTE token balance</highlight> should be 0.
             </div>
@@ -99,11 +99,11 @@ export default {
 }
 
 #member-withdraw{
-  .box-card{
-    //height: 300px;
-  }
   .normal-text{
-    line-height: 35px;
+    >.item {
+      padding: 6px 0;
+    }
+    //line-height: 35px;
   }
   .icon-name{
     margin-right: 15px;
