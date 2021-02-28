@@ -9,11 +9,13 @@
     height="calc(100vh - 300px)"
     style="width: 100%">
     <el-table-column
-      prop="claimId" width="100"
+      prop="claimId"
+      width="100"
       label="ID">
     </el-table-column>
     <el-table-column
       prop="contract"
+      min-width="160"
       label="PROJECT">
       <template slot-scope="scope">
         <div v-if="scope.row.contract">
@@ -23,21 +25,24 @@
       </template>
     </el-table-column>
     <el-table-column
-      prop="cover.coverPeriod" width="200"
+      prop="cover.coverPeriod"
+      min-width="200"
       label="Cover PERIOD">
       <template slot-scope="scope">
         {{formatPeriod(scope.row)}}
       </template>
     </el-table-column>
     <el-table-column
-      prop="cover.sumAssured" width="240"
+      prop="cover.sumAssured"
+      min-width="240"
       label="COVER AMOUNT">
       <template slot-scope="scope">
         {{scope.row.cover.sumAssured}} BNB
       </template>
     </el-table-column>
     <el-table-column
-      prop="status" width="150"
+      prop="status"
+      min-width="150"
       label="STATUS">
       <template slot-scope="scope">
         <el-tag :type="statusFormatForTag(scope.row)">
@@ -45,7 +50,8 @@
         </el-tag>
       </template>
     </el-table-column>
-    <el-table-column width="100"
+    <el-table-column
+      min-width="100"
       label="ACTION">
       <template slot-scope="scope">
         <el-link type="primary" :disabled="assessed(scope.row)" v-if="canAssess(scope.row)" :underline="false" @click="assess(scope.row)">Assess</el-link>
@@ -57,6 +63,7 @@
 <script>
 import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
+import ClaimsContract from '@/services/Claims';
 import ClaimsDataContract from '@/services/ClaimsData';
 import QuotationDataContract from '@/services/QuotationData';
 import Moment from 'moment';
@@ -78,6 +85,7 @@ export default {
       count: null,
       curId: 0,
       latestLoadTime: null,
+      Claims: null,
       ClaimsData: null,
       QuotationData: null,
       onload: false,
@@ -113,6 +121,7 @@ export default {
       if(this.onload){
         return;
       }
+      this.Claims = await this.getContract(ClaimsContract);
       this.ClaimsData = await this.getContract(ClaimsDataContract);
       this.QuotationData = await this.getContract(QuotationDataContract);
       this.initClaimsCount();
@@ -192,6 +201,7 @@ export default {
               const statno = data.statno.toString();
               claim.status = statno;
               await this.expireTime(claim);
+              await this.checkVoteClosing(claim);
               if(BigNumber(statno).gt(5)){
                 claim.finished = true;
               }else{
@@ -220,6 +230,7 @@ export default {
 
           await this.expireTime(claim);
           await this.getVoteId(claim);
+          await this.checkVoteClosing(claim);
           const cover = await loadCover(this, claim.coverId, true, this.contracts);
           claim.cover = cover;
           claim.contract = cover.contract;
@@ -243,6 +254,11 @@ export default {
           this.getClaims(this.curId, 5);
         }
       }
+    },
+    async checkVoteClosing(claim) {
+      const instance = this.Claims.getContract().instance;
+      const status = await instance.checkVoteClosing(claim.claimId);
+      claim.voteClosing = status.toString()
     },
     async expireTime(claim){
       if(claim.status == 3){
@@ -272,6 +288,9 @@ export default {
       //this.$router.push({ name: this.$RouteNames.COVER_CLAIM, params: JSON.parse(JSON.stringify(row)) });
     },
     canAssess(row){
+      if (parseInt(row.voteClosing) === 1) {
+        return false
+      }
       if(parseInt(row.status) == 3){
         const curTime = new Date().getTime();
         const expireTime = BigNumber(row.dateUpd).plus(row.maxVotingTime).times(1000);
