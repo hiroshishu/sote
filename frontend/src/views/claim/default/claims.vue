@@ -65,10 +65,9 @@ import { watch } from '@/utils/watch.js';
 import { mapGetters } from 'vuex';
 import ClaimsDataContract from '@/services/ClaimsData';
 import QuotationDataContract from '@/services/QuotationData';
-import Moment from 'moment';
 import { getCoverContracts, loadCover } from '@/api/cover.js';
 import { BigNumber } from 'bignumber.js';
-import { STATUS, statusFormat } from '@/utils/claimStatus.js';
+import { statusFormat } from '@/utils/claimStatus.js';
 
 
 export default {
@@ -295,7 +294,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/styles/element-variables.scss';
 #claim-default-open{
   .icon-name{
     vertical-align: middle;

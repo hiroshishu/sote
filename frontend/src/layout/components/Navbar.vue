@@ -7,14 +7,16 @@
     <div class="right-menu">
       <svg-icon icon-class="vip" class="vip-icon" v-if="member.isMember"></svg-icon>
       <div style="display: inline-block;">
-      <el-button v-if="member.account && this.web3Status === this.AVAILABLE" type="primary" round disabled size="small">
-        {{formatterAddress(member.account)}}
-      </el-button>
-      <el-button v-else type="primary" round @click="connectMetamask">
-        Connect Metamask
-      </el-button>
+        <el-button v-if="member.account && this.web3Status === this.AVAILABLE" type="primary" round disabled size="small">
+          {{formatterAddress(member.account)}}
+        </el-button>
+        <el-button v-else type="primary" round @click="connect">
+          Connect
+        </el-button>
       </div>
     </div>
+
+    <wallet-select />
   </div>
 </template>
 
@@ -22,17 +24,18 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-import elementStyle from '@/styles/element-variables.scss';
+import WalletSelect from './WalletSelect'
 import { WEB3_STATUS } from '@/utils/Constants.js'
-import { getSettings } from '@/api/common.js'
 
 export default {
   components: {
     Breadcrumb,
     Hamburger,
+    WalletSelect
   },
   data(){
     return {
+      showWalletDialog: false,
       AVAILABLE: WEB3_STATUS.AVAILABLE,
     }
   },
@@ -51,6 +54,9 @@ export default {
     },
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
+    },
+    async connect() {
+      this.showWalletDialog = true
     },
     async connectMetamask(){
       this.$store.dispatch('app/setWeb3', { web3: this.$CustomWeb3, settings: this.$settings});

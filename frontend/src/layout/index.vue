@@ -1,5 +1,8 @@
 <template>
-  <div :class="classObj" class="app-wrapper" v-loading.fullscreen.lock="appLoading"
+  <div
+    :class="classObj"
+    class="app-wrapper"
+    v-loading.fullscreen.lock="appLoading"
     element-loading-text="Application is loading ...">
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
     <sidebar class="sidebar-container" />
@@ -71,20 +74,20 @@ export default {
       return this.loading || this.member.loading;
     },
     showError(){
-      if(this.web3 && this.web3.web3Provider && this.settings){
-        const isMetaMask = this.web3.web3Provider.isMetaMask;
-        if(!isMetaMask){
-          //没有安装metamask
-          this.tooltipType = "noMetaMask";
-          return true;
-        }
-        const version = this.web3.web3Provider.networkVersion;
-        const defaultVersion = this.settings.networkVersion;
-        console.log('version defaultVersion:: ', version, defaultVersion);
-        //判断网络是否正确
-        this.tooltipType = "network";
-        return version != defaultVersion;
-      }
+    //   if(this.web3 && this.web3.web3Provider && this.settings){
+    //     const isMetaMask = this.web3.web3Provider.isMetaMask;
+    //     if(!isMetaMask){
+    //       //没有安装metamask
+    //       this.tooltipType = "noMetaMask";
+    //       return true;
+    //     }
+    //     const version = this.web3.web3Provider.networkVersion;
+    //     const defaultVersion = this.settings.networkVersion;
+    //     console.log('version defaultVersion:: ', version, defaultVersion);
+    //     //判断网络是否正确
+    //     this.tooltipType = "network";
+    //     return version != defaultVersion;
+    //   }
       return false;
     },
     sidebar() {
