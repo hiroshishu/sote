@@ -20,7 +20,9 @@ const DAYS_PER_YEAR = Decimal('365.25');
 
 const CONTRACT_CAPACITY_LIMIT_PERCENT = Decimal('0.2');
 
-const COVER_PRICE_SURPLUS_MARGIN = Decimal('0.3');
+// const COVER_PRICE_SURPLUS_MARGIN = Decimal('0.3');
+// https://github.com/devsoteria/sote/issues/112
+const COVER_PRICE_SURPLUS_MARGIN = Decimal('0.8');
 
 const CAPACITY_FACTOR = Decimal('2');
 

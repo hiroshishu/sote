@@ -303,6 +303,7 @@ class QuoteEngine {
    * @param {Date} now
    * @param {Decimal} capacityFactor
    * @param {Decimal} mcrCapacityFactor
+   * @param {string} discount
    *
    * @typedef {{
    *   error: string,
@@ -334,6 +335,7 @@ class QuoteEngine {
     now,
     capacityFactor,
     mcrCapacityFactor,
+    discount,
   ) {
     const generatedAt = now.getTime();
     const expiresAt = Math.ceil(generatedAt / 1000 + 300);
@@ -356,7 +358,11 @@ class QuoteEngine {
     const finalCoverAmountInWei = utils.min(maxCapacity, requestedCoverAmountInWei);
 
     const risk = this.calculateRisk(netStakedNxm);
-    const quotePriceInWei = QuoteEngine.calculatePrice(finalCoverAmountInWei, risk, COVER_PRICE_SURPLUS_MARGIN, period);
+    let quotePriceInWei = QuoteEngine.calculatePrice(finalCoverAmountInWei, risk, COVER_PRICE_SURPLUS_MARGIN, period);
+    if (discount) {
+      log.info(`get quote with discount ${discount}`)
+      quotePriceInWei = quotePriceInWei.mul(discount);
+    }
     const quotePriceInCoverCurrencyWei = quotePriceInWei.div(coverCurrencyRate).mul('1e18').floor();
     const quotePriceInNxmWei = quotePriceInWei.div(nxmPrice).mul('1e18').floor();
     const finalCoverInCoverCurrency = finalCoverAmountInWei.div(coverCurrencyRate).floor();
@@ -418,9 +424,10 @@ class QuoteEngine {
    * @param {string} currency
    * @param {string} period
    * @param {{ dateAdded: string, name: string }} contractData
+   * @param {string} discount
    * @return {object}
    */
-  async getQuote (contractAddress, coverAmount, currency, period, contractData) {
+  async getQuote (contractAddress, coverAmount, currency, period, contractData, discount) {
     const { error } = QuoteEngine.validateQuoteParameters(contractAddress, coverAmount, currency, period);
 
     if (error) {
@@ -501,6 +508,7 @@ class QuoteEngine {
       now,
       capacityFactor,
       mcrCapacityFactor,
+      discount,
     );
 
     log.info(`quoteData result: ${JSON.stringify({

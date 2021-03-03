@@ -1,11 +1,12 @@
 const express = require('express');
 const uuid = require('uuid');
-const { WhitelistedOrigin } = require('./models');
+const {WhitelistedOrigin} = require('./models');
 const log = require('./log');
 const QuoteEngine = require('./quote-engine');
-const { getWhitelist } = require('./contract-whitelist');
+const {getWhitelist} = require('./contract-whitelist');
 const httpContext = require('express-http-context');
-const { DAI_COVER_DENYLIST } = require('./constants');
+const {DAI_COVER_DENYLIST} = require('./constants');
+const {getEnv} = require('./utils');
 
 const asyncRoute = route => (req, res) => {
   route(req, res).catch(e => {
@@ -61,14 +62,21 @@ module.exports = quoteEngine => {
     next();
   });
 
-  app.get('/v1/quote', asyncRoute(async (req, res) => {
+
+  app.get(['/v1/quote/:from', '/v1/quote'], asyncRoute(async (req, res) => {
 
     const coverAmount = req.query.coverAmount;
     const currency = req.query.currency;
     const period = req.query.period;
     const contractAddress = req.query.contractAddress;
+    const from = req.params.from;
+    let discount = null;
+    if (from) {
+      log.info(`quote from ${from}`)
+      discount = getEnv('QUOTE_DISCOUNT_' + from.toUpperCase())
+    }
 
-    const { error } = QuoteEngine.validateQuoteParameters(
+    const {error} = QuoteEngine.validateQuoteParameters(
       contractAddress,
       coverAmount,
       currency,
@@ -106,6 +114,7 @@ module.exports = quoteEngine => {
       currency,
       period,
       contractData,
+      discount,
     );
 
     res.send(prettyPrintResponse(quote));
@@ -113,10 +122,10 @@ module.exports = quoteEngine => {
 
   app.get('/v1/contracts/:contractAddress/capacity', asyncRoute(async (req, res) => {
 
-    const { contractAddress } = req.params;
+    const {contractAddress} = req.params;
     QuoteEngine.validateCapacityParameters();
 
-    const { error } = QuoteEngine.validateCapacityParameters(contractAddress);
+    const {error} = QuoteEngine.validateCapacityParameters(contractAddress);
 
     if (error) {
       log.error(`Invalid parameters provided: ${error}`);
@@ -146,24 +155,24 @@ module.exports = quoteEngine => {
 
     const capacities = await quoteEngine.getCapacities();
     res.send(capacities.map(capacity => {
-      return { ...prettyPrintCapacityResponse(capacity), contractAddress: capacity.contractAddress };
+      return {...prettyPrintCapacityResponse(capacity), contractAddress: capacity.contractAddress};
     }));
   }));
 
   return app;
 };
 
-async function isOriginAllowed (origin) {
+async function isOriginAllowed(origin) {
 
   if (/\.nexusmutual\.io$/.test(origin)) {
     return true;
   }
-  const storedApiKey = await WhitelistedOrigin.findOne({ origin });
+  const storedApiKey = await WhitelistedOrigin.findOne({origin});
 
   return storedApiKey !== null;
 }
 
-function prettyPrintResponse (r) {
+function prettyPrintResponse(r) {
   const prettyResponse = {
     ...r,
     amount: r.amount.toFixed(0),
@@ -174,7 +183,7 @@ function prettyPrintResponse (r) {
   return prettyResponse;
 }
 
-function prettyPrintCapacityResponse (r) {
+function prettyPrintCapacityResponse(r) {
   const prettyResponse = {
     capacityBNB: r.capacityETH.toFixed(0),
     capacityDAI: r.capacityDAI.toFixed(0),
