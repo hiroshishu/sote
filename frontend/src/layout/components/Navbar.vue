@@ -7,16 +7,62 @@
     <div class="right-menu">
       <svg-icon icon-class="vip" class="vip-icon" v-if="member.isMember"></svg-icon>
       <div style="display: inline-block;">
-        <el-button v-if="member.account && this.web3Status === this.AVAILABLE" type="primary" round disabled size="small">
+        <el-button
+          v-if="member.account && this.web3Status === this.AVAILABLE"
+          @click="accountDialogVisible = true"
+          type="primary"
+          round
+          size="small">
           {{formatterAddress(member.account)}}
         </el-button>
-        <el-button v-else type="primary" round @click="connect">
+        <el-button v-else type="primary" round @click="walletDialogVisible = true">
           Connect
         </el-button>
       </div>
     </div>
 
-    <wallet-select />
+    <el-dialog
+      title="Your Wallet"
+      :visible.sync="accountDialogVisible"
+      append-to-body
+      :close-on-click-modal="false"
+      @close="accountDialogVisible=false"
+      :width="device==='mobile'?'360px':'600px'"
+      class="wallet-select account">
+      <div class="page-title">{{member.account}}</div>
+      <div>
+        <el-button type="text"><i class="el-icon-link"></i> View on BscScan</el-button>
+        <el-button type="text"><i class="el-icon-copy-document"></i> Copy Address</el-button>
+      </div>
+      <div slot="footer">
+        <el-button type="primary" @click="logout">Logout</el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog
+      title="Connect to a wallet"
+      :visible.sync="walletDialogVisible"
+      append-to-body
+      :close-on-click-modal="false"
+      @close="walletDialogVisible=false"
+      class="wallet-select"
+      width="360px">
+      <div>
+        <div class="item" @click="connect">
+          <span>Metamask</span>
+          <svg-icon icon-class="metamask" class="icon"></svg-icon>
+        </div>
+        <div class="item" @click="connect">
+          <span>TrustWallet</span>
+          <svg-icon icon-class="trustwallet" class="icon"></svg-icon>
+        </div>
+        <div class="item" @click="connect('walletConnect')">
+          <span>WalletConnect</span>
+          <svg-icon icon-class="walletconnect" class="icon"></svg-icon>
+        </div>
+      </div>
+    </el-dialog>
+<!--    <wallet-select :showDialog="walletDialogVisible" :close="walletDialogVisible=false"/>-->
   </div>
 </template>
 
@@ -24,23 +70,25 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-import WalletSelect from './WalletSelect'
 import { WEB3_STATUS } from '@/utils/Constants.js'
+import store from "@/store";
 
 export default {
   components: {
     Breadcrumb,
     Hamburger,
-    WalletSelect
   },
   data(){
     return {
-      showWalletDialog: false,
+      accountDialogVisible: false,
+      walletDialogVisible: false,
       AVAILABLE: WEB3_STATUS.AVAILABLE,
     }
   },
   computed: {
     ...mapGetters([
+      'device',
+      'settings',
       'sidebar',
       'web3',
       'web3Status',
@@ -55,11 +103,13 @@ export default {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },
-    async connect() {
-      this.showWalletDialog = true
+    connect(type) {
+      this.walletDialogVisible = false
+      this.$store.dispatch('app/setWeb3', { web3: this.$CustomWeb3, settings: this.settings, type: type});
     },
-    async connectMetamask(){
-      this.$store.dispatch('app/setWeb3', { web3: this.$CustomWeb3, settings: this.$settings});
+    logout() {
+      this.accountDialogVisible = false
+      this.$store.dispatch('app/disconnect', { web3: this.$CustomWeb3 });
     }
   }
 }
@@ -67,7 +117,27 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/styles/element-variables.scss';
-
+.wallet-select {
+  .el-dialog {
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      padding: 0 24px;
+      height: 48px;
+      font-weight: 600;
+      border-radius: 16px;
+      color: $--color-primary;
+      background-color: #F5F7FA;
+      cursor: pointer;
+      .icon {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}
 .navbar {
   height: 50px;
   overflow: hidden;

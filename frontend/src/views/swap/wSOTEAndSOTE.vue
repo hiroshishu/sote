@@ -15,7 +15,7 @@
         ref="form"
         :label-width="device==='mobile'?'64px':'150px'"
         :disabled="!member.isMember">
-        <el-form-item label="Your Account" class="normal-text" v-if="device !== 'mobile'">
+        <el-form-item label="Your Account" class="normal-text" v-if="device !== 'mobile' && member.account">
           <el-tag hit effect="dark">
             {{ member.account }}
           </el-tag>

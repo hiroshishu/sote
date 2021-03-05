@@ -15,7 +15,7 @@
     <el-dialog
       title="Tooltip"
       :visible="showError"
-      :width="device==='mobile'?'90%':'500px'"
+      :width="device==='mobile'?'360px':'500px'"
       :close-on-click-moda="false"
       :close-on-press-escape="false"
       :show-close="false"
@@ -116,7 +116,7 @@ export default {
     }
   },
   created(){
-    this.initWeb3();
+    this.initWeb3()
   },
   methods: {
     initData(){
@@ -128,13 +128,16 @@ export default {
     downloadMetamask(){
       window.open("https://metamask.io/");
     },
-    async initWeb3(){
+    async initWeb3() {
       // 入口初始化系统配置及web3，TruffleContract工具类
       const response = await getSettings();
       const settings = response.data;
       console.info("settings:", settings);
       this.$store.dispatch("settings/changeSetting", { key: "settings", value: settings });
-      this.$store.dispatch('app/setWeb3', { web3: this.$CustomWeb3, settings: settings});
+      const injected = localStorage.getItem('connectorId')
+      if (injected) {
+        this.$store.dispatch('app/setWeb3', { web3: this.$CustomWeb3, settings: settings, type: injected});
+      }
       getBNBQuote(this);
     },
 

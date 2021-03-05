@@ -70,6 +70,7 @@ const actions = {
     commit('SET_MEMBER', member)
   },
   setAccount({ commit }, account) {
+    console.log('setAccount~~~~~~~~~', account);
     commit('SET_ACCOUNT', account)
   },
   setStatus({ commit }, isMember) {

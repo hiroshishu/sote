@@ -21,6 +21,7 @@
   },
 
   "networkVersion": 56,
+  "rpcUrl": "https://bsc-dataseed.binance.org/",
   "stake": {
     "minAmountPerContract": 20,
     "maxAmount": 10
